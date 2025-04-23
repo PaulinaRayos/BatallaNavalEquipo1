@@ -1,0 +1,12 @@
+Modelo\ModeloTablero.class
+comunicacion\HandlerActions.class
+enums\AccionesJugador.class
+enums\EstadoPartida.class
+comunicacion\PruebaServidor.class
+comunicacion\ClientHandler.class
+Modelo\ModeloJugador.class
+comunicacion\ClientManager.class
+bo\PartidaBO.class
+convertidor\toJSON.class
+comunicacion\MessageUtil.class
+Modelo\ModeloPartida.class
