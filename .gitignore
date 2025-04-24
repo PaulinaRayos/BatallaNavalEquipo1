@@ -1,0 +1,65 @@
+# Sistema operativo - macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Sistema operativo - Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# GitHub Desktop
+*.orig
+
+# Archivos de NetBeans
+/nbproject/private/
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+/nbactions.xml
+/nb-configuration.xml
+
+# Java / Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Archivos generados
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Archivos de entorno/IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+*.class
+*.nbattrs
+*.lock
+*.log
+
+# Configuración local de Maven Wrapper
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Archivos de configuración que pueden ser específicos del entorno
+*.env
+.env.*
+.vscode/
