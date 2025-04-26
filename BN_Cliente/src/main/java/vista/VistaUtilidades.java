@@ -5,15 +5,18 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -23,34 +26,36 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import vistaModelo.Juego;
 
-
 /**
  *
  * @author pauli
  */
 public class VistaUtilidades {
-    
+
     // Imagenes
     public static final String PORTADA = "/recursos/batallaNaval.png";
     public static final String FONDO_TABLERO = "/recursos/FondoTablero.png";
-    
+    public static final String BOTON_INICIO = "/recursos/botonInicio.png";
+
     // Colores componentes
     public static final Color COLOR_FONDO = new Color(139, 137, 126);
     public static final Color COLOR_TEXTO_AZUL_OSCURO = new Color(0, 30, 61);
+    public static final Color COLOR_TEXTO_BLANCO = new Color(255, 255, 255);
     public static final Color COLOR_BOTON_FONDO = new Color(14, 47, 67);
-    public static final Color COLOR_BOTON_TEXTO = new Color(218, 218, 211);
+    //public static final Color COLOR_BOTON_INICIO = new Color(0, 210, 255);
+    public static final Color COLOR_BOTON_TEXTO = new Color(255, 255, 255);
     public static final Color COLOR_CAMPO_TEXTO = new Color(218, 218, 211);
     public static final Color COLOR_CAMPO_TEXTO_FONDO = new Color(24, 25, 37);
-    
+
     // Colores estados naves
     public static final Color COLOR_UNIDAD_SIN_DANO = new Color(19, 222, 33);
     public static final Color COLOR_UNIDAD_DANADA = new Color(237, 227, 21);
     public static final Color COLOR_UNIDAD_DESTRUIDA = new Color(252, 24, 24);
-    
+
     // Colores Tablero
     public static final Color COLOR_CELDAS_INVALIDAS = new Color(255, 125, 125, 128);
     public static final Color COLOR_VISTA_PREVIEW = new Color(255, 255, 0, 128);
-    public static final String[] LISTA_COLORES_BARCO = {"Rojo","Azul","Negro","Blanco","Verde"};
+    public static final String[] LISTA_COLORES_BARCO = {"Rojo", "Azul", "Negro", "Blanco", "Verde"};
     public static final Color BARCO_ROJO = new Color(180, 0, 0);
     public static final Color BARCO_AZUL = new Color(0, 70, 180);
     public static final Color BARCO_NEGRO = new Color(30, 30, 30);
@@ -90,9 +95,45 @@ public class VistaUtilidades {
         JButton boton = new JButton(texto);
         boton.setFont(FUENTE_BOTON);
         boton.setForeground(COLOR_BOTON_TEXTO);
+        boton.setOpaque(true);
         boton.setBackground(COLOR_BOTON_FONDO);
         boton.setFocusPainted(false);
         boton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        return boton;
+    }
+
+    public static JButton crearBotonInicio() {
+        // Cargar la imagen usando el método correcto para recursos
+        BufferedImage img = cargarImagen(BOTON_INICIO);
+
+        // Crear un ImageIcon a partir de la BufferedImage
+        ImageIcon icono = (img != null) ? new ImageIcon(img) : null;
+
+        // Crear el botón con la imagen
+        JButton boton = new JButton(icono);
+
+        // Eliminar todos los elementos decorativos
+        boton.setBorderPainted(false);
+        boton.setContentAreaFilled(false);
+        boton.setFocusPainted(false);
+        boton.setOpaque(false);
+        boton.setMargin(new Insets(0, 0, 0, 0));
+
+        // IMPORTANTE: Establecer tamaño exacto basado en la imagen
+        if (img != null) {
+            int anchoImagen = img.getWidth();
+            int altoImagen = img.getHeight();
+            boton.setPreferredSize(new Dimension(anchoImagen, altoImagen));
+            boton.setMinimumSize(new Dimension(anchoImagen, altoImagen));
+            boton.setMaximumSize(new Dimension(anchoImagen, altoImagen));
+            boton.setSize(new Dimension(anchoImagen, altoImagen));
+        } else {
+            boton.setPreferredSize(new Dimension(200, 40));
+        }
+
+        // Cambiar el cursor cuando se pasa por encima
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         return boton;
     }
 
@@ -110,7 +151,7 @@ public class VistaUtilidades {
         campoTexto.setHorizontalAlignment(SwingConstants.CENTER);
         return campoTexto;
     }
-    
+
     /**
      * Carga una imagen desde un directorio especificado.
      *
@@ -139,7 +180,7 @@ public class VistaUtilidades {
         // Devuelve la imagen cargada
         return imagen;
     }
-    
+
     /**
      * Crea una tabla personalizada con estilo consistente.
      *
@@ -166,9 +207,10 @@ public class VistaUtilidades {
         // Retornar el JTable creado
         return tabla;
     }
-    
+
     /**
-     * Crea un combo box (lista desplegable) personalizado con estilo consistente.
+     * Crea un combo box (lista desplegable) personalizado con estilo
+     * consistente.
      *
      * @param elementos Los elementos a incluir en el combo box
      * @param ancho El ancho del combo box
@@ -183,17 +225,17 @@ public class VistaUtilidades {
 
         // Configuración de fuente 
         comboBox.setFont(VistaUtilidades.FUENTE_CAMPO_TEXTO);
-        
+
         // Configuración de colores
         comboBox.setBackground(COLOR_BOTON_FONDO);
         comboBox.setForeground(COLOR_BOTON_TEXTO);
 
-
         return comboBox;
     }
-    
+
     /**
-     * Crea un panel personalizado para representar un barco con un color específico.
+     * Crea un panel personalizado para representar un barco con un color
+     * específico.
      *
      * @param ancho Ancho del panel
      * @param alto Alto del panel
@@ -202,10 +244,10 @@ public class VistaUtilidades {
      */
     public static JPanel crearBarcoVista(int ancho, int alto, Color colorFondo) {
         JPanel panel = new JPanel();
-        
+
         // Establecer el tamaño preferido
         panel.setPreferredSize(new Dimension(ancho, alto));
-        
+
         // Aplicar el color de fondo
         if (colorFondo != null) {
             panel.setBackground(colorFondo);
@@ -216,7 +258,7 @@ public class VistaUtilidades {
 
         return panel;
     }
-    
+
     /**
      * Obtiene el color correspondiente a un barco basado en su nombre.
      *

@@ -65,6 +65,10 @@ public class ModeloUnidad {
         this.estado = estado;
         this.estado = EstadoUnidad.INTACTA;
     }
+    
+    public int getTamanio() {
+        return tamanio;
+    }
 
     @Override
     public String toString() {
