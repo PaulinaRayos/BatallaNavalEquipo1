@@ -6,6 +6,7 @@ package vista;
 
 import interfaz.IVistaMenu;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import vistaModelo.Juego;
@@ -15,7 +16,7 @@ import vistaModelo.VistaModeloMenu;
  *
  * @author pauli
  */
-public class VistaMenu implements IVistaPanel, IVistaMenu{
+public class VistaMenu implements IVistaPanel, IVistaMenu {
     /**
      * El panel de juego principal donde se agregarán los componentes de la vista.
      */
@@ -24,7 +25,7 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
     /**
      * Botón para crear una partida nueva.
      */
-    private JButton botonCrearPartia;
+    private JButton botonCrearPartida;
     
     /**
      * Botón para unirse a una partida existente.
@@ -35,6 +36,11 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
      * Botón para acceder a las instrucciones del juego.
      */
     private JButton botonInstrucciones;
+    
+    /**
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
     
     /**
      * Presentador asociado a la vista del menú.
@@ -53,6 +59,7 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
         this.vistaModelo = new VistaModeloMenu(this, juego);
         crearComponentes();
         accionesComponentes();
+        cargarImagenes();
     }
 
     /**
@@ -62,21 +69,34 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
      */
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(VistaUtilidades.COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
+        if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        }
 
-        g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
-        VistaUtilidades.dibujarTextoCentrado(g, "MENU", 60, VistaUtilidades.FUENTE_TITULO);
+        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
+        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 75, VistaUtilidades.FUENTE_TITULO);
 
         // Agregar componentes al panel si no están ya agregados
-        if (!panelJuego.isAncestorOf(botonCrearPartia)) {
-            panelJuego.agregarComponente(botonCrearPartia, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 500, 200, 40);
-        }
         if (!panelJuego.isAncestorOf(botonUnirsePartida)) {
-            panelJuego.agregarComponente(botonUnirsePartida, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 400, 200, 40);
+            int botonAncho = botonUnirsePartida.getPreferredSize().width;
+            int botonAlto = botonUnirsePartida.getPreferredSize().height;
+            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
+            panelJuego.agregarComponente(botonUnirsePartida, posX, Juego.GAME_ALTO - 500, botonAncho, botonAlto);
         }
+        
+        if (!panelJuego.isAncestorOf(botonCrearPartida)) {
+            int botonAncho = botonCrearPartida.getPreferredSize().width;
+            int botonAlto = botonCrearPartida.getPreferredSize().height;
+            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
+            panelJuego.agregarComponente(botonCrearPartida, posX, Juego.GAME_ALTO - 375, botonAncho, botonAlto);
+        }
+        
         if (!panelJuego.isAncestorOf(botonInstrucciones)) {
-            panelJuego.agregarComponente(botonInstrucciones, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 300, 200, 40);
+            //panelJuego.agregarComponente(botonInstrucciones, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 300, 200, 40);
+            int botonAncho = botonInstrucciones.getPreferredSize().width;
+            int botonAlto = botonInstrucciones.getPreferredSize().height;
+            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
+            panelJuego.agregarComponente(botonInstrucciones, posX, Juego.GAME_ALTO - 250, botonAncho, botonAlto);
         }
 
     }
@@ -86,9 +106,10 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
      */
     @Override
     public void crearComponentes() {
-        this.botonCrearPartia = VistaUtilidades.crearBoton("Crear partida");
-        this.botonUnirsePartida = VistaUtilidades.crearBoton("Unirse a partida");
-        this.botonInstrucciones = VistaUtilidades.crearBoton("Instrucciones");
+        this.botonUnirsePartida = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_UNIRSE);
+        this.botonCrearPartida = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CREAR);
+        
+        this.botonInstrucciones = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_INSTRUCCIONES);
     }
 
     /**
@@ -97,7 +118,7 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
     @Override
     public void accionesComponentes() {
         // Agregar acción al botón
-        botonCrearPartia.addActionListener(e -> {
+        botonCrearPartida.addActionListener(e -> {
             vistaModelo.crearPartida();
         });
         // Agregar acción al botón
@@ -115,9 +136,13 @@ public class VistaMenu implements IVistaPanel, IVistaMenu{
      */
     @Override
     public void quitarComponentes() {
-        panelJuego.quitarComponente(botonCrearPartia);
+        panelJuego.quitarComponente(botonCrearPartida);
         panelJuego.quitarComponente(botonUnirsePartida);
         panelJuego.quitarComponente(botonInstrucciones);
+    }
+    
+    public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
     }
 
     /**

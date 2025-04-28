@@ -72,8 +72,12 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
         VistaUtilidades.dibujarTextoCentrado(g, "Codigo de la sala:", 250, VistaUtilidades.FUENTE_SUBTITULO);
 
         // Agregar componentes al panel si no están ya agregados
+        int botonAncho = botonContinuar.getPreferredSize().width;
+        int botonAlto = botonContinuar.getPreferredSize().height;
+        //int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
         if (!vistaPanel.isAncestorOf(botonContinuar)) {
-            vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, 200, 40);
+            //vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, 200, 40);
+            vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
         if (!vistaPanel.isAncestorOf(botonSalir)) {
             vistaPanel.agregarComponente(botonSalir, (Juego.GAME_ANCHO + 150) / 2, Juego.GAME_ALTO - 150, 200, 40);
@@ -89,7 +93,7 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
      */
     @Override
     public void crearComponentes() {
-        botonContinuar = VistaUtilidades.crearBoton("Continuar");
+        this.botonContinuar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CONTINUAR);
         botonSalir = VistaUtilidades.crearBoton("Regresar");
         campoSala = VistaUtilidades.crearCampoTexto(20);
     }

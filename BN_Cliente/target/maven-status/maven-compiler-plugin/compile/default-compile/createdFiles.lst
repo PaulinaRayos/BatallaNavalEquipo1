@@ -1,6 +1,7 @@
 comunicacion/ComandoActualizarEstadoListo.class
 vista/IVistaPanel.class
 interfaz/IVistaBuscarPartida.class
+vista/VistaUtilidades$1.class
 comunicacion/ComandoTodosListos.class
 interfaz/IVistaMenu.class
 vista/VistaUtilidades.class

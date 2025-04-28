@@ -67,14 +67,15 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * @param g El objeto Graphics utilizado para dibujar los elementos
      * gráficos.
      */
+    @Override
     public void dibujar(Graphics g) {
         // Dibujar la imagen de fondo que ocupa toda la pantalla
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } else {
+        } /*else {
             g.setColor(VistaUtilidades.COLOR_FONDO);
             g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
-        }
+        }*/
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         VistaUtilidades.dibujarTextoCentrado(g, "Bienvenido a Batalla Naval", 60, VistaUtilidades.FUENTE_TITULO);
@@ -104,9 +105,9 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * campo de texto y el botón de iniciar.
      */
     public void crearComponentes() {
-        campoNombre = VistaUtilidades.crearCampoTexto(20);
+        campoNombre = VistaUtilidades.crearCampoTexto(60);
         //botonIniciar = VistaUtilidades.crearBoton("Iniciar Juego");
-        botonIniciar = VistaUtilidades.crearBotonInicio();
+        botonIniciar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_INICIO);
     }
 
     /**
