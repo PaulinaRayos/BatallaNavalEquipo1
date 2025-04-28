@@ -3,31 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
-
+import java.util.List;
 /**
  *
  * @author pauli
  */
 public class ModeloJugador {
     private String nombre;
-    //private Estadisticas estadisticas;
-    //private List<Unidad> unidades;
+    private ModeloEstadisticas estadisticas;
+    private List<ModeloUnidad> unidades;
     private String id;
     private boolean listo;
     private boolean quiereRevancha;
 
-    /**public ModeloJugador(String nombre, Estadisticas estadisticas, List<Unidad> unidades) {
+    public ModeloJugador(String nombre, ModeloEstadisticas estadisticas, List<ModeloUnidad> unidades) {
         this.nombre = nombre;
        this.estadisticas = estadisticas;
        this.unidades = unidades;
         this.listo = false;
         this.quiereRevancha = false;
-    }*/
+    }
 
-   /** public ModeloJugador(String nombre, Estadisticas estadisticas) {
+    public ModeloJugador(String nombre, ModeloEstadisticas estadisticas) {
         this.nombre = nombre;
-       // this.estadisticas = estadisticas;
-    }*/
+        this.estadisticas = estadisticas;
+    }
 
     public ModeloJugador() {
     }
@@ -45,13 +45,13 @@ public class ModeloJugador {
         this.nombre = nombre;
     }
 
-    /**public Estadisticas getEstadisticas() {
+    public ModeloEstadisticas getEstadisticas() {
         return estadisticas;
-    }*/
+    }
 
-    /**public void setEstadisticas(Estadisticas estadisticas) {
+    public void setEstadisticas(ModeloEstadisticas estadisticas) {
         this.estadisticas = estadisticas;
-    }*/
+    }
 
     public String getId() {
         return id;
@@ -61,17 +61,17 @@ public class ModeloJugador {
         this.id = id;
     }
 
-    /**public List<Unidad> getUnidades() {
+    public List<ModeloUnidad> getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(List<Unidad> unidades) {
+    public void setUnidades(List<ModeloUnidad> unidades) {
         this.unidades = unidades;
     }
 
-    public void addUnidad(Unidad unidad) {
+    public void addUnidad(ModeloUnidad unidad) {
         this.unidades.add(unidad);
-    }*/
+    }
 
     public boolean isListo() {
         return listo;
