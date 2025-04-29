@@ -61,12 +61,6 @@ public class ModeloPartida {
         this.jugadorTurno = null;
     }
 
-    /*public void limpiarTableros() {
-        this.tableros.forEach((k, tablero) -> {
-            tablero.limpiarTablero();
-        });
-    }*///***********************************************************************************************************
-
     public ModeloJugador getGanador() {
         return ganador;
     }

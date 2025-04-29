@@ -75,40 +75,7 @@ public class HandlerActions {
             Map<String, Object> response = partidaBO.jugadorListo(request, clientId);
             // No es necesario responder al jugador, ya que notificaremos a todos
         } else if (AccionesJugador.ORDENAR.toString().equalsIgnoreCase(accion)) {
-            //partidaBO.colocarUnidadTablero(request, clientId);**********************************************************
-            // No es necesario responder al jugador, ya que notificaremos a todos
-/**                                                                                           ******************************
-        } else if (AccionesJugador.ATACAR.toString().equalsIgnoreCase(accion)) {
-            System.out.println("Se recibio ataque");
-            Jugador otherClient = ClientManager.getOtherPlayer(clientId);
-            Map<String, Object> response = partidaBO.ubicarAtaque(request, clientId);
-            String resultado = (String) response.get("resultado");
-            //Aqui saco el resultado para ver si es de partida finalizada sino se envia el mensaje normal
-            if (resultado != null && resultado.equalsIgnoreCase(ControlPartida.PARTIDA_FINALIZADA.name())) {
-                MessageUtil.enviarMensaje(clientSocket, response);
-                MessageUtil.enviarMensaje(ClientManager.getClientSocket(otherClient.getId()), response);
-            }
-            Map<String, Object> clienteAtacanteResponse = (Map<String, Object>) response.get(clientId);
-            Map<String, Object> clienteAtacadoResponse = (Map<String, Object>) response.get(otherClient.getId());
-
-            MessageUtil.enviarMensaje(clientSocket, clienteAtacanteResponse);
-            MessageUtil.enviarMensaje(ClientManager.getClientSocket(otherClient.getId()), clienteAtacadoResponse);
-        } else if (AccionesJugador.RENDIRSE.toString().equalsIgnoreCase(accion)) {
-            partidaBO.rendirse(request, clientId);
-        } else if (AccionesJugador.ESTADISTICAS.toString().equalsIgnoreCase(accion)) {
-            Map<String, Object> response = partidaBO.obtenerEstadisticasJugador(clientId);
-            MessageUtil.enviarMensaje(clientSocket, response);
-        } else if (AccionesJugador.VOLVER_A_JUGAR.toString().equalsIgnoreCase(accion)) {
-            partidaBO.volverAJugar(clientId);
-        } else if (AccionesJugador.RESPUESTA_VOLVER_A_JUGAR.toString().equalsIgnoreCase(accion)) {
-            boolean acepta = (Boolean) request.get("acepta");
-            partidaBO.respuestaVolverAJugar(clientId, acepta);
-        } else if (AccionesJugador.SALIR.toString().equalsIgnoreCase(accion)) {
-            Map<String, Object> response = partidaBO.salir(clientId);
-            // Enviar la respuesta al cliente
-            MessageUtil.enviarMensaje(clientSocket, response);
-        } else {
-            System.out.println("Acción no reconocida: " + accion);*///*************************************************************************
+           
         }
     }
 }
