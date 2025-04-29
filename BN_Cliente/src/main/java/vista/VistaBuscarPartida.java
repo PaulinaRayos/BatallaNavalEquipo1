@@ -6,6 +6,7 @@ package vista;
 
 import interfaz.IVistaBuscarPartida;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,6 +22,11 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
      * El panel principal del juego donde se agregarán los componentes de la vista.
      */
     private VistaPanel vistaPanel;
+    
+    /**
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
     
     /**
      * Botón para continuar y unirse a la partida.
@@ -53,6 +59,7 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
         this.vistaModelo = new VistaModeloBuscarPartida(this, juego);
         crearComponentes();
         accionesComponentes();
+        cargarImagenes();
     }
 
     /**
@@ -62,10 +69,11 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
      */
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(VistaUtilidades.COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
+        if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        } 
 
-        g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         VistaUtilidades.dibujarTextoCentrado(g, "BUSCAR PARTIDA", 60, VistaUtilidades.FUENTE_TITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Introduce el codigo de la partida que deseas unirte", 150, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a la sala", 180, VistaUtilidades.FUENTE_SUBTITULO);
@@ -74,13 +82,14 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
         // Agregar componentes al panel si no están ya agregados
         int botonAncho = botonContinuar.getPreferredSize().width;
         int botonAlto = botonContinuar.getPreferredSize().height;
-        //int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
+        
+//int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
         if (!vistaPanel.isAncestorOf(botonContinuar)) {
             //vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, 200, 40);
             vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
         if (!vistaPanel.isAncestorOf(botonSalir)) {
-            vistaPanel.agregarComponente(botonSalir, (Juego.GAME_ANCHO + 150) / 2, Juego.GAME_ALTO - 150, 200, 40);
+            vistaPanel.agregarComponente(botonSalir, (Juego.GAME_ANCHO + 150) / 2, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
         if (!vistaPanel.isAncestorOf(campoSala)) {
             vistaPanel.agregarComponente(campoSala, (Juego.GAME_ANCHO - 200) / 2, 300, 200, 30);
@@ -93,8 +102,8 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
      */
     @Override
     public void crearComponentes() {
-        this.botonContinuar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CONTINUAR);
-        botonSalir = VistaUtilidades.crearBoton("Regresar");
+        botonContinuar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CONTINUAR);
+        botonSalir = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_REGRESAR);
         campoSala = VistaUtilidades.crearCampoTexto(20);
     }
 
@@ -169,6 +178,12 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
     @Override
     public VistaModeloBuscarPartida getPresentador() {
         return vistaModelo;
+    }
+    
+     
+    public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+
     }
 
 }

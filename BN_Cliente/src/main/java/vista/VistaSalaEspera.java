@@ -7,6 +7,7 @@ package vista;
 import estados.EstadoMenu;
 import interfaz.IVistaSalaEspera;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -23,6 +24,12 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
      * Panel principal del juego donde se mostrarán los componentes de esta vista.
      */
     private VistaPanel vistaPanel;
+    
+    
+    /**
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
     
     /**
      * Botón para que el jugador indique que está listo para continuar.
@@ -76,6 +83,7 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
         this.juego = juego;
         crearComponentes();
         accionesComponentes();
+        cargarImagenes();
         
     }
 
@@ -86,23 +94,33 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
      */
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(VistaUtilidades.COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
-
-        g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        
+        // Dibujar la imagen de fondo que ocupa toda la pantalla
+        if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        } 
+      
+        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         VistaUtilidades.dibujarTextoCentrado(g, "SALA DE ESPERA", 60, VistaUtilidades.FUENTE_TITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Proporciona el código que se muestra debajo a otro jugador", 150, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a esta sala", 180, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Código de la sala:", 250, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, codigoAcceso != null ? codigoAcceso : "Esperando...", 280, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Lista de Jugadores en la sala", 410, VistaUtilidades.FUENTE_SUBTITULO);
+        
+        // Obtener dimensiones del botón
+            int botonAncho = botonContinuar.getPreferredSize().width;
+            int botonAlto = botonContinuar.getPreferredSize().height;
+
+        // Calcular posición centrada horizontalmente
+            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
 
         // Agregar componentes al panel si no están ya agregados
         if (!vistaPanel.isAncestorOf(botonContinuar)) {
-            vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, 200, 40);
+            vistaPanel.agregarComponente(botonContinuar, (Juego.GAME_ANCHO - 500) / 2, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
         if (!vistaPanel.isAncestorOf(botonSalir)) {
-            vistaPanel.agregarComponente(botonSalir, (Juego.GAME_ANCHO + 150) / 2, Juego.GAME_ALTO - 150, 200, 40);
+            vistaPanel.agregarComponente(botonSalir, (Juego.GAME_ANCHO + 150) / 2, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
         if (!vistaPanel.isAncestorOf(listaJugadores)) {
             vistaPanel.agregarComponente(listaJugadores, (Juego.GAME_ANCHO - 400) / 2, Juego.GAME_ALTO - 300, 400, 60);
@@ -115,8 +133,9 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
      */
     @Override
     public void crearComponentes() {
-        botonContinuar = VistaUtilidades.crearBoton("Continuar");
-        botonSalir = VistaUtilidades.crearBoton("Regresar");
+        
+        botonContinuar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CONTINUAR);
+        botonSalir = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_REGRESAR);
         String[] columnas = {"Nombre de Jugador", "Listo"};
         modeloTabla = new DefaultTableModel(columnas, 0);
         listaJugadores = new JTable(modeloTabla);
@@ -279,5 +298,11 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
      */
     public void setCodigoAcceso(String codigoAcceso) {
         this.codigoAcceso = codigoAcceso;
+    }
+    
+    
+    public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+
     }
 }

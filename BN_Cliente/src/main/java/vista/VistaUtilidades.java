@@ -43,6 +43,8 @@ public class VistaUtilidades {
     public static final String BOTON_INSTRUCCIONES = "/recursos/botonInstrucciones.png";
     public static final String BOTON_CONTINUAR = "/recursos/botonConfirmar.png";
     public static final String BOTON_VOLVER = "/recursos/botonVolver.png";
+    public static final String BOTON_REGRESAR = "/recursos/botonRegresar.png";
+    
 
     // Colores componentes
     public static final Color COLOR_FONDO = new Color(139, 137, 126);
