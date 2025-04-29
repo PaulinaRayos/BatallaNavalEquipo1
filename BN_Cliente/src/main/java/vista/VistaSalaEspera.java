@@ -258,7 +258,6 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
     @Override
     public void navegarAOrganizar() {
         quitarComponentes();
-       // juego.cambiarEstado(new EstadoOrganizar(juego));*****************************************************************************************
     }
 
     /**

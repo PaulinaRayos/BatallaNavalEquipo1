@@ -51,7 +51,7 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
     /**
      * Constructor de la clase VistaBuscarPartida.
      *
-     * @param panelJuego El panel principal del juego donde se agregarán los componentes de la vista.
+     * @param VistaPanel El panel principal del juego donde se agregarán los componentes de la vista.
      * @param juego La instancia del juego actual.
      */
     public VistaBuscarPartida(VistaPanel vistaPanel, Juego juego) {

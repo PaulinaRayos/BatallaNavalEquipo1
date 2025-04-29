@@ -167,11 +167,5 @@ public class EstadoSalaEspera implements IEstado{
         vistaModelo.manejarTodosListos();
     }
 
-    /**
-     * Maneja la transición para iniciar la organización de la partida.
-     */
-    /**public void handleIniciarOrganizar() {***********************************************************************************
-        juego.cambiarEstado(new EstadoOrganizar(juego));
-    }
-    *///************************************************************************************************************************
+    
 }

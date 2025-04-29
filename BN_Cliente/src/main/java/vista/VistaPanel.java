@@ -32,8 +32,6 @@ public class VistaPanel extends JPanel{
         this.juego = juego;
         // Configura el tamaño del panel
         setPanelSize();
-        // Agrega un escuchador de eventos de teclado*******************************************************************************
-//        addKeyListener(new Teclado(this));
         requestFocus();
         setLayout(null);
         // Agrega un escuchador de eventos de clic del mouse************************************************************************

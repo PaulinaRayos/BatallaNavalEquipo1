@@ -16,11 +16,11 @@ import javax.swing.JFrame;
 public class VistaVentana  extends JFrame{
     
     /**
-     * Constructor de la clase VentanaJuego que recibe un PanelJuego como
+     * Constructor de la clase VentanaJuego que recibe un VistaPanel como
      * argumento. Configura la apariencia y comportamiento inicial de la
      * ventana.
      *
-     * @param panel PanelJuego a agregar a la ventana.
+     * @param panel VistaPanel a agregar a la ventana.
      */
     public VistaVentana(VistaPanel panel) {
         // Configuración inicial de la ventana

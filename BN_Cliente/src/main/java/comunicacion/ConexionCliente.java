@@ -24,7 +24,7 @@ import org.msgpack.core.MessageUnpacker;
 public class ConexionCliente {
 
     /**
-     * La instancia singleton de ClientConnection.
+     * La instancia de ClientConnection.
      */
     private static ConexionCliente instance = null;
 
@@ -64,7 +64,7 @@ public class ConexionCliente {
     private MessageListener messageListener;
 
     /**
-     * Constructor privado para el patrón singleton.
+     * 
      * Inicializa el ObjectMapper para el procesamiento de JSON.
      */
     private ConexionCliente() {
@@ -72,7 +72,7 @@ public class ConexionCliente {
     }
 
     /**
-     * Devuelve la instancia singleton de ClientConnection.
+     * Devuelve la instancia de ClientConnection.
      * Si no existe ninguna instancia, crea una.
      * 
      * @return la instancia singleton de ClientConnection

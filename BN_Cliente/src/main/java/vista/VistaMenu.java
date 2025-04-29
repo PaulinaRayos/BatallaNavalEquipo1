@@ -122,10 +122,6 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
             vistaModelo.crearPartida();
         });
         // Agregar acción al botón
-        /**botonInstrucciones.addActionListener(e -> {*************************************************************************
-            vistaModelo.avanzarAInstrucciones();
-        });*///*******************************************************************************************************************
-        // Agregar acción al botón
         botonUnirsePartida.addActionListener(e -> {
             vistaModelo.avanzarAUnirseAPartida();
         });

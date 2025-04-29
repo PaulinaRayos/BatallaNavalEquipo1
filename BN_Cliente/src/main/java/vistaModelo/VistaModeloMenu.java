@@ -75,10 +75,5 @@ public class VistaModeloMenu {
         juego.cambiarEstado(new EstadoBuscarPartida(juego));
     }
     
-    /**
-     * Cambia al estado de instrucciones del juego.
-     */
-    /**public void avanzarAInstrucciones() {******************************************************************************
-        juego.cambiarEstado(new EstadoInstrucciones(juego));
-    }*///*****************************************************************************************************************
+    
 }

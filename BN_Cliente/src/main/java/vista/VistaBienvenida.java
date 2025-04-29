@@ -72,10 +72,7 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
         // Dibujar la imagen de fondo que ocupa toda la pantalla
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } /*else {
-            g.setColor(VistaUtilidades.COLOR_FONDO);
-            g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
-        }*/
+        }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         VistaUtilidades.dibujarTextoCentrado(g, "Bienvenido a Batalla Naval", 60, VistaUtilidades.FUENTE_TITULO);
