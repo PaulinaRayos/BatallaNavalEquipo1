@@ -1,33 +1,33 @@
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ComandoActualizarEstadoListo.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ComandoCrearPartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ComandoNuevoJugador.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ComandoTodosListos.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ComandoUnirsePartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/ConexionCliente.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/comunicacion/IComando.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/estados/EstadoBienvenida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/estados/EstadoBuscarPartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/estados/EstadoMenu.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/estados/EstadoSalaEspera.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/estados/IEstado.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/interfaz/IVistaBienvenida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/interfaz/IVistaBuscarPartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/interfaz/IVistaMenu.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/interfaz/IVistaSalaEspera.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/modelo/ModeloJugador.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/prueba/Prueba.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/EstadosJuego.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/IVistaPanel.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaBienvenida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaBuscarPartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaMenu.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaPanel.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaSalaEspera.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaUtilidades.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vista/VistaVentana.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/Juego.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/VistaModeloBienvenida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/VistaModeloBuscarPartida.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/VistaModeloJuego.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/VistaModeloMenu.java
-/Users/paulvazquez/Documents/Arquitectura de Software/BatallaNavalEquipo1/BN_Cliente/src/main/java/vistaModelo/VistaModeloSalaEspera.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ComandoActualizarEstadoListo.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ComandoCrearPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ComandoNuevoJugador.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ComandoTodosListos.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ComandoUnirsePartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\ConexionCliente.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\comunicacion\IComando.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\estados\EstadoBienvenida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\estados\EstadoBuscarPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\estados\EstadoMenu.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\estados\EstadoSalaEspera.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\estados\IEstado.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\interfaz\IVistaBienvenida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\interfaz\IVistaBuscarPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\interfaz\IVistaMenu.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\interfaz\IVistaSalaEspera.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\modelo\ModeloJugador.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\prueba\Prueba.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\EstadosJuego.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\IVistaPanel.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaBienvenida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaBuscarPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaMenu.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaPanel.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaSalaEspera.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaUtilidades.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vista\VistaVentana.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\Juego.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\VistaModeloBienvenida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\VistaModeloBuscarPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\VistaModeloJuego.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\VistaModeloMenu.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Cliente\src\main\java\vistaModelo\VistaModeloSalaEspera.java
