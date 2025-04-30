@@ -28,6 +28,9 @@ public class PruebaServidor {
         try (ServerSocket serverSocket = new ServerSocket(5000)) {
             System.out.println("Servidor esperando conexiones en el puerto 5000...");
 
+            
+            HandlerActions.getInstance().registrarEventos(); //Registra los eventos del EventBus
+            
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado");

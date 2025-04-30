@@ -1,3 +1,4 @@
+eventos\EventHandler.class
 Modelo\ModeloTablero.class
 Modelo\ModeloCasilla.class
 Modelo\ModeloCoordenada.class
@@ -7,6 +8,7 @@ comunicacion\ClientHandler.class
 Modelo\ModeloJugador.class
 Modelo\ModeloUnidad.class
 Modelo\ModeloEstadisticas.class
+eventos\EventBus.class
 comunicacion\MessageUtil.class
 enums\Orientacion.class
 Modelo\ModeloPartida.class
