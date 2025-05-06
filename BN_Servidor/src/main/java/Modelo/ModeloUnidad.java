@@ -3,8 +3,8 @@ package Modelo;
 import enums.EstadoUnidad;
 import enums.Orientacion;
 
-
 public class ModeloUnidad {
+
     private int numNave;
     private final String nombre;
     private final int tamanio;
@@ -24,7 +24,7 @@ public class ModeloUnidad {
     public void resetearVida() {
         this.vida = vidaMax;
     }
-    
+
     public int getNumNave() {
         return numNave;
     }
@@ -65,16 +65,19 @@ public class ModeloUnidad {
         this.estado = estado;
         this.estado = EstadoUnidad.INTACTA;
     }
-    
+
     public int getTamanio() {
         return tamanio;
+    }
+
+    public void reiniciarVida() {
+        this.vida = vidaMax;
+        this.estado = EstadoUnidad.INTACTA;
     }
 
     @Override
     public String toString() {
         return "ModeloUnidad{" + "numNave=" + numNave + ", nombre=" + nombre + '}';
     }
-    
-    
-    
+
 }

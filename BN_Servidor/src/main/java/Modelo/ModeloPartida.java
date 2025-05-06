@@ -15,6 +15,7 @@ import java.util.Map;
  * @author pauli
  */
 public class ModeloPartida {
+
     public static ModeloPartida instance;
     private List<ModeloJugador> jugadores = new ArrayList<>();
     private Map<String, ModeloTablero> tableros = new HashMap();
@@ -59,6 +60,12 @@ public class ModeloPartida {
         this.ganador = null;
         this.estado = null;
         this.jugadorTurno = null;
+    }
+
+    public void limpiarTableros() {
+        this.tableros.forEach((k, tablero) -> {
+            tablero.limpiarTablero();
+        });
     }
 
     public ModeloJugador getGanador() {

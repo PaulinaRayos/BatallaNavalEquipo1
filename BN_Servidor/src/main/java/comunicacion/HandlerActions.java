@@ -4,8 +4,10 @@
  */
 package comunicacion;
 
+import Modelo.ModeloJugador;
 import bo.PartidaBO;
 import enums.AccionesJugador;
+import enums.ControlPartida;
 import eventos.EventBus;
 import java.io.IOException;
 import java.net.Socket;
@@ -108,6 +110,71 @@ public class HandlerActions {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });
+
+        // Evento: Ordenar (colocar unidad en tablero)
+        bus.subscribe(AccionesJugador.ORDENAR.toString(), request -> {
+            System.out.println("[EVENTO] ORDENAR con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            partidaBO.colocarUnidadTablero(request, clientId);
+        });
+
+        // Evento: Atacar
+        bus.subscribe(AccionesJugador.ATACAR.toString(), request -> {
+            System.out.println("[EVENTO] ATACAR con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            ModeloJugador otherClient = ClientManager.getOtherPlayer(clientId);
+            Map<String, Object> response = partidaBO.ubicarAtaque(request, clientId);
+            String resultado = (String) response.get("resultado");
+
+            if (resultado != null && resultado.equalsIgnoreCase(ControlPartida.PARTIDA_FINALIZADA.name())) {
+                MessageUtil.enviarMensaje(ClientManager.getClientSocket(clientId), response);
+                MessageUtil.enviarMensaje(ClientManager.getClientSocket(otherClient.getId()), response);
+            } else {
+                Map<String, Object> clienteAtacanteResponse = (Map<String, Object>) response.get(clientId);
+                Map<String, Object> clienteAtacadoResponse = (Map<String, Object>) response.get(otherClient.getId());
+
+                MessageUtil.enviarMensaje(ClientManager.getClientSocket(clientId), clienteAtacanteResponse);
+                MessageUtil.enviarMensaje(ClientManager.getClientSocket(otherClient.getId()), clienteAtacadoResponse);
+            }
+        });
+
+        // Evento: Rendirse
+        bus.subscribe(AccionesJugador.RENDIRSE.toString(), request -> {
+            System.out.println("[EVENTO] RENDIRSE con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            partidaBO.rendirse(request, clientId);
+        });
+
+        // Evento: Estadísticas
+        bus.subscribe(AccionesJugador.ESTADISTICAS.toString(), request -> {
+            System.out.println("[EVENTO] ESTADISTICAS con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            Map<String, Object> response = partidaBO.obtenerEstadisticasJugador(clientId);
+            MessageUtil.enviarMensaje(ClientManager.getClientSocket(clientId), response);
+        });
+
+        // Evento: Volver a jugar
+        bus.subscribe(AccionesJugador.VOLVER_A_JUGAR.toString(), request -> {
+            System.out.println("[EVENTO] VOLVER_A_JUGAR con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            partidaBO.volverAJugar(clientId);
+        });
+
+        // Evento: Respuesta de volver a jugar
+        bus.subscribe(AccionesJugador.RESPUESTA_VOLVER_A_JUGAR.toString(), request -> {
+            System.out.println("[EVENTO] RESPUESTA_VOLVER_A_JUGAR con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            boolean acepta = (Boolean) request.get("acepta");
+            partidaBO.respuestaVolverAJugar(clientId, acepta);
+        });
+
+        // Evento: Salir
+        bus.subscribe(AccionesJugador.SALIR.toString(), request -> {
+            System.out.println("[EVENTO] SALIR con datos: " + request);
+            String clientId = (String) request.get("clientId");
+            Map<String, Object> response = partidaBO.salir(clientId);
+            MessageUtil.enviarMensaje(ClientManager.getClientSocket(clientId), response);
         });
 
     }
