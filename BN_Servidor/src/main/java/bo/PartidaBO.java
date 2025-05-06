@@ -57,6 +57,7 @@ public class PartidaBO {
         ModeloJugador host = crearJugador(clientId, (String) data.get("nombre"));
         partida.addJugador(host);
         // se habla al metodo para iniciar su tablero y unidades
+        iniciarTableroyUnidades(clientId);
         ClientManager.addClient(ClientManager.getClientSocket(clientId), clientId, host);
         return toJSON.dataToJSON("accion", "CREAR_PARTIDA", "id", host.getId(), "codigo_acceso", codigoAcceso);
     }
@@ -71,6 +72,7 @@ public class PartidaBO {
         ModeloJugador jugador = crearJugador(clientId, (String) data.get("nombre"));
         partida.addJugador(jugador);
         // se habla al metodo para iniciar su tablero y unidades
+        iniciarTableroyUnidades(clientId);
         ClientManager.addClient(ClientManager.getClientSocket(clientId), clientId, jugador);
         partida.getJugadores().stream().forEach(p -> System.out.println("Jugador en la partida " + p.getId()));
         List<String> nombresJugadores = partida.getJugadores().stream()
