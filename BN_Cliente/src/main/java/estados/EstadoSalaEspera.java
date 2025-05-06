@@ -6,6 +6,7 @@ package estados;
 
 import comunicacion.ComandoActualizarEstadoListo;
 import comunicacion.ComandoCrearPartida;
+import comunicacion.ComandoIniciarOrganizar;
 import comunicacion.ComandoNuevoJugador;
 import comunicacion.ComandoTodosListos;
 import comunicacion.IComando;
@@ -22,29 +23,32 @@ import vistaModelo.VistaModeloSalaEspera;
  *
  * @author pauli
  */
-public class EstadoSalaEspera implements IEstado{
+public class EstadoSalaEspera implements IEstado {
+
     /**
      * Referencia al juego principal.
      */
     private Juego juego;
-    
+
     /**
      * Vista que representa la interfaz de sala de espera.
      */
     private VistaSalaEspera vista;
-    
+
     /**
      * VistaModelo asociado a la vista de sala de espera.
      */
     private VistaModeloSalaEspera vistaModelo;
-    
+
     /**
-     * Mapa que contiene los comandos disponibles en el estado de sala de espera.
+     * Mapa que contiene los comandos disponibles en el estado de sala de
+     * espera.
      */
     private Map<String, IComando> comandos;
 
     /**
-     * Constructor que inicializa el estado de sala de espera con el juego especificado.
+     * Constructor que inicializa el estado de sala de espera con el juego
+     * especificado.
      *
      * @param juego la referencia al juego principal
      */
@@ -54,13 +58,15 @@ public class EstadoSalaEspera implements IEstado{
         this.vistaModelo = vista.getVistaModelo();
         inicializarComandos();
     }
-    
+
     /**
-     * Constructor que inicializa el estado de sala de espera con el juego especificado y los datos de la partida.
+     * Constructor que inicializa el estado de sala de espera con el juego
+     * especificado y los datos de la partida.
      *
      * @param juego la referencia al juego principal
      * @param codigoAcceso el código de acceso de la partida
-     * @param nombresJugadores la lista de nombres de los jugadores en la partida
+     * @param nombresJugadores la lista de nombres de los jugadores en la
+     * partida
      */
     public EstadoSalaEspera(Juego juego, String codigoAcceso, List<String> nombresJugadores) {
         this.juego = juego;
@@ -70,9 +76,10 @@ public class EstadoSalaEspera implements IEstado{
         this.vistaModelo.actualizarListaJugadores(nombresJugadores);
         inicializarComandos();
     }
-    
+
     /**
-     * Inicializa los comandos disponibles para manejar los mensajes en este estado.
+     * Inicializa los comandos disponibles para manejar los mensajes en este
+     * estado.
      */
     private void inicializarComandos() {
         comandos = new HashMap<>();
@@ -80,9 +87,9 @@ public class EstadoSalaEspera implements IEstado{
         comandos.put("NUEVO_JUGADOR", new ComandoNuevoJugador(this));
         comandos.put("ACTUALIZAR_ESTADO_LISTO", new ComandoActualizarEstadoListo(this));
         comandos.put("TODOS_LISTOS", new ComandoTodosListos(this));
-        //comandos.put("INICIAR_ORGANIZAR", new IniciarOrganizarComando(this));***************************************************************************
+        comandos.put("INICIAR_ORGANIZAR", new ComandoIniciarOrganizar(this));
     }
-    
+
     /**
      * Sale del estado de sala de espera y quita los componentes de la vista.
      */
@@ -161,11 +168,18 @@ public class EstadoSalaEspera implements IEstado{
     }
 
     /**
-     * Maneja el evento cuando todos los jugadores están listos en la sala de espera.
+     * Maneja el evento cuando todos los jugadores están listos en la sala de
+     * espera.
      */
     public void handleTodosListos() {
         vistaModelo.manejarTodosListos();
     }
 
-    
+    /**
+     * Maneja la transición para iniciar la organización de la partida.
+     */
+    public void handleIniciarOrganizar() {
+        juego.cambiarEstado(new EstadoOrganizar(juego));
+    }
+
 }
