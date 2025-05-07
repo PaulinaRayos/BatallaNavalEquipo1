@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -35,6 +36,11 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
      * El panel de juego principal donde se agregarán los componentes de la vista.
      */
     private VistaPanel panelJuego;
+    
+    /**
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
     
     /**
      * Indica si es el turno del jugador actual.
@@ -132,6 +138,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         this.vistaModelo = new VistaModeloJuego(this, juego);
         crearComponentes();
         accionesComponentes();
+        cargarImagenes();
     }
 
     /**
@@ -139,6 +146,8 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
      */
     @Override
     public void crearComponentes() {
+        
+        
         tableroEnemigo = new VistaTablero();
         tableroEnemigo.setModo(ModoTableroStrategy.ENEMIGO);
         tableroEnemigo.habilitarInteraccion(false);
@@ -148,11 +157,11 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
 
         lblTurno = new JLabel("", SwingConstants.CENTER);
         lblTurno.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblTurno.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        lblTurno.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
 
         lblUltimoMensaje = new JLabel("", SwingConstants.CENTER);
         lblUltimoMensaje.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblUltimoMensaje.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        lblUltimoMensaje.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
 
         int labelWidth = Juego.GAME_ANCHO; // Ancho del juego
         int labelHeight = 30; // Altura fija para los labels
@@ -163,7 +172,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
 
         lblTemporizador = new JLabel("Tiempo restante: 10", SwingConstants.CENTER);
         lblTemporizador.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblTemporizador.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        lblTemporizador.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
         
         if (!panelJuego.isAncestorOf(lblTemporizador)) {
             panelJuego.agregarComponente(lblTemporizador, 0, 600, labelWidth, labelHeight);
@@ -171,8 +180,8 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         
         tableroEnemigo.getVistaModelo().setAtaqueListener(vistaModelo);
 
-        btnRendirse = VistaUtilidades.crearBoton("Rendirse");
-        btnEstadisticas = VistaUtilidades.crearBoton("Estadisticas");
+        btnRendirse = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_RENDIRSE);
+        btnEstadisticas = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_ESTADISTICAS);
         
         panelJuego.revalidate();
         panelJuego.repaint();
@@ -210,6 +219,12 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
      */
     @Override
     public void dibujar(Graphics g) {
+         if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        } 
+         int botonAncho = btnRendirse.getPreferredSize().width;
+        int botonAlto = btnRendirse.getPreferredSize().height;
+
         // Mostrar la superposición y el mensaje si el juego ha terminado
         if (juegoTerminado) {
             // quitar componentes existentes
@@ -243,19 +258,16 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             
             // añadir el boton de estadisticas
             if (!panelJuego.isAncestorOf(btnEstadisticas)) {
-                panelJuego.agregarComponente(btnEstadisticas, (Juego.GAME_ANCHO - 200) / 2, 660, 200, 30);
+                panelJuego.agregarComponente(btnEstadisticas, (Juego.GAME_ANCHO - 200) / 2, 660, botonAncho, botonAlto);
             }
             
         } else {
-
-            g.setColor(VistaUtilidades.COLOR_FONDO);
-            g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
-
+        
             if (!panelJuego.isAncestorOf(btnRendirse)) {
-                panelJuego.agregarComponente(btnRendirse, (Juego.GAME_ANCHO - 200) / 2, 660, 200, 30);
+                panelJuego.agregarComponente(btnRendirse, (Juego.GAME_ANCHO - 200) / 2, 660, botonAncho, botonAlto);
             }
             // INFORMACION DEL JUGADOR
-            g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+            g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
             g.setFont(VistaUtilidades.FUENTE_SUBTITULO);
             g.drawString("Tablero de", 100, 40);
             // nombre del jugador de esta partida
@@ -287,7 +299,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             colocarEstadoFlota();
 
             g.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-            g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+            g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
             VistaUtilidades.dibujarTextoCentrado(g, "Resultado del último disparo", 480, VistaUtilidades.FUENTE_SUBTITULO);
             VistaUtilidades.dibujarTextoCentrado(g, ultimoMensaje != null ? ultimoMensaje : "", 500, VistaUtilidades.FUENTE_SUBTITULO);
         }
@@ -666,6 +678,11 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         juegoTerminado = true;
         esGanador = ModeloJugador.getInstance().getNombre().equals(ganador);
         panelJuego.repaint();
+    }
+    
+    public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+
     }
 
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\bo\UnidadBO.java
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\ResultadosDisparos.java
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloTipoUnidad.java
@@ -26,3 +27,33 @@ C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\ma
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\ClientManager.java
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloCasilla.java
 C:\Users\aleja\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\ControlPartida.java
+=======
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\bo\PartidaBO.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\bo\UnidadBO.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\bo\UnidadFactory.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\ClientHandler.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\ClientManager.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\HandlerActions.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\MessageUtil.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\comunicacion\PruebaServidor.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\convertidor\toJSON.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\AccionesJugador.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\ControlPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\EstadoCasilla.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\EstadoPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\EstadoUnidad.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\Orientacion.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\enums\ResultadosDisparos.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\eventos\EventBus.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\eventos\EventHandler.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloCasilla.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloCoordenada.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloDisparo.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloEstadisticas.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloJugador.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloPartida.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloTablero.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloTipoUnidad.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloUbicacionUnidad.java
+C:\Users\vasqu\OneDrive\Documentos\GitHub\BatallaNavalEquipo1\BN_Servidor\src\main\java\Modelo\ModeloUnidad.java
+>>>>>>> main
