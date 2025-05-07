@@ -91,7 +91,7 @@ public class VistaTablero extends JPanel implements ITableroObserver{
     /**
      * Color de las naves en el tablero.
      */
-    private Color colorNave = VistaUtilidades.BARCO_NEGRO;
+    private Color colorNave = VistaUtilidades.BARCO_AZUL;
     
     /**
      * Constructor de la clase VistaTablero.
