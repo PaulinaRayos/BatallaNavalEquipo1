@@ -7,6 +7,7 @@ package vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.JButton;
@@ -25,6 +26,10 @@ import vistaModelo.VistaModeloEstadisticas;
  */
 public class VistaEstadisticas implements IVistaPanel {
 
+    /**
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
     // ==================== CONSTANTES DE ESTILO ====================
     private static final Color COLOR_FONDO = new Color(5, 20, 40);
     private static final Color COLOR_TEXTO = new Color(180, 220, 255);
@@ -65,6 +70,7 @@ public class VistaEstadisticas implements IVistaPanel {
         crearComponentes();
         configurarComponentes();
         accionesComponentes();
+        cargarImagenes();
     }
 
     @Override
@@ -167,8 +173,9 @@ public class VistaEstadisticas implements IVistaPanel {
 
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
+       if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        } 
 
     }
 
@@ -202,5 +209,11 @@ public class VistaEstadisticas implements IVistaPanel {
         panelJuego.quitarComponente(btnVolverAJugar);
         panelJuego.quitarComponente(btnSalir);
     }
+    
+    public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+
+    }
+
 
 }
