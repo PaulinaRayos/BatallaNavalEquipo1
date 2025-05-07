@@ -8,6 +8,7 @@ import interfaz.IVistaOrganizar;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,67 +18,71 @@ import tableroStrategy.ModoTableroStrategy;
 import vistaModelo.Juego;
 import vistaModelo.VistaModeloOrganizar;
 
-
-
 /**
  *
  * @author pauli
  */
-public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
+public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
+
     /**
      * Panel principal del juego donde se agregan los componentes visuales.
      */
     private VistaPanel panelJuego;
-    
+
     /**
      * Vista del tablero donde el jugador organiza sus unidades.
      */
     private VistaTablero tablero;
-    
+
     /**
      * Selector de color para las naves.
      */
     private JComboBox<String> colorSelector;
-    
+
     /**
      * Botón para confirmar que el jugador está listo para comenzar el juego.
      */
     private JButton botonJugar;
-    
+
     /**
      * Panel que representa visualmente el portaaviones.
      */
     private JPanel portaaviones;
-    
+
     /**
      * Panel que representa visualmente el crucero.
      */
     private JPanel crucero;
-    
+
     /**
      * Panel que representa visualmente el submarino.
      */
     private JPanel submarino;
-    
+
     /**
      * Panel que representa visualmente el barco.
      */
     private JPanel barco;
-    
+
     /**
      * Etiqueta que muestra un mensaje cuando el jugador está esperando.
      */
     private JLabel labelEsperando;
-    
+
     /**
      * vistaModelo que maneja la lógica de organización de las naves.
      */
     private VistaModeloOrganizar vistaModelo;
 
     /**
-     * Constructor de la clase VistaOrganizar.
-     * Inicializa el panel de juego, crea los componentes y define sus acciones.
-     * 
+     * Imagen de portada utilizada en la vista de bienvenida.
+     */
+    private BufferedImage portada;
+
+    /**
+     * Constructor de la clase VistaOrganizar. Inicializa el panel de juego,
+     * crea los componentes y define sus acciones.
+     *
      * @param panelJuego Panel principal del juego.
      */
     public VistaOrganizar(VistaPanel panelJuego) {
@@ -85,26 +90,30 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
         this.vistaModelo = new VistaModeloOrganizar(this);
         crearComponentes();
         accionesComponentes();
+        cargarImagenes();
     }
 
     /**
      * Dibuja la interfaz gráfica de la vista de organización del tablero.
-     * 
+     *
      * @param g Objeto Graphics para dibujar la interfaz.
      */
     @Override
     public void dibujar(Graphics g) {
-        g.setColor(VistaUtilidades.COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
 
-        g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        // Dibuja la imagen de fondo
+        if (portada != null) {
+            g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
+        }
+
+        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         VistaUtilidades.dibujarTextoCentrado(g, "ORGANIZAR TABLERO", 60, VistaUtilidades.FUENTE_TITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Ordena tus unidades dentro del tablero", 100, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Presiona click izquierdo y arrastra la nave a las posiciones disponibles", 120, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Presiona click derecho para rotar la nave (si hay espacio)", 140, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Una nave no puede estar adyacente o sobre otra nave", 160, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Selecciona el color para tus naves:", 200, VistaUtilidades.FUENTE_SUBTITULO);
-        
+
         if (!panelJuego.isAncestorOf(tablero)) {
             tablero.setCursor(new Cursor(Cursor.HAND_CURSOR));
             panelJuego.agregarComponente(tablero, 100, 300, 300, 300);
@@ -132,7 +141,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
             panelJuego.agregarComponente(barco, 600, 540, (30 * 1), 30);
         }
     }
-    
+
     /**
      * Crea y configura los componentes gráficos de la vista de organización.
      */
@@ -165,7 +174,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
             vistaModelo.cambiarColorNaves(nombreColorSeleccionado);
         });
     }
-    
+
     /**
      * Quita los componentes gráficos del panel de juego.
      */
@@ -185,7 +194,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
 
     /**
      * Muestra un mensaje indicando que un jugador está esperando.
-     * 
+     *
      * @param nombreJugador Nombre del jugador que está esperando.
      */
     @Override
@@ -202,7 +211,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
 
     /**
      * Obtiene la vista del tablero.
-     * 
+     *
      * @return VistaTablero utilizada para organizar las unidades.
      */
     @Override
@@ -212,7 +221,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
 
     /**
      * Muestra un mensaje emergente con la información proporcionada.
-     * 
+     *
      * @param mensaje Mensaje a mostrar.
      */
     @Override
@@ -237,12 +246,12 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
     @Override
     public void navegarAJugar() {
         quitarComponentes();
-        
+
     }
 
     /**
      * Actualiza el color de los paneles laterales que representan las naves.
-     * 
+     *
      * @param nuevoColor Nuevo color a aplicar a los paneles.
      */
     @Override
@@ -255,10 +264,15 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar{
 
     /**
      * Obtiene el vistaModelo asociado a la vista de organización.
-     * 
+     *
      * @return VistaModeloOrganizar asociado a la vista.
      */
     public VistaModeloOrganizar getVistaModelo() {
         return vistaModelo;
     }
+     public void cargarImagenes() {
+        this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+
+    }
+    
 }
