@@ -107,38 +107,42 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "ORGANIZAR TABLERO", 60, VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Ordena tus unidades dentro del tablero", 100, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Presiona click izquierdo y arrastra la nave a las posiciones disponibles", 120, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Presiona click derecho para rotar la nave (si hay espacio)", 140, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Una nave no puede estar adyacente o sobre otra nave", 160, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Selecciona el color para tus naves:", 200, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 60, VistaUtilidades.FUENTE_TITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Coloca tus naves en el tablero", 100, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "Presiona click izquierdo y arrastra la nave a las posiciones disponibles", 120, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "Presiona click derecho para rotar la nave (si hay espacio)", 140, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "Una nave no puede estar adyacente o sobre otra nave", 160, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Color de naves:", 125, VistaUtilidades.FUENTE_SUBTITULO);
 
         if (!panelJuego.isAncestorOf(tablero)) {
             tablero.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            panelJuego.agregarComponente(tablero, 100, 300, 300, 300);
+            panelJuego.agregarComponente(tablero, 200, 200, 300, 300);
         }
         if (!panelJuego.isAncestorOf(colorSelector)) {
-            panelJuego.agregarComponente(colorSelector, (Juego.GAME_ANCHO - 200) / 2, 218, 200, 30);
+            panelJuego.agregarComponente(colorSelector, (Juego.GAME_ANCHO - 200) / 2, 140, 200, 30);
         }
         if (!panelJuego.isAncestorOf(botonJugar)) {
-            panelJuego.agregarComponente(botonJugar, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 80, 200, 30);
+            //panelJuego.agregarComponente(botonJugar, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 80, 200, 30);
+            int botonAncho = botonJugar.getPreferredSize().width;
+            int botonAlto = botonJugar.getPreferredSize().height;
+            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
+            panelJuego.agregarComponente(botonJugar, posX, Juego.GAME_ALTO - 110, botonAncho, botonAlto);
         }
-        g.drawString("Portaaviones", 600, 320);
+        g.drawString("Portaaviones", 600, 220);//antes 320 la Y
         if (!panelJuego.isAncestorOf(portaaviones)) {
-            panelJuego.agregarComponente(portaaviones, 600, 330, (30 * 4), 30);
+            panelJuego.agregarComponente(portaaviones, 600, 230, (30 * 4), 30);//330Y
         }
-        g.drawString("Crucero", 600, 390);
+        g.drawString("Crucero", 600, 290);//390
         if (!panelJuego.isAncestorOf(crucero)) {
-            panelJuego.agregarComponente(crucero, 600, 400, (30 * 3), 30);
+            panelJuego.agregarComponente(crucero, 600, 300, (30 * 3), 30);//400
         }
-        g.drawString("Submarino", 600, 460);
+        g.drawString("Submarino", 600, 360);
         if (!panelJuego.isAncestorOf(submarino)) {
-            panelJuego.agregarComponente(submarino, 600, 470, (30 * 2), 30);
+            panelJuego.agregarComponente(submarino, 600, 370, (30 * 2), 30);
         }
-        g.drawString("Barco", 600, 530);
+        g.drawString("Barco", 600, 430);
         if (!panelJuego.isAncestorOf(barco)) {
-            panelJuego.agregarComponente(barco, 600, 540, (30 * 1), 30);
+            panelJuego.agregarComponente(barco, 600, 440, (30 * 1), 30);
         }
     }
 
@@ -150,12 +154,12 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         this.tablero = new VistaTablero();
         this.tablero.setModo(ModoTableroStrategy.ORGANIZAR);
         this.colorSelector = VistaUtilidades.crearComboBox(VistaUtilidades.LISTA_COLORES_BARCO, 200, 30);
-        this.colorSelector.setSelectedItem("Negro");
-        this.botonJugar = VistaUtilidades.crearBoton("Jugar");
-        this.portaaviones = VistaUtilidades.crearBarcoVista((30 * 4), 30, VistaUtilidades.BARCO_NEGRO);
-        this.crucero = VistaUtilidades.crearBarcoVista((30 * 3), 30, VistaUtilidades.BARCO_NEGRO);
-        this.submarino = VistaUtilidades.crearBarcoVista((30 * 2), 30, VistaUtilidades.BARCO_NEGRO);
-        this.barco = VistaUtilidades.crearBarcoVista((30 * 1), 30, VistaUtilidades.BARCO_NEGRO);
+        this.colorSelector.setSelectedItem("Azul");
+        this.botonJugar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_JUGAR);
+        this.portaaviones = VistaUtilidades.crearBarcoVista((30 * 4), 30, VistaUtilidades.BARCO_AZUL);
+        this.crucero = VistaUtilidades.crearBarcoVista((30 * 3), 30, VistaUtilidades.BARCO_AZUL);
+        this.submarino = VistaUtilidades.crearBarcoVista((30 * 2), 30, VistaUtilidades.BARCO_AZUL);
+        this.barco = VistaUtilidades.crearBarcoVista((30 * 1), 30, VistaUtilidades.BARCO_AZUL);
     }
 
     /**
@@ -201,9 +205,9 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     public void mostrarMensajeJugadorEsperando(String nombreJugador) {
         if (labelEsperando == null) {
             labelEsperando = new JLabel(nombreJugador + " está esperando...");
-            labelEsperando.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+            labelEsperando.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
             labelEsperando.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-            panelJuego.agregarComponente(labelEsperando, (Juego.GAME_ANCHO - 300) / 2, Juego.GAME_ALTO - 40, 300, 30);
+            panelJuego.agregarComponente(labelEsperando, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 40, 300, 30);
         } else {
             labelEsperando.setText(nombreJugador + " está esperando...");
         }

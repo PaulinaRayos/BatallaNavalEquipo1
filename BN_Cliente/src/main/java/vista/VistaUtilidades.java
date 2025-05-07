@@ -44,6 +44,7 @@ public class VistaUtilidades {
     public static final String BOTON_CONTINUAR = "/recursos/botonConfirmar.png";
     public static final String BOTON_VOLVER = "/recursos/botonVolver.png";
     public static final String BOTON_REGRESAR = "/recursos/botonRegresar.png";
+    public static final String BOTON_JUGAR = "/recursos/botonJugar.png";
     
 
     // Colores componentes
@@ -64,12 +65,11 @@ public class VistaUtilidades {
     // Colores Tablero
     public static final Color COLOR_CELDAS_INVALIDAS = new Color(255, 125, 125, 128);
     public static final Color COLOR_VISTA_PREVIEW = new Color(255, 255, 0, 128);
-    public static final String[] LISTA_COLORES_BARCO = {"Rojo", "Azul", "Negro", "Blanco", "Verde"};
-    public static final Color BARCO_ROJO = new Color(180, 0, 0);
-    public static final Color BARCO_AZUL = new Color(0, 70, 180);
-    public static final Color BARCO_NEGRO = new Color(30, 30, 30);
+    public static final String[] LISTA_COLORES_BARCO = {"Rojo", "Azul", "Blanco", "Verde"};
+    public static final Color BARCO_ROJO = new Color(226, 28, 8);
+    public static final Color BARCO_AZUL = new Color(13, 126, 255);
     public static final Color BARCO_BLANCO = new Color(250, 250, 250);
-    public static final Color BARCO_VERDE = new Color(5, 117, 6);
+    public static final Color BARCO_VERDE = new Color(41, 167, 15);
 
     // Fuentes comunes
     public static final Font FUENTE_TITULO = new Font("Arial Black", Font.PLAIN, 40);//Antes Stencil
@@ -259,8 +259,8 @@ public class VistaUtilidades {
         comboBox.setFont(VistaUtilidades.FUENTE_CAMPO_TEXTO);
 
         // Configuración de colores
-        comboBox.setBackground(COLOR_BOTON_FONDO);
-        comboBox.setForeground(COLOR_BOTON_TEXTO);
+        comboBox.setBackground(COLOR_BOTON_TEXTO);
+        comboBox.setForeground(COLOR_CAMPO_TEXTO_FONDO);
 
         return comboBox;
     }
@@ -303,14 +303,12 @@ public class VistaUtilidades {
                 return BARCO_ROJO;
             case "Azul":
                 return BARCO_AZUL;
-            case "Negro":
-                return BARCO_NEGRO;
             case "Blanco":
                 return BARCO_BLANCO;
             case "Verde":
                 return BARCO_VERDE;
             default:
-                return BARCO_NEGRO; // Color por defecto
+                return BARCO_AZUL; // Color por defecto
         }
     }
 
