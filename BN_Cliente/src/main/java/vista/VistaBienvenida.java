@@ -4,6 +4,7 @@
  */
 package vista;
 
+import interfaz.IVistaPanel;
 import vistaModelo.Juego;
 import vistaModelo.VistaModeloBienvenida;
 import java.awt.Graphics;

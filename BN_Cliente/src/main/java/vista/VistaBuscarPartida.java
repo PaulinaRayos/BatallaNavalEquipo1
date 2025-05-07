@@ -4,6 +4,7 @@
  */
 package vista;
 
+import interfaz.IVistaPanel;
 import interfaz.IVistaBuscarPartida;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

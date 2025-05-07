@@ -4,6 +4,7 @@
  */
 package vista;
 
+import interfaz.IVistaPanel;
 import interfaz.IVistaJuego;
 import java.awt.Color;
 import java.awt.Cursor;

@@ -4,6 +4,9 @@
  */
 package vista;
 
+import interfaz.IVistaPanel;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import vistaModelo.Juego;
 import vistaModelo.VistaModeloEstadisticas;
 
@@ -21,82 +25,85 @@ import vistaModelo.VistaModeloEstadisticas;
  * @author pauli
  */
 public class VistaEstadisticas implements IVistaPanel {
+    // ==================== CONSTANTES DE ESTILO ====================
 
+    private static final Color COLOR_FONDO = new Color(5, 20, 40);
+    private static final Color COLOR_TEXTO = new Color(180, 220, 255);
+    private static final Color COLOR_DESTACADO = new Color(255, 210, 0);
+    private static final Color COLOR_BOTON_FONDO = new Color(0, 60, 120);
+    private static final Color COLOR_BOTON_TEXTO = Color.WHITE;
+    private static final Color COLOR_TABLA_FONDO = new Color(10, 30, 60, 200);
+    private static final Color COLOR_TABLA_TEXTO = new Color(180, 200, 255);
+    private static final Color COLOR_TABLA_GRID = new Color(100, 140, 200);
+
+    private static final Font FUENTE_TITULO = new Font("Stencil", Font.BOLD, 32);
+    private static final Font FUENTE_SUBTITULO = new Font("Arial Narrow", Font.BOLD, 20);
+    private static final Font FUENTE_NORMAL = new Font("Arial", Font.PLAIN, 14);
+
+    private static final String TEXTO_TITULO = "RESULTADOS DE LA BATALLA";
+    private static final String TEXTO_GANADOR = "ALMIRANTE VICTORIOSO: ";
+    private static final String TEXTO_TIEMPO = "DURACIÓN DE LA BATALLA: ";
+    private static final String TEXTO_BOTON_REJUGAR = "NUEVA BATALLA";
+    private static final String TEXTO_BOTON_SALIR = "RETIRAR FLOTA";
+
+    // ==================== ATRIBUTOS ====================
     private VistaPanel panelJuego;
     private VistaModeloEstadisticas vistaModelo;
     private JTable tablaEstadisticas;
-    private JButton btnVolverAJugar;
-    private JButton btnSalir;
+    private JButton btnVolverAJugar, btnSalir;
     private Map<String, Object> estadisticas;
-    private String ganador;
-    private String tiempoPartida;
-
-    private JLabel lblGanador;
-    private JLabel lblTiempoPartida;
-    private JLabel lblEstadisticas;
+    private String ganador, tiempoPartida;
+    private JLabel lblGanador, lblTiempoPartida, lblTitulo;
     private JScrollPane scrollPane;
 
-    public VistaEstadisticas(VistaPanel panelJuego, Map<String, Object> estadisticas, String ganador, String tiempoPartida, Juego juego) {
+    public VistaEstadisticas(VistaPanel panelJuego, Map<String, Object> estadisticas,
+            String ganador, String tiempoPartida, Juego juego) {
         this.panelJuego = panelJuego;
         this.estadisticas = estadisticas;
         this.ganador = ganador;
         this.tiempoPartida = tiempoPartida;
         this.vistaModelo = new VistaModeloEstadisticas(juego);
         crearComponentes();
+        configurarComponentes();
         accionesComponentes();
     }
 
     @Override
     public void crearComponentes() {
-        // Crear etiquetas para el ganador y el tiempo de partida
-        lblGanador = new JLabel("Ganador: " + ganador, SwingConstants.CENTER);
-        lblGanador.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblGanador.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        // Título principal
+        lblTitulo = new JLabel(TEXTO_TITULO, SwingConstants.CENTER);
+        lblTitulo.setFont(FUENTE_TITULO);
+        lblTitulo.setForeground(COLOR_DESTACADO);
 
-        lblTiempoPartida = new JLabel("Tiempo de la partida: " + tiempoPartida, SwingConstants.CENTER);
-        lblTiempoPartida.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblTiempoPartida.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
+        // Etiqueta del ganador
+        lblGanador = new JLabel(TEXTO_GANADOR + ganador, SwingConstants.CENTER);
+        lblGanador.setFont(FUENTE_SUBTITULO);
+        lblGanador.setForeground(COLOR_DESTACADO);
 
-        // Crear la tabla de estadísticas
+        // Etiqueta del tiempo
+        lblTiempoPartida = new JLabel(TEXTO_TIEMPO + tiempoPartida, SwingConstants.CENTER);
+        lblTiempoPartida.setFont(FUENTE_SUBTITULO);
+        lblTiempoPartida.setForeground(COLOR_TEXTO);
+
+        // Tabla de estadísticas
         crearTablaEstadisticas();
 
-        // Crear los botones
-        btnVolverAJugar = VistaUtilidades.crearBoton("Volver a jugar");
-        btnSalir = VistaUtilidades.crearBoton("Salir");
-
-        // Configurar los componentes y agregarlos al panel
-        configurarComponentes();
+        // Botones con estilo naval
+        btnVolverAJugar = crearBoton(TEXTO_BOTON_REJUGAR);
+        btnSalir = crearBoton(TEXTO_BOTON_SALIR);
     }
 
-    @Override
-    public void accionesComponentes() {
-        btnVolverAJugar.addActionListener(e -> vistaModelo.volverAJugar());
-        btnSalir.addActionListener(e -> vistaModelo.salirAlMenu());
-    }
-
-    @Override
-    public void dibujar(Graphics g) {
-        // Título y fondo
-        g.setColor(VistaUtilidades.COLOR_FONDO);
-        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
-        g.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
-        g.setFont(VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Estadísticas de la Partida", 50, VistaUtilidades.FUENTE_TITULO);
-    }
-
-    @Override
-    public void quitarComponentes() {
-        panelJuego.quitarComponente(lblGanador);
-        panelJuego.quitarComponente(lblTiempoPartida);
-        panelJuego.quitarComponente(lblEstadisticas);
-        panelJuego.quitarComponente(scrollPane);
-        panelJuego.quitarComponente(btnVolverAJugar);
-        panelJuego.quitarComponente(btnSalir);
-
+    private JButton crearBoton(String texto) {
+        JButton boton = new JButton(texto);
+        boton.setFont(FUENTE_SUBTITULO);
+        boton.setBackground(COLOR_BOTON_FONDO);
+        boton.setForeground(COLOR_BOTON_TEXTO);
+        boton.setBorderPainted(false);
+        boton.setFocusPainted(false);
+        return boton;
     }
 
     private void crearTablaEstadisticas() {
-        // Obtener los nombres de los jugadores y las estadísticas
         String[] nombresJugadores = obtenerNombresJugadores();
         String[] nombresEstadisticas = {
             "Naves Destruidas",
@@ -106,38 +113,31 @@ public class VistaEstadisticas implements IVistaPanel {
             "Disparos Totales"
         };
 
-        // Crear el modelo de la tabla
         String[] columnasTabla = new String[nombresJugadores.length + 1];
-        columnasTabla[0] = ""; // Primera columna sin encabezado
+        columnasTabla[0] = "";
         System.arraycopy(nombresJugadores, 0, columnasTabla, 1, nombresJugadores.length);
 
         DefaultTableModel modeloTabla = new DefaultTableModel(columnasTabla, 0);
-
-        // Agregar los datos al modelo
         Object[][] datos = obtenerDatosEstadisticas(nombresEstadisticas);
+
         for (Object[] fila : datos) {
             modeloTabla.addRow(fila);
         }
 
-        // Crear la tabla
         tablaEstadisticas = new JTable(modeloTabla);
-        
-        // colocar las fuentes
-        tablaEstadisticas.setFont(VistaUtilidades.FUENTE_CAMPO_TEXTO);
-        tablaEstadisticas.setForeground(VistaUtilidades.COLOR_BOTON_FONDO);
-        tablaEstadisticas.setBackground(VistaUtilidades.COLOR_BOTON_TEXTO);
-
-        tablaEstadisticas.getTableHeader().setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        tablaEstadisticas.getTableHeader().setForeground(VistaUtilidades.COLOR_BOTON_TEXTO);
-        tablaEstadisticas.getTableHeader().setBackground(VistaUtilidades.COLOR_BOTON_FONDO);
-
-        // Configurar la tabla
+        tablaEstadisticas.setFont(FUENTE_NORMAL);
+        tablaEstadisticas.setForeground(COLOR_TABLA_TEXTO);
+        tablaEstadisticas.setBackground(COLOR_TABLA_FONDO);
+        tablaEstadisticas.setGridColor(COLOR_TABLA_GRID);
         tablaEstadisticas.setEnabled(false);
+
+        JTableHeader header = tablaEstadisticas.getTableHeader();
+        header.setFont(FUENTE_SUBTITULO);
+        header.setForeground(COLOR_BOTON_TEXTO);
+        header.setBackground(COLOR_BOTON_FONDO);
     }
 
     private String[] obtenerNombresJugadores() {
-        // Obtener los nombres de los jugadores de las estadísticas
-        // Asumiendo que las claves son los IDs de los jugadores
         Set<String> idsJugadores = estadisticas.keySet();
         String[] nombres = new String[idsJugadores.size()];
         int index = 0;
@@ -149,56 +149,56 @@ public class VistaEstadisticas implements IVistaPanel {
     }
 
     private Object[][] obtenerDatosEstadisticas(String[] nombresEstadisticas) {
-        // Obtener los datos de las estadísticas para cada jugador
         Set<String> idsJugadores = estadisticas.keySet();
         int numJugadores = idsJugadores.size();
-        int numEstadisticas = nombresEstadisticas.length;
+        Object[][] datos = new Object[nombresEstadisticas.length][numJugadores + 1];
 
-        Object[][] datos = new Object[numEstadisticas][numJugadores + 1]; // +1 para el nombre de la estadística
-
-        int row = 0;
-        for (String nombreEstadistica : nombresEstadisticas) {
-            datos[row][0] = nombreEstadistica; // Primera columna: nombre de la estadística
+        for (int row = 0; row < nombresEstadisticas.length; row++) {
+            datos[row][0] = nombresEstadisticas[row];
             int col = 1;
             for (String id : idsJugadores) {
                 Map<String, Object> statsJugador = (Map<String, Object>) estadisticas.get(id);
-                Object valor = statsJugador.get(nombreEstadistica.toLowerCase().replace(" ", "_"));
-                datos[row][col++] = valor;
+                String key = nombresEstadisticas[row].toLowerCase().replace(" ", "_");
+                datos[row][col++] = statsJugador.get(key);
             }
-            row++;
         }
-
         return datos;
     }
 
-    private void configurarComponentes() {
-        // Posicionar las etiquetas
-        lblGanador.setBounds(0, 100, Juego.GAME_ANCHO, 30);
-        panelJuego.agregarComponente(lblGanador, 0, 100, Juego.GAME_ANCHO, 30);
-
-        lblTiempoPartida.setBounds(0, 140, Juego.GAME_ANCHO, 30);
-        panelJuego.agregarComponente(lblTiempoPartida, 0, 140, Juego.GAME_ANCHO, 30);
-
-        // Posicionar la etiqueta "Estadísticas"
-        lblEstadisticas = new JLabel("Estadísticas", SwingConstants.CENTER);
-        lblEstadisticas.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        lblEstadisticas.setForeground(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
-        lblEstadisticas.setBounds(0, 180, Juego.GAME_ANCHO, 30);
-        panelJuego.agregarComponente(lblEstadisticas, 0, 180, Juego.GAME_ANCHO, 30);
-
-        // Configurar y agregar la tabla
-        scrollPane = new JScrollPane(tablaEstadisticas);
-        scrollPane.setBounds(150, 220, 600, 115);
-        panelJuego.agregarComponente(scrollPane, 150, 220, 600, 115);
-
-        // Configurar y agregar los botones
-        panelJuego.agregarComponente(btnVolverAJugar, ((Juego.GAME_ANCHO / 2) - 230), 660, 200, 30);
-
-        // Configurar y agregar los botones
-        panelJuego.agregarComponente(btnSalir, ((Juego.GAME_ANCHO / 2) + 90), 660, 200, 30);
-
-        panelJuego.repaint();
-
+    @Override
+    public void dibujar(Graphics g) {
+        g.setColor(COLOR_FONDO);
+        g.fillRect(0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO);
     }
 
+    private void configurarComponentes() {
+        // Posicionamiento con parámetros correctos (x, y, width, height)
+        panelJuego.agregarComponente(lblTitulo, 0, 70, Juego.GAME_ANCHO, 40);
+        panelJuego.agregarComponente(lblGanador, 0, 120, Juego.GAME_ANCHO, 30);
+        panelJuego.agregarComponente(lblTiempoPartida, 0, 160, Juego.GAME_ANCHO, 30);
+
+        scrollPane = new JScrollPane(tablaEstadisticas);
+        panelJuego.agregarComponente(scrollPane, 100, 200, 700, 150);
+
+        panelJuego.agregarComponente(btnVolverAJugar, 150, 400, 200, 40);
+        panelJuego.agregarComponente(btnSalir, 450, 400, 200, 40);
+
+        panelJuego.repaint();
+    }
+
+    @Override
+    public void accionesComponentes() {
+        btnVolverAJugar.addActionListener(e -> vistaModelo.volverAJugar());
+        btnSalir.addActionListener(e -> vistaModelo.salirAlMenu());
+    }
+
+    @Override
+    public void quitarComponentes() {
+        panelJuego.quitarComponente(lblTitulo);
+        panelJuego.quitarComponente(lblGanador);
+        panelJuego.quitarComponente(lblTiempoPartida);
+        panelJuego.quitarComponente(scrollPane);
+        panelJuego.quitarComponente(btnVolverAJugar);
+        panelJuego.quitarComponente(btnSalir);
+    }
 }

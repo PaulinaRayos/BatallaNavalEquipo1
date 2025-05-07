@@ -4,6 +4,7 @@
  */
 package vista;
 
+import interfaz.IVistaPanel;
 import estados.EstadoMenu;
 import interfaz.IVistaSalaEspera;
 import java.awt.Graphics;
