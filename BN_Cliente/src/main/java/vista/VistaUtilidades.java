@@ -36,6 +36,7 @@ public class VistaUtilidades {
 
     // Imagenes
     public static final String PORTADA = "/recursos/batallaNaval.png";
+    public static final String TITULO = "/recursos/Titulo.png";
     public static final String FONDO_TABLERO = "/recursos/FondoTablero.png";
     public static final String BOTON_INICIO = "/recursos/botonInicio.png";
     public static final String BOTON_UNIRSE = "/recursos/botonUnirse.png";
@@ -66,7 +67,7 @@ public class VistaUtilidades {
 
     // Colores Tablero
     public static final Color COLOR_CELDAS_INVALIDAS = new Color(255, 125, 125, 128);
-    public static final Color COLOR_VISTA_PREVIEW = new Color(255, 255, 0, 128);
+    public static final Color COLOR_VISTA_PREVIEW = new Color(50, 255, 50, 128);
     public static final String[] LISTA_COLORES_BARCO = {"Rojo", "Azul", "Blanco", "Verde"};
     public static final Color BARCO_ROJO = new Color(226, 28, 8);
     public static final Color BARCO_AZUL = new Color(13, 126, 255);
@@ -75,10 +76,10 @@ public class VistaUtilidades {
 
     // Fuentes comunes
     public static final Font FUENTE_TITULO = new Font("Arial Black", Font.PLAIN, 40);//Antes Stencil
-    public static final Font FUENTE_SUBTITULO = new Font("SansSerif", Font.BOLD, 20);
+    public static final Font FUENTE_SUBTITULO = new Font("Segoe UI Semibold", Font.BOLD, 20);
     public static final Font FUENTE_BOTON = new Font("SansSerif", Font.BOLD, 18);
-    public static final Font FUENTE_CAMPO_TEXTO = new Font("SansSerif", Font.PLAIN, 16);
-    public static final Font FUENTE_RESULTADO = new Font("Stencil", Font.PLAIN, 70);
+    public static final Font FUENTE_CAMPO_TEXTO = new Font("Segoe UI Semibold", Font.PLAIN, 16);
+    public static final Font FUENTE_RESULTADO = new Font("Segoe UI Semibold", Font.PLAIN, 70);
 
     /**
      * Método para dibujar texto centrado horizontalmente.

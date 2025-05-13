@@ -24,6 +24,11 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * vista.
      */
     private VistaPanel vistaPanel;
+    
+    /**
+     * Vista del tablero vacío.
+     */
+    private VistaTablero tablero;
 
     /**
      * Campo de texto donde el jugador ingresa su nombre.
@@ -39,6 +44,11 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
+    
+    /**
+     * Imagen del titulo utilizado en la vista de bienvenida.
+     */
+    private BufferedImage titulo;
 
     /**
      * Vista modelo para gestionar la lógica de la vista de bienvenida.
@@ -73,14 +83,21 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
         }
+        // Dibujar la imagen del titulo en la pantalla
+        if (titulo != null) {
+            g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 60, titulo.getWidth(), titulo.getHeight(), null);
+        }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Bienvenido a Batalla Naval", 60, VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Por favor, ingrese su nombre de usuario", 550, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "El nombre puede ser de hasta 15 caracteres y estar compuesto por letras y numeros", 580, VistaUtilidades.FUENTE_SUBTITULO);
+        g.setFont(VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "Por favor, ingrese su nombre de usuario", 550, VistaUtilidades.FUENTE_SUBTITULO);
+        g.drawString("Nombre:", 125, 220);
+        g.drawString("Utiliza 15 caracteres", 125, 285);
+        g.drawString("máximo y/o números", 125, 315);
+        //VistaUtilidades.dibujarTextoCentrado(g, "El nombre puede ser de hasta 15 caracteres y estar compuesto por letras y numeros", 580, VistaUtilidades.FUENTE_SUBTITULO);
 
         if (!vistaPanel.isAncestorOf(campoNombre)) {
-            vistaPanel.agregarComponente(campoNombre, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 120, 200, 30);
+            vistaPanel.agregarComponente(campoNombre, 125, 230, 200, 30);
         }
         if (!vistaPanel.isAncestorOf(botonIniciar)) {
             //vistaPanel.agregarComponente(botonIniciar, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 80, 200, 40);
@@ -92,7 +109,12 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
 
             // Agregar el botón con sus dimensiones originales
-            vistaPanel.agregarComponente(botonIniciar, posX, Juego.GAME_ALTO - 80, botonAncho, botonAlto);
+            vistaPanel.agregarComponente(botonIniciar, posX, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
+        }
+        
+        if (!vistaPanel.isAncestorOf(tablero)) {
+            //tablero.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            vistaPanel.agregarComponente(tablero, 490, 200, 300, 300);
         }
 
     }
@@ -105,6 +127,7 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
         campoNombre = VistaUtilidades.crearCampoTexto(60);
         //botonIniciar = VistaUtilidades.crearBoton("Iniciar Juego");
         botonIniciar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_INICIO);
+        this.tablero = new VistaTablero();
     }
 
     /**
@@ -124,6 +147,17 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
     public void quitarComponentes() {
         vistaPanel.quitarComponente(campoNombre);
         vistaPanel.quitarComponente(botonIniciar);
+        vistaPanel.quitarComponente(tablero);
+    }
+    
+    /**
+     * Obtiene la vista del tablero.
+     *
+     * @return VistaTablero utilizada para organizar las unidades.
+     */
+    
+    public VistaTablero getTablero() {
+        return tablero;
     }
 
     /**
@@ -131,6 +165,7 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      */
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+        this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
 
     }
 

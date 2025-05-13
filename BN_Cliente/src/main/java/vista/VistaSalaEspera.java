@@ -32,6 +32,11 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
     private BufferedImage portada;
     
     /**
+     * Imagen del titulo utilizado en la vista de sala
+     */
+    private BufferedImage titulo;
+    
+    /**
      * Botón para que el jugador indique que está listo para continuar.
      */
     private JButton botonContinuar;
@@ -98,14 +103,18 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
         // Dibujar la imagen de fondo que ocupa toda la pantalla
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } 
+        }
+        // Dibujar la imagen del titulo en la pantalla
+        if (titulo != null) {
+            g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 60, titulo.getWidth(), titulo.getHeight(), null);
+        }
       
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "SALA DE ESPERA", 60, VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Proporciona el código que se muestra debajo a otro jugador", 150, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a esta sala", 180, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Código de la sala:", 250, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, codigoAcceso != null ? codigoAcceso : "Esperando...", 280, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "SALA DE ESPERA", 60, VistaUtilidades.FUENTE_TITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Proporciona el código que se muestra debajo a otro jugador", 185, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a esta sala", 215, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Código de la sala:", 290, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, codigoAcceso != null ? codigoAcceso : "Esperando...", 310, VistaUtilidades.FUENTE_SUBTITULO);
         VistaUtilidades.dibujarTextoCentrado(g, "Lista de Jugadores en la sala", 410, VistaUtilidades.FUENTE_SUBTITULO);
         
         // Obtener dimensiones del botón
@@ -302,6 +311,6 @@ public class VistaSalaEspera implements IVistaPanel, IVistaSalaEspera{
     
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
-
+        this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
 }
