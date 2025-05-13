@@ -43,6 +43,11 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
     private BufferedImage portada;
     
     /**
+     * Imagen del titulo utilizado en la vista de bienvenida.
+     */
+    private BufferedImage titulo;
+    
+    /**
      * Presentador asociado a la vista del menú.
      */
     private VistaModeloMenu vistaModelo;
@@ -72,9 +77,13 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
         }
+        // Dibujar la imagen del titulo en la pantalla
+        if (titulo != null) {
+            g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 60, titulo.getWidth(), titulo.getHeight(), null);
+        }
 
-        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 75, VistaUtilidades.FUENTE_TITULO);
+//        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
+//        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 75, VistaUtilidades.FUENTE_TITULO);
 
         // Agregar componentes al panel si no están ya agregados
         if (!panelJuego.isAncestorOf(botonUnirsePartida)) {
@@ -139,6 +148,7 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
     
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
+        this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
 
     /**

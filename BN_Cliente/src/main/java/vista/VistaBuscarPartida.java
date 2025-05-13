@@ -29,6 +29,11 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
     private BufferedImage portada;
     
     /**
+     * Imagen de titulo utilizada en la vista de buscar.
+     */
+    private BufferedImage titulo;
+    
+    /**
      * Botón para continuar y unirse a la partida.
      */
     private JButton botonContinuar;
@@ -71,13 +76,17 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
     public void dibujar(Graphics g) {
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } 
+        }
+        // Dibujar la imagen del titulo en la pantalla
+        if (titulo != null) {
+            g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 60, titulo.getWidth(), titulo.getHeight(), null);
+        }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "BUSCAR PARTIDA", 60, VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Introduce el codigo de la partida que deseas unirte", 150, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a la sala", 180, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Codigo de la sala:", 250, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "BUSCAR PARTIDA", 60, VistaUtilidades.FUENTE_TITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Introduce el código de la partida que deseas unirte", 185, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "para que se pueda unir a la sala", 215, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Código de la sala:", 270, VistaUtilidades.FUENTE_SUBTITULO);
 
         // Agregar componentes al panel si no están ya agregados
         int botonAncho = botonContinuar.getPreferredSize().width;
@@ -183,7 +192,7 @@ public class VistaBuscarPartida implements IVistaPanel, IVistaBuscarPartida{
      
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
-
+        this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
 
 }

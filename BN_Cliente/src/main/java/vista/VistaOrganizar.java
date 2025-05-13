@@ -78,6 +78,11 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
+    
+    /**
+     * Imagen de titulo utilizada en la vista de buscar.
+     */
+    private BufferedImage titulo;
 
     /**
      * Constructor de la clase VistaOrganizar. Inicializa el panel de juego,
@@ -105,21 +110,25 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
         }
+        // Dibujar la imagen del titulo en la pantalla
+        if (titulo != null) {
+            g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 30, titulo.getWidth(), titulo.getHeight(), null);
+        }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 60, VistaUtilidades.FUENTE_TITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Coloca tus naves en el tablero", 100, VistaUtilidades.FUENTE_SUBTITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 60, VistaUtilidades.FUENTE_TITULO);
+        //VistaUtilidades.dibujarTextoCentrado(g, "Coloca tus naves en el tablero", 100, VistaUtilidades.FUENTE_SUBTITULO);
         //VistaUtilidades.dibujarTextoCentrado(g, "Presiona click izquierdo y arrastra la nave a las posiciones disponibles", 120, VistaUtilidades.FUENTE_SUBTITULO);
         //VistaUtilidades.dibujarTextoCentrado(g, "Presiona click derecho para rotar la nave (si hay espacio)", 140, VistaUtilidades.FUENTE_SUBTITULO);
         //VistaUtilidades.dibujarTextoCentrado(g, "Una nave no puede estar adyacente o sobre otra nave", 160, VistaUtilidades.FUENTE_SUBTITULO);
-        VistaUtilidades.dibujarTextoCentrado(g, "Color de naves:", 125, VistaUtilidades.FUENTE_SUBTITULO);
+        VistaUtilidades.dibujarTextoCentrado(g, "Color de naves:", 155, VistaUtilidades.FUENTE_SUBTITULO);
 
         if (!panelJuego.isAncestorOf(tablero)) {
             tablero.setCursor(new Cursor(Cursor.HAND_CURSOR));
             panelJuego.agregarComponente(tablero, 200, 200, 300, 300);
         }
         if (!panelJuego.isAncestorOf(colorSelector)) {
-            panelJuego.agregarComponente(colorSelector, (Juego.GAME_ANCHO - 200) / 2, 140, 200, 30);
+            panelJuego.agregarComponente(colorSelector, (Juego.GAME_ANCHO - 200) / 2, 165, 200, 30);
         }
         if (!panelJuego.isAncestorOf(botonJugar)) {
             //panelJuego.agregarComponente(botonJugar, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 80, 200, 30);
@@ -276,7 +285,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     }
      public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
-
+        this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
     
 }
