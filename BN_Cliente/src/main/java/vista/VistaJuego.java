@@ -274,11 +274,6 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             if (!panelJuego.isAncestorOf(tableroJugador)) {
                 panelJuego.agregarComponente(tableroJugador, 100, 90, 300, 300);
             }
-            g.drawString("Estado de la flota", 100, 420);
-            g.drawString("Portaaviones", 100, 450);
-            g.drawString("Cruceros    ", 100, 510);
-            g.drawString("Submarinos  ", 100, 570);
-            g.drawString("Barcos      ", 100, 630);
 
             // INFORMACION DEL OPONENTE
             g.drawString("Tablero de", 500, 40);
@@ -539,9 +534,6 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         int n = 30;
         // Portaaviones
         while (numNave < 2) {
-            if (!panelJuego.isAncestorOf(unidadesJugador.get(numNave))) {
-                panelJuego.agregarComponente(unidadesJugador.get(numNave), xJugador + n, 460, 30, 30);
-            }
             if (!panelJuego.isAncestorOf(unidadesEnemigo.get(numNave))) {
                 panelJuego.agregarComponente(unidadesEnemigo.get(numNave), xEnemigo - n, 460, 30, 30);
             }
@@ -552,9 +544,6 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         n = 30;
         // cruceros
         while (numNave < 4) {
-            if (!panelJuego.isAncestorOf(unidadesJugador.get(numNave))) {
-                panelJuego.agregarComponente(unidadesJugador.get(numNave), xJugador + n, 520, 30, 30);
-            }
             if (!panelJuego.isAncestorOf(unidadesEnemigo.get(numNave))) {
                 panelJuego.agregarComponente(unidadesEnemigo.get(numNave), xEnemigo - n, 520, 30, 30);
             }
@@ -565,9 +554,6 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         n = 30;
         // submarinos
         while (numNave < 8) {
-            if (!panelJuego.isAncestorOf(unidadesJugador.get(numNave))) {
-                panelJuego.agregarComponente(unidadesJugador.get(numNave), xJugador + n, 580, 30, 30);
-            }
             if (!panelJuego.isAncestorOf(unidadesEnemigo.get(numNave))) {
                 panelJuego.agregarComponente(unidadesEnemigo.get(numNave), xEnemigo - n, 580, 30, 30);
             }
@@ -578,9 +564,6 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         n = 30;
         // Barcos
         while (numNave < 11) {
-            if (!panelJuego.isAncestorOf(unidadesJugador.get(numNave))) {
-                panelJuego.agregarComponente(unidadesJugador.get(numNave), xJugador + n, 640, 30, 30);
-            }
             if (!panelJuego.isAncestorOf(unidadesEnemigo.get(numNave))) {
                 panelJuego.agregarComponente(unidadesEnemigo.get(numNave), xEnemigo - n, 640, 30, 30);
             }
