@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import tableroStrategy.ModoTableroStrategy;
 import vistaModelo.Juego;
 import vistaModelo.VistaModeloOrganizar;
+import vistaModelo.VistaModeloTablero;
 
 /**
  *
@@ -38,6 +39,11 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * Selector de color para las naves.
      */
     private JComboBox<String> colorSelector;
+    
+    /**
+     * Botón para colocar portaviones
+     */
+    private JButton botonPortaaviones;
 
     /**
      * Botón para confirmar que el jugador está listo para comenzar el juego.
@@ -73,6 +79,8 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * vistaModelo que maneja la lógica de organización de las naves.
      */
     private VistaModeloOrganizar vistaModelo;
+    
+    
 
     /**
      * Imagen de portada utilizada en la vista de bienvenida.
@@ -83,6 +91,8 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * Imagen de titulo utilizada en la vista de buscar.
      */
     private BufferedImage titulo;
+    
+    private int contadorPortaaviones = 0;
 
     /**
      * Constructor de la clase VistaOrganizar. Inicializa el panel de juego,
@@ -93,6 +103,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     public VistaOrganizar(VistaPanel panelJuego) {
         this.panelJuego = panelJuego;
         this.vistaModelo = new VistaModeloOrganizar(this);
+        
         crearComponentes();
         accionesComponentes();
         cargarImagenes();
@@ -137,7 +148,10 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
             panelJuego.agregarComponente(botonJugar, posX, Juego.GAME_ALTO - 110, botonAncho, botonAlto);
         }
-        g.drawString("Portaaviones", 600, 220);//antes 320 la Y
+//        g.drawString("Portaaviones", 600, 220);antes 320 la Y
+        if (!panelJuego.isAncestorOf(botonPortaaviones)) {
+            panelJuego.agregarComponente(botonPortaaviones, 600,220, 200, 30);
+        }
         if (!panelJuego.isAncestorOf(portaaviones)) {
             panelJuego.agregarComponente(portaaviones, 600, 230, (30 * 4), 30);//330Y
         }
@@ -169,6 +183,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         this.crucero = VistaUtilidades.crearBarcoVista((30 * 3), 30, VistaUtilidades.BARCO_AZUL);
         this.submarino = VistaUtilidades.crearBarcoVista((30 * 2), 30, VistaUtilidades.BARCO_AZUL);
         this.barco = VistaUtilidades.crearBarcoVista((30 * 1), 30, VistaUtilidades.BARCO_AZUL);
+        this.botonPortaaviones = VistaUtilidades.crearBoton("Colocar PortaAviones");
     }
 
     /**
@@ -186,6 +201,17 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
             String nombreColorSeleccionado = (String) colorSelector.getSelectedItem();
             vistaModelo.cambiarColorNaves(nombreColorSeleccionado);
         });
+        
+        botonPortaaviones.addActionListener(e -> {
+          System.out.println("Click en botonPortaaviones. contadorPortaaviones antes: " + contadorPortaaviones);
+    if (contadorPortaaviones <= 1) {
+        
+        tablero.colocarNave(contadorPortaaviones);
+        contadorPortaaviones++;
+    }
+       System.out.println("contadorPortaaviones despues: " + contadorPortaaviones);
+        });
+
     }
 
     /**

@@ -83,7 +83,7 @@ public class VistaModeloTablero {
     public VistaModeloTablero(VistaTablero vista) {
         this.vista = vista;
         this.modeloTablero = new ModeloTablero();
-        inicializarNaves();
+        
     }
 /**
      * Maneja el evento cuando se presiona el ratón en el tablero.
@@ -400,15 +400,35 @@ public class VistaModeloTablero {
     /**
      * Inicializa las naves en el tablero en sus posiciones predeterminadas.
      */
-    private void inicializarNaves() {
+    public void inicializarNaves(int x) {
         // Lista para almacenar las unidades creadas
         List<ModeloUnidad> unidades = new ArrayList<>();
 
         // Crear 2 naves de tamaño 4
-        unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
-        unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
+        
+        
 
-        // Crear 2 naves de tamaño 3
+        
+
+        // Definir las posiciones iniciales de las naves
+        Map<ModeloUnidad, ModeloCasilla> posicionesIniciales = new HashMap<>();
+        if(x==0){
+        unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));   
+        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 1
+        System.out.println("Umprimirdo la nave o"+ x);
+        }
+        if(x==1){
+        unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
+        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 2
+            System.out.println("Se imprimio la nave 1"+ x);
+            System.out.println("doble");
+        }
+        
+        
+        
+         if(x>1 && x<=3){
+             
+               // Crear 2 naves de tamaño 3
         unidades.add(new ModeloUnidad(3, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
         unidades.add(new ModeloUnidad(4, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.CRUCERO.TAMANO));
 
@@ -422,23 +442,33 @@ public class VistaModeloTablero {
         unidades.add(new ModeloUnidad(9, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
         unidades.add(new ModeloUnidad(10, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
         unidades.add(new ModeloUnidad(11, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-
-        // Definir las posiciones iniciales de las naves
-        Map<ModeloUnidad, ModeloCasilla> posicionesIniciales = new HashMap<>();
-
-        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 1
-        posicionesIniciales.put(unidades.get(1), modeloTablero.getCasilla(6, 0)); // Nave 2
+        
+             
         posicionesIniciales.put(unidades.get(2), modeloTablero.getCasilla(2, 5)); // Nave 3
         posicionesIniciales.put(unidades.get(3), modeloTablero.getCasilla(5, 7)); // Nave 4
-        posicionesIniciales.put(unidades.get(4), modeloTablero.getCasilla(8, 2)); // Nave 5
+           
+         }
+         
+         if(x>3 && x<=7){
+             posicionesIniciales.put(unidades.get(4), modeloTablero.getCasilla(8, 2)); // Nave 5
         posicionesIniciales.put(unidades.get(5), modeloTablero.getCasilla(3, 0)); // Nave 6
         posicionesIniciales.put(unidades.get(6), modeloTablero.getCasilla(5, 2)); // Nave 7
         posicionesIniciales.put(unidades.get(7), modeloTablero.getCasilla(3, 9)); // Nave 8
-
-        // Posiciones para las naves de tamaño 1
+         }
+         
+          if(x>7 && x<=10){
+              // Posiciones para las naves de tamaño 1
         posicionesIniciales.put(unidades.get(8), modeloTablero.getCasilla(9, 9)); // Nave 9
         posicionesIniciales.put(unidades.get(9), modeloTablero.getCasilla(3, 3)); // Nave 10
         posicionesIniciales.put(unidades.get(10), modeloTablero.getCasilla(7, 5)); // Nave 11
+          }
+
+        
+        
+        
+        
+
+        
 
         // Colocar las naves en el tablero
         for (ModeloUnidad unidad : unidades) {
