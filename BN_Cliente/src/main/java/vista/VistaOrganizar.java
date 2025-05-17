@@ -190,21 +190,21 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         }
 //        g.drawString("Crucero", 600, 290);390
         if (!panelJuego.isAncestorOf(botonCrucero)) {
-            panelJuego.agregarComponente(botonCrucero, 600,290, 200, 30);
+            panelJuego.agregarComponente(botonCrucero, 600,290, 217, 30);
         }
         if (!panelJuego.isAncestorOf(crucero)) {
             panelJuego.agregarComponente(crucero, 600, 330, (30 * 3), 30);//400
         }
 //       g.drawString("Submarino", 600, 360);
         if (!panelJuego.isAncestorOf(botonSubmarino)) {
-            panelJuego.agregarComponente(botonSubmarino, 600,380, 200, 30);
+            panelJuego.agregarComponente(botonSubmarino, 600,380, 204, 30);
         }
         if (!panelJuego.isAncestorOf(submarino)) {
             panelJuego.agregarComponente(submarino, 600, 420, (30 * 2), 30);
         }
 //        g.drawString("Barco", 600, 430);
         if (!panelJuego.isAncestorOf(botonBarco)) {
-            panelJuego.agregarComponente(botonBarco, 600,470, 200, 30);
+            panelJuego.agregarComponente(botonBarco, 600,470, 210, 30);
         }
         if (!panelJuego.isAncestorOf(barco)) {
             panelJuego.agregarComponente(barco, 600, 510, (30 * 1), 30);
@@ -225,10 +225,10 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         this.crucero = VistaUtilidades.crearBarcoVista((30 * 3), 30, VistaUtilidades.BARCO_AZUL);
         this.submarino = VistaUtilidades.crearBarcoVista((30 * 2), 30, VistaUtilidades.BARCO_AZUL);
         this.barco = VistaUtilidades.crearBarcoVista((30 * 1), 30, VistaUtilidades.BARCO_AZUL);
-        this.botonPortaaviones = VistaUtilidades.crearBoton("Colocar PortaAviones");
-        this.botonCrucero = VistaUtilidades.crearBoton("Colocar Crucero");
-        this.botonSubmarino = VistaUtilidades.crearBoton("Colocar Sunbmarino");
-        this.botonBarco = VistaUtilidades.crearBoton("Colocar Barco");
+        this.botonPortaaviones = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_COLOCAR_PORTA_AVIONES);
+        this.botonCrucero = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_COLOCAR_CRUCERO);
+        this.botonSubmarino = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_COLOCAR_SUBMARINO);
+        this.botonBarco = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_COLOCAR_BARCO);
     }
 
     /**
