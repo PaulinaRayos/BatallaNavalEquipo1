@@ -83,7 +83,7 @@ public class VistaModeloTablero {
     public VistaModeloTablero(VistaTablero vista) {
         this.vista = vista;
         this.modeloTablero = new ModeloTablero();
-        inicializarNaves();
+        
     }
 /**
      * Maneja el evento cuando se presiona el ratón en el tablero.
@@ -400,45 +400,83 @@ public class VistaModeloTablero {
     /**
      * Inicializa las naves en el tablero en sus posiciones predeterminadas.
      */
-    private void inicializarNaves() {
+    public int inicializarNaves(int x) {
         // Lista para almacenar las unidades creadas
         List<ModeloUnidad> unidades = new ArrayList<>();
 
-        // Crear 2 naves de tamaño 4
-        unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
-        unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
-
-        // Crear 2 naves de tamaño 3
-        unidades.add(new ModeloUnidad(3, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
-        unidades.add(new ModeloUnidad(4, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.CRUCERO.TAMANO));
-
-        // Crear 4 naves de tamaño 2
-        unidades.add(new ModeloUnidad(5, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-        unidades.add(new ModeloUnidad(6, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-        unidades.add(new ModeloUnidad(7, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-        unidades.add(new ModeloUnidad(8, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.VERTICAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-
-        // Crear 3 naves de tamaño 1
-        unidades.add(new ModeloUnidad(9, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-        unidades.add(new ModeloUnidad(10, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-        unidades.add(new ModeloUnidad(11, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-
+        int Coloco = 0;
         // Definir las posiciones iniciales de las naves
         Map<ModeloUnidad, ModeloCasilla> posicionesIniciales = new HashMap<>();
-
+        
+        // Crear 2 naves de tamaño 4
+        if(x==0){
+        unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));   
         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 1
-        posicionesIniciales.put(unidades.get(1), modeloTablero.getCasilla(6, 0)); // Nave 2
-        posicionesIniciales.put(unidades.get(2), modeloTablero.getCasilla(2, 5)); // Nave 3
-        posicionesIniciales.put(unidades.get(3), modeloTablero.getCasilla(5, 7)); // Nave 4
-        posicionesIniciales.put(unidades.get(4), modeloTablero.getCasilla(8, 2)); // Nave 5
-        posicionesIniciales.put(unidades.get(5), modeloTablero.getCasilla(3, 0)); // Nave 6
-        posicionesIniciales.put(unidades.get(6), modeloTablero.getCasilla(5, 2)); // Nave 7
-        posicionesIniciales.put(unidades.get(7), modeloTablero.getCasilla(3, 9)); // Nave 8
-
-        // Posiciones para las naves de tamaño 1
-        posicionesIniciales.put(unidades.get(8), modeloTablero.getCasilla(9, 9)); // Nave 9
-        posicionesIniciales.put(unidades.get(9), modeloTablero.getCasilla(3, 3)); // Nave 10
-        posicionesIniciales.put(unidades.get(10), modeloTablero.getCasilla(7, 5)); // Nave 11
+        Coloco = 1;
+        }
+        if(x==1){
+        unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
+        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 2 
+        Coloco = 1;
+        }
+        
+        // Crear 2 naves de tamaño 3
+         if(x==2){
+         unidades.add(new ModeloUnidad(3, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 3
+         Coloco = 1;
+         }
+         
+         if(x==3){
+         unidades.add(new ModeloUnidad(4, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 4
+         Coloco = 1;
+         }
+          // Crear 4 naves de tamaño 2
+         if(x==4){
+        unidades.add(new ModeloUnidad(5, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 5
+         Coloco = 1;
+         }
+         
+         if(x==5){
+         unidades.add(new ModeloUnidad(6, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 6
+         Coloco = 1;
+         }
+         
+         if(x==6){
+          unidades.add(new ModeloUnidad(7, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+          posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 7
+          Coloco = 1;
+          }
+          
+         if(x==7){
+         unidades.add(new ModeloUnidad(8, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 8
+         Coloco = 1;
+           }
+         
+          // Crear 3 naves de tamaño 1
+         if(x==8){
+         unidades.add(new ModeloUnidad(9, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+          posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 9
+          Coloco = 1;
+         }
+         
+         if(x==9){
+         unidades.add(new ModeloUnidad(10, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 10
+         Coloco = 1;
+         }
+         
+         if(x==10){
+         unidades.add(new ModeloUnidad(11, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 11
+         Coloco = 1;
+         }
+         
+         
 
         // Colocar las naves en el tablero
         for (ModeloUnidad unidad : unidades) {
@@ -455,6 +493,7 @@ public class VistaModeloTablero {
                 } else {
                     // Manejar el caso en que no se pueda colocar la unidad
                     System.out.println("No se pudo colocar la unidad: " + unidad.getNumNave());
+                    Coloco=0;
                 }
             } else {
                 System.out.println("No se pudo calcular las casillas para la unidad: " + unidad.getNumNave());
@@ -463,6 +502,7 @@ public class VistaModeloTablero {
 
         // Actualizar la vista
         vista.actualizarVista();
+        return Coloco;
     }
 
     /**
