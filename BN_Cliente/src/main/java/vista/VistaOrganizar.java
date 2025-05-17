@@ -41,9 +41,24 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     private JComboBox<String> colorSelector;
     
     /**
-     * Botón para colocar portaviones
+     * Botón para colocar Portaviones
      */
     private JButton botonPortaaviones;
+    
+    /**
+     * Botón para colocar Crucero
+     */
+    private JButton botonCrucero;
+    
+    /**
+     * Botón para colocar Submarino
+     */
+    private JButton botonSubmarino;
+    
+    /**
+     * Botón para colocar Barco
+     */
+    private JButton botonBarco;
 
     /**
      * Botón para confirmar que el jugador está listo para comenzar el juego.
@@ -92,7 +107,25 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      */
     private BufferedImage titulo;
     
+    /**
+     * Contador para contar las naves para colocar en el tablero 
+     */
     private int contadorPortaaviones = 0;
+    
+    /**
+     * Contador para contar las naves para colocar en el tablero 
+     */
+    private int contadorCrucero = 2;
+    
+    /**
+     * Contador para contar las naves para colocar en el tablero 
+     */
+    private int contadorSubmarino = 4;
+    
+    /**
+     * Contador para contar las naves para colocar en el tablero 
+     */
+    private int contadorBarco = 8;
 
     /**
      * Constructor de la clase VistaOrganizar. Inicializa el panel de juego,
@@ -150,22 +183,31 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         }
 //        g.drawString("Portaaviones", 600, 220);antes 320 la Y
         if (!panelJuego.isAncestorOf(botonPortaaviones)) {
-            panelJuego.agregarComponente(botonPortaaviones, 600,220, 200, 30);
+            panelJuego.agregarComponente(botonPortaaviones, 600,200, 200, 30);
         }
         if (!panelJuego.isAncestorOf(portaaviones)) {
-            panelJuego.agregarComponente(portaaviones, 600, 230, (30 * 4), 30);//330Y
+            panelJuego.agregarComponente(portaaviones, 600, 240, (30 * 4), 30);//330Y
         }
-        g.drawString("Crucero", 600, 290);//390
+//        g.drawString("Crucero", 600, 290);390
+        if (!panelJuego.isAncestorOf(botonCrucero)) {
+            panelJuego.agregarComponente(botonCrucero, 600,290, 200, 30);
+        }
         if (!panelJuego.isAncestorOf(crucero)) {
-            panelJuego.agregarComponente(crucero, 600, 300, (30 * 3), 30);//400
+            panelJuego.agregarComponente(crucero, 600, 330, (30 * 3), 30);//400
         }
-        g.drawString("Submarino", 600, 360);
+//       g.drawString("Submarino", 600, 360);
+        if (!panelJuego.isAncestorOf(botonSubmarino)) {
+            panelJuego.agregarComponente(botonSubmarino, 600,380, 200, 30);
+        }
         if (!panelJuego.isAncestorOf(submarino)) {
-            panelJuego.agregarComponente(submarino, 600, 370, (30 * 2), 30);
+            panelJuego.agregarComponente(submarino, 600, 420, (30 * 2), 30);
         }
-        g.drawString("Barco", 600, 430);
+//        g.drawString("Barco", 600, 430);
+        if (!panelJuego.isAncestorOf(botonBarco)) {
+            panelJuego.agregarComponente(botonBarco, 600,470, 200, 30);
+        }
         if (!panelJuego.isAncestorOf(barco)) {
-            panelJuego.agregarComponente(barco, 600, 440, (30 * 1), 30);
+            panelJuego.agregarComponente(barco, 600, 510, (30 * 1), 30);
         }
     }
 
@@ -184,6 +226,9 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         this.submarino = VistaUtilidades.crearBarcoVista((30 * 2), 30, VistaUtilidades.BARCO_AZUL);
         this.barco = VistaUtilidades.crearBarcoVista((30 * 1), 30, VistaUtilidades.BARCO_AZUL);
         this.botonPortaaviones = VistaUtilidades.crearBoton("Colocar PortaAviones");
+        this.botonCrucero = VistaUtilidades.crearBoton("Colocar Crucero");
+        this.botonSubmarino = VistaUtilidades.crearBoton("Colocar Sunbmarino");
+        this.botonBarco = VistaUtilidades.crearBoton("Colocar Barco");
     }
 
     /**
@@ -203,13 +248,48 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         });
         
         botonPortaaviones.addActionListener(e -> {
-          System.out.println("Click en botonPortaaviones. contadorPortaaviones antes: " + contadorPortaaviones);
-    if (contadorPortaaviones <= 1) {
+//      Agrega Portaviones al tablero    
+        if (contadorPortaaviones <= 1) {
         
-        tablero.colocarNave(contadorPortaaviones);
-        contadorPortaaviones++;
+        int y = tablero.colocarNave(contadorPortaaviones);
+            if (y == 1) {
+                contadorPortaaviones++;
+            }
+        
     }
-       System.out.println("contadorPortaaviones despues: " + contadorPortaaviones);
+        });
+        
+        botonCrucero.addActionListener(e -> {
+//      Agrega Crucero al tablero    
+        if (contadorCrucero <= 3) {
+        
+        int y =tablero.colocarNave(contadorCrucero);
+        if (y == 1) {
+                contadorCrucero++;
+            }
+    }
+        });
+        
+        botonSubmarino.addActionListener(e -> {
+//      Agrega Submarino al tablero    
+        if (contadorSubmarino <= 7) {
+        
+        int y = tablero.colocarNave(contadorSubmarino);
+        if (y == 1) {
+                contadorSubmarino++;
+            }
+    }
+        });
+        
+        botonBarco.addActionListener(e -> {
+//      Agrega Barco al tablero    
+        if (contadorBarco <= 10) {
+        
+        int y = tablero.colocarNave(contadorBarco);
+        if (y == 1) {
+                contadorBarco++;
+            }
+    }
         });
 
     }
@@ -220,6 +300,10 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     @Override
     public void quitarComponentes() {
         this.panelJuego.quitarComponente(botonJugar);
+        this.panelJuego.quitarComponente(botonPortaaviones);
+        this.panelJuego.quitarComponente(botonCrucero);
+        this.panelJuego.quitarComponente(botonSubmarino);
+        this.panelJuego.quitarComponente(botonBarco);
         this.panelJuego.quitarComponente(colorSelector);
         this.panelJuego.quitarComponente(barco);
         this.panelJuego.quitarComponente(submarino);

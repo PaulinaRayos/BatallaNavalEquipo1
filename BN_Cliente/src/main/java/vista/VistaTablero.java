@@ -388,8 +388,9 @@ public class VistaTablero extends JPanel implements ITableroObserver{
         });
     }
     
-    void colocarNave(int x){
-        vistaModelo.inicializarNaves(x);
+    int  colocarNave(int x){
+        int coloco = vistaModelo.inicializarNaves(x);
+        return coloco;
     }
 
 
