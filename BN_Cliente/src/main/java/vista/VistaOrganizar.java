@@ -136,6 +136,26 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * Contador para contar las naves para colocar en el tablero
      */
     private int contadorBarco = 8;
+    
+    /**
+     * Contador para contar las naves disponibles ´para colocar 
+     */
+    private int portaavionesDisponibles = 2;
+    
+    /**
+     * Contador para contar las naves disponibles ´para colocar 
+     */
+    private int cruceroDisponibles = 2;
+    
+    /**
+     * Contador para contar las naves disponibles ´para colocar 
+     */
+    private int submarinoDisponibles = 4;
+    
+    /**
+     * Contador para contar las naves disponibles ´para colocar 
+     */
+    private int barcoDisponibles = 3;
 
     /**
      * Constructor de la clase VistaOrganizar. Inicializa el panel de juego,
@@ -191,28 +211,28 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
             panelJuego.agregarComponente(botonJugar, posX, Juego.GAME_ALTO - 110, botonAncho, botonAlto);
         }
-//        g.drawString("Portaaviones", 600, 220);antes 320 la Y
+        g.drawString(""+portaavionesDisponibles, 810, 222);
         if (!panelJuego.isAncestorOf(botonPortaaviones)) {
             panelJuego.agregarComponente(botonPortaaviones, 600, 200, 200, 30);
         }
         if (!panelJuego.isAncestorOf(portaaviones)) {
             panelJuego.agregarComponente(portaaviones, 600, 240, (30 * 4), 30);//330Y
         }
-//        g.drawString("Crucero", 600, 290);390
+        g.drawString(""+cruceroDisponibles, 810, 312);
         if (!panelJuego.isAncestorOf(botonCrucero)) {
             panelJuego.agregarComponente(botonCrucero, 600, 290, 217, 30);
         }
         if (!panelJuego.isAncestorOf(crucero)) {
             panelJuego.agregarComponente(crucero, 600, 330, (30 * 3), 30);//400
         }
-//       g.drawString("Submarino", 600, 360);
+        g.drawString(""+submarinoDisponibles, 810, 402);
         if (!panelJuego.isAncestorOf(botonSubmarino)) {
             panelJuego.agregarComponente(botonSubmarino, 600, 380, 204, 30);
         }
         if (!panelJuego.isAncestorOf(submarino)) {
             panelJuego.agregarComponente(submarino, 600, 420, (30 * 2), 30);
         }
-//        g.drawString("Barco", 600, 430);
+        g.drawString(""+barcoDisponibles, 810, 492);
         if (!panelJuego.isAncestorOf(botonBarco)) {
             panelJuego.agregarComponente(botonBarco, 600, 470, 210, 30);
         }
@@ -264,8 +284,13 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 int y = tablero.colocarNave(contadorPortaaviones);
                 if (y == 1) {
                     contadorPortaaviones++;
+                    portaavionesDisponibles--;
                 }
-
+            }
+//      Desactivar el boton Portaviones    
+            if (contadorPortaaviones== 2) {
+                botonPortaaviones.setEnabled(false);
+                
             }
         });
 
@@ -276,7 +301,13 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 int y = tablero.colocarNave(contadorCrucero);
                 if (y == 1) {
                     contadorCrucero++;
+                    cruceroDisponibles--;
                 }
+            }
+            //      Desactivar el boton Crucero    
+            if (contadorCrucero== 4) {
+                botonCrucero.setEnabled(false);
+                
             }
         });
 
@@ -287,7 +318,13 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 int y = tablero.colocarNave(contadorSubmarino);
                 if (y == 1) {
                     contadorSubmarino++;
+                    submarinoDisponibles--;
                 }
+            }
+            //      Desactivar el boton Portaviones    
+            if (contadorSubmarino== 8) {
+                botonSubmarino.setEnabled(false);
+                
             }
         });
 
@@ -298,7 +335,13 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 int y = tablero.colocarNave(contadorBarco);
                 if (y == 1) {
                     contadorBarco++;
+                    barcoDisponibles--;
                 }
+            }
+            //      Desactivar el boton Barco    
+            if (contadorBarco== 11) {
+                botonBarco.setEnabled(false);
+                
             }
         });
 
