@@ -745,9 +745,11 @@ public class PartidaBO {
         if (acepta) {
             // El jugador acepta la revancha
             jugador.setQuiereRevancha(true);
+            System.out.println(jugador.getNombre() + " quiere volver a jugar.");
 
             if (oponente.isQuiereRevancha()) {
                 // Ambos aceptan, iniciar nueva partida
+                 System.out.println("Ambos jugadores aceptaron. Iniciando nueva partida...");
                 iniciarNuevaPartida();
             } else {
                 // Esperar respuesta del oponente

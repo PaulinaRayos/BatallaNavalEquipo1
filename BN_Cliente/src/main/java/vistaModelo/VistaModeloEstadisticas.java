@@ -6,6 +6,7 @@ package vistaModelo;
 
 import comunicacion.ConexionCliente;
 import estados.EstadoMenu;
+import estados.EstadoOrganizar;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -48,6 +49,10 @@ public class VistaModeloEstadisticas {
         ConexionCliente.getInstance().sendMessage(mensaje);
 
         JOptionPane.showMessageDialog(null, "Has solicitado volver a jugar. Esperando respuesta del oponente.");
+        
+        juego.cambiarEstado(new EstadoOrganizar(juego));
+        
+        
     }
 
     /**
