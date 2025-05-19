@@ -8,31 +8,38 @@ import estados.EstadoSalaEspera;
 import java.util.Map;
 
 /**
- *
- * @author pauli
+ * Comando que indica el inicio de la fase de organización de barcos
+ * desde la sala de espera, una vez que los jugadores están listos.
+ * 
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ComandoIniciarOrganizar implements IComando {
 
     /**
-     * Estado de la sala de espera desde el cual se iniciará la organización.
+     * Estado de la sala de espera, responsable de cambiar a la fase de organización.
      */
     private EstadoSalaEspera estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de la sala de espera especificado.
+     * Crea una instancia del comando asociada al estado de la sala de espera.
      *
-     * @param estado el estado de la sala de espera desde el cual se iniciará la organización
+     * @param estado instancia del estado desde el cual se iniciará la organización
      */
     public ComandoIniciarOrganizar(EstadoSalaEspera estado) {
         this.estado = estado;
     }
-    
+
     /**
-     * Ejecuta el comando para iniciar la organización.
+     * Ejecuta el comando que da paso a la fase de organización.
+     * Este método no requiere datos adicionales del mensaje.
+     *
+     * @param mensaje mapa con información del mensaje recibido (no utilizado)
      */
     @Override
     public void execute(Map<String, Object> mensaje) {
         estado.handleIniciarOrganizar();
     }
-    
 }

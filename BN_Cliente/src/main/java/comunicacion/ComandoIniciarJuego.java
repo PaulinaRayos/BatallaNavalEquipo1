@@ -8,33 +8,40 @@ import estados.EstadoOrganizar;
 import java.util.Map;
 
 /**
- *
- * @author pauli
+ * Comando que indica el inicio de la partida desde el estado de organización.
+ * Este comando es invocado cuando ambos jugadores están listos y se debe
+ * transitar hacia el estado de juego activo.
+ * 
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ComandoIniciarJuego implements IComando {
 
     /**
-     * Estado de organización desde el cual se iniciará el juego.
+     * Estado actual de organización, encargado de iniciar el juego.
      */
     private EstadoOrganizar estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de organización especificado.
+     * Crea una instancia del comando asociada al estado de organización.
      *
-     * @param estado el estado de organización desde el cual se iniciará el juego
+     * @param estado instancia del estado desde el cual se iniciará la partida
      */
     public ComandoIniciarJuego(EstadoOrganizar estado) {
         this.estado = estado;
     }
-    
+
     /**
-     * Ejecuta el comando para iniciar el juego.
+     * Ejecuta el comando para procesar el mensaje de inicio de juego.
+     * Este método delega al estado correspondiente la lógica para
+     * inicializar las condiciones del juego.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para iniciar el juego
+     * @param mensaje mapa con los datos necesarios para iniciar la partida
      */
     @Override
     public void execute(Map<String, Object> mensaje) {
         estado.handleIniciarJuego(mensaje);
     }
-    
 }

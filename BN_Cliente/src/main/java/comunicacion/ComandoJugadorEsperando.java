@@ -8,33 +8,36 @@ import estados.EstadoOrganizar;
 import java.util.Map;
 
 /**
- *
- * @author pauli
+ * Comando que indica que el jugador debe esperar a que el oponente finalice su organización de barcos.
+ * 
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ComandoJugadorEsperando implements IComando {
 
     /**
-     * Estado de organización donde el jugador está esperando.
+     * Estado de organización en el que se encuentra el jugador al esperar al oponente.
      */
     private EstadoOrganizar estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de organización especificado.
+     * Crea un comando para manejar el estado de espera del jugador durante la fase de organización.
      *
-     * @param estado el estado de organización donde el jugador está esperando
+     * @param estado el estado de organización actual del juego
      */
     public ComandoJugadorEsperando(EstadoOrganizar estado) {
         this.estado = estado;
     }
     
     /**
-     * Ejecuta el comando para manejar el estado de espera del jugador.
+     * Ejecuta el comando que procesa el mensaje indicando que el jugador debe esperar.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para manejar la espera del jugador
+     * @param mensaje mapa que contiene información relacionada con el estado de espera
      */
     @Override
     public void execute(Map<String, Object> mensaje) {
         estado.handleJugadorEsperando(mensaje);
     }
-    
 }

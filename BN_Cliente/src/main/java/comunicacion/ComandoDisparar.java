@@ -8,33 +8,44 @@ import estados.EstadoJugar;
 import java.util.Map;
 
 /**
+ * Comando que gestiona la acción de disparar durante la partida. La lógica de
+ * manejo de la respuesta se delega al estado de juego actual.
  *
- * @author pauli
+ * Este comando forma parte del sistema de comunicación del juego, donde cada
+ * acción del jugador es encapsulada en un objeto comando.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ComandoDisparar implements IComando {
 
     /**
-     * Estado del juego en el que se realizará el ataque.
+     * Estado actual del juego, encargado de procesar la acción de disparar.
      */
     private EstadoJugar estado;
 
     /**
-     * Constructor que inicializa el comando con el estado del juego especificado.
+     * Crea una instancia del comando para disparar, asociada a un estado de
+     * juego.
      *
-     * @param estado el estado del juego en el que se realizará el ataque
+     * @param estado instancia del estado de juego donde se manejará la acción
+     * de disparo
      */
     public ComandoDisparar(EstadoJugar estado) {
         this.estado = estado;
     }
-    
+
     /**
-     * Ejecuta el comando para manejar la respuesta del ataque.
+     * Ejecuta el comando para procesar la respuesta al disparo. Esta respuesta
+     * puede incluir información como el resultado del disparo (impacto, fallo,
+     * hundimiento, etc.) y se delega al estado de juego.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para manejar el ataque
+     * @param mensaje mapa con los datos relacionados al resultado del ataque
      */
     @Override
     public void execute(Map<String, Object> mensaje) {
         estado.handleAtacarResponse(mensaje);
     }
-    
 }
