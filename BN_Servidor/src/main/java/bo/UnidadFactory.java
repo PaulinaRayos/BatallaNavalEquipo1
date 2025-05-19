@@ -8,21 +8,32 @@ import Modelo.ModeloTipoUnidad;
 import Modelo.ModeloUnidad;
 
 /**
+ * Clase que se encarga de crear unidades según el tipo especificado.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class UnidadFactory {
+
+    // Método estático que crea una unidad en base al tipo proporcionado
     public static ModeloUnidad crearUnidad(String tipo) {
+        // Si el tipo es "BARCO", se crea una unidad tipo BARCO
         if (ModeloTipoUnidad.BARCO.NOMBRE.equals(tipo)) {
             return new ModeloUnidad(ModeloTipoUnidad.BARCO.NOMBRE, ModeloTipoUnidad.BARCO.VIDA);
-        } else if (ModeloTipoUnidad.SUBMARINO.NOMBRE.equals(tipo)) {
+        } // Si el tipo es "SUBMARINO", se crea una unidad tipo SUBMARINO
+        else if (ModeloTipoUnidad.SUBMARINO.NOMBRE.equals(tipo)) {
             return new ModeloUnidad(ModeloTipoUnidad.SUBMARINO.NOMBRE, ModeloTipoUnidad.SUBMARINO.VIDA);
-        } else if (ModeloTipoUnidad.CRUCERO.NOMBRE.equals(tipo)) {
+        } // Si el tipo es "CRUCERO", se crea una unidad tipo CRUCERO
+        else if (ModeloTipoUnidad.CRUCERO.NOMBRE.equals(tipo)) {
             return new ModeloUnidad(ModeloTipoUnidad.CRUCERO.NOMBRE, ModeloTipoUnidad.CRUCERO.VIDA);
-        } else if (ModeloTipoUnidad.PORTAAVIONES.NOMBRE.equals(tipo)) {
+        } // Si el tipo es "PORTAAVIONES", se crea una unidad tipo PORTAAVIONES
+        else if (ModeloTipoUnidad.PORTAAVIONES.NOMBRE.equals(tipo)) {
             return new ModeloUnidad(ModeloTipoUnidad.PORTAAVIONES.NOMBRE, ModeloTipoUnidad.PORTAAVIONES.VIDA);
         }
-        // No se encontro el tipo
+
+        // Si el tipo no coincide con ninguno, se retorna null
         return null;
     }
 }

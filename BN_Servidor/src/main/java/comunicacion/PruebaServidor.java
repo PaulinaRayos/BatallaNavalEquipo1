@@ -9,37 +9,54 @@ import java.net.Socket;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Clase principal que implementa un servidor de sockets para aceptar y
+ * gestionar múltiples conexiones de clientes de forma concurrente.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class PruebaServidor {
 
     /**
-     * Contador atómico para asignar un identificador único a cada cliente conectado.
+     * Contador seguro para generar identificadores únicos incrementales para
+     * cada cliente que se conecta al servidor.
      */
     private static AtomicInteger atomicInteger = new AtomicInteger(1);
 
     /**
-     * Método principal que inicia el servidor y gestiona las conexiones de los clientes.
+     * Punto de entrada del servidor. Escucha continuamente en el puerto 5000
+     * para aceptar nuevas conexiones de clientes, asignarles un identificador
+     * único y crear un hilo dedicado para atender cada conexión.
      *
-     * @param args Argumentos de la línea de comandos (no utilizados).
+     * También inicializa el sistema de manejo de eventos registrados en
+     * HandlerActions.
+     *
+     * @param args Parámetros de línea de comando (no utilizados en esta
+     * aplicación).
      */
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(5000)) {
             System.out.println("Servidor esperando conexiones en el puerto 5000...");
 
-            
-            HandlerActions.getInstance().registrarEventos(); //Registra los eventos del EventBus
-            
+            // Registrar todos los eventos y sus manejadores para la lógica del juego
+            HandlerActions.getInstance().registrarEventos();
+
             while (true) {
+                // Esperar y aceptar una nueva conexión de cliente
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado");
+
+                // Obtener un identificador único para el cliente
                 int id = atomicInteger.getAndIncrement();
                 System.out.println("id del cliente " + id);
-                // Crear y ejecutar un hilo para manejar al cliente
+
+                // Lanzar un hilo para gestionar la comunicación con este cliente
                 new Thread(new ClientHandler(clientSocket, id)).start();
             }
         } catch (Exception e) {
+            // Mostrar errores que ocurran en la ejecución del servidor
             e.printStackTrace();
         }
     }

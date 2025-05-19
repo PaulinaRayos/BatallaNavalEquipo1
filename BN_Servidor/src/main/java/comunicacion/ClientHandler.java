@@ -14,66 +14,85 @@ import java.net.Socket;
 import java.util.Map;
 
 /**
+ * Clase encargada de manejar la comunicación con un cliente conectado al
+ * servidor. Cada instancia representa un cliente conectado. Se encarga de
+ * recibir los mensajes del cliente, desempaquetarlos, deserializarlos y
+ * enviarlos al manejador central de acciones.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class ClientHandler implements Runnable{
-    /**
-     * Socket del cliente conectado.
-     */
-    private final Socket clientSocket;
-    
-    /**
-     * Instancia del manejador de acciones que gestiona las solicitudes de los clientes.
-     */
-    private HandlerActions handler;
-    
-    /**
-     * Identificador del cliente.
-     */
-    private int id;
+public class ClientHandler implements Runnable {
 
     /**
-     * Constructor de la clase ClientHandler.
+     * Socket asociado al cliente.
+     */
+    private final Socket clientSocket;
+
+    /**
+     * Manejador de acciones centralizado (Singleton).
+     */
+    private final HandlerActions handler;
+
+    /**
+     * Identificador único del cliente.
+     */
+    private final int id;
+
+    /**
+     * Constructor que inicializa el socket y el identificador del cliente.
      *
-     * @param clientSocket Socket del cliente.
-     * @param id Identificador del cliente.
+     * @param clientSocket Socket por el que el cliente se conecta al servidor.
+     * @param id Identificador numérico del cliente (asignado por el servidor).
      */
     public ClientHandler(Socket clientSocket, int id) {
         this.clientSocket = clientSocket;
-        this.handler = HandlerActions.getInstance();
+        this.handler = HandlerActions.getInstance(); // patrón Singleton
         this.id = id;
     }
 
     /**
-     * Metodo run que se ejecuta cuando el hilo del cliente inicia.
-     * Lee los mensajes del cliente y los procesa a través del HandlerActions.
+     * Método que se ejecuta cuando inicia el hilo correspondiente a este
+     * cliente. Escucha continuamente los mensajes del cliente, los desempaqueta
+     * (MessagePack), convierte de JSON a Map, y los envía a `handlerAction`
+     * para ser procesados.
      */
     @Override
     public void run() {
-        try (InputStream inputStream = clientSocket.getInputStream(); MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(inputStream)) {
-
-            // Obtener el clientId asociado al socket (se obtiene desde ClientManager)
-//            String clientId = ClientManager.getClientId(clientSocket);
+        try (
+                InputStream inputStream = clientSocket.getInputStream(); MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(inputStream)) {
+            // Se convierte el ID del cliente a String para usarlo como clientId
             String clientId = String.valueOf(this.id);
+
+            // Se registra el nuevo cliente en el ClientManager junto con su ModeloJugador
             ClientManager.addClient(clientSocket, clientId, new ModeloJugador());
-            // Continuar leyendo mientras el cliente esté conectado
+
+            // Bucle de escucha: mientras el socket esté abierto, procesa mensajes
             while (!clientSocket.isClosed()) {
                 if (unpacker.hasNext()) {
+                    // Desempaquetar string (en formato JSON) desde el flujo del cliente
                     String json = unpacker.unpackString();
+
+                    // Convertir el JSON recibido en un Map de clave-valor
                     ObjectMapper objectMapper = new ObjectMapper();
                     Map<String, Object> data = objectMapper.readValue(json, Map.class);
-                    data.put("clientId", clientId);  // Agregar clientId a la solicitud
+
+                    // Se añade el clientId al mensaje para identificar al remitente
+                    data.put("clientId", clientId);
+
+                    // Se delega el procesamiento del mensaje al handler central
                     this.handler.handlerAction(data);
                 }
             }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log de errores si ocurre algún problema de E/S o parsing
         } finally {
             try {
-                clientSocket.close();
-                // Eliminar cliente de ClientManager cuando se desconecte
-                ClientManager.removeClient(clientSocket);
+                clientSocket.close(); // Cierra el socket al finalizar
+                ClientManager.removeClient(clientSocket); // Elimina cliente del registro
             } catch (Exception e) {
                 e.printStackTrace();
             }
