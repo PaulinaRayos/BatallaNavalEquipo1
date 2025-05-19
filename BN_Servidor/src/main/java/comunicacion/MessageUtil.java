@@ -13,38 +13,44 @@ import java.net.Socket;
 import java.util.Map;
 
 /**
+ * Utilidad para el envío de mensajes a clientes a través de sockets.
+ * Proporciona métodos estáticos para convertir datos a formato JSON y
+ * empaquetarlos usando MessagePack antes de enviarlos.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class MessageUtil {
+
     /**
-     * Método para enviar un mapa de datos como mensaje a un cliente específico a través de un socket.
-     * Convierte el mapa a una cadena JSON y lo envía utilizando MessagePack.
+     * Envía un mensaje al cliente especificado mediante un socket. El mensaje
+     * se recibe como un mapa de datos, se convierte a JSON, se empaqueta usando
+     * MessagePack y finalmente se transmite por el socket.
      *
-     * @param clientSocket El socket del cliente al cual se enviará el mensaje.
-     * @param mensajeMap   El mapa que contiene los datos del mensaje a enviar.
+     * @param clientSocket Socket correspondiente al cliente receptor.
+     * @param mensajeMap Mapa con la información que será enviada en el mensaje.
      */
     public static void enviarMensaje(Socket clientSocket, Map<String, Object> mensajeMap) {
         try {
-            // Convertir el Map a una cadena JSON usando Jackson
+            // Serializar el mapa a formato JSON utilizando Jackson
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonMensaje = objectMapper.writeValueAsString(mensajeMap);
 
-            // Crear un MessageBufferPacker para empacar el JSON como una cadena
+            // Empaquetar la cadena JSON con MessagePack para optimizar la transmisión
             MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
-            packer.packString(jsonMensaje);  // Empacar el JSON como una cadena
-
-            // Cerrar el packer para finalizar la escritura
+            packer.packString(jsonMensaje);
             packer.close();
 
-            // Enviar los datos empaquetados al cliente a través del socket
+            // Obtener el stream de salida del socket y enviar el paquete
             OutputStream outputStream = clientSocket.getOutputStream();
             outputStream.write(packer.toByteArray());
             outputStream.flush();
+
         } catch (Exception e) {
+            // Imprimir la traza de la excepción en caso de error
             e.printStackTrace();
         }
     }
 }
-
-

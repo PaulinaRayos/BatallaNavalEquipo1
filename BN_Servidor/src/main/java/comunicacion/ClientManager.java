@@ -10,52 +10,56 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Clase responsable de gestionar las conexiones de los clientes, asociando
+ * sockets con sus identificadores y jugadores correspondientes.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ClientManager {
-    
+
     /**
-     * Mapa para almacenar el socket y su clientId.
+     * Mapa que relaciona un socket con su identificador de cliente.
      */
     private static Map<Socket, String> clientToIdMap = new ConcurrentHashMap<>();
-    
+
     /**
-     * Mapa para almacenar el clientId y su socket asociado.
+     * Mapa que relaciona un identificador de cliente con su socket.
      */
     private static Map<String, Socket> idToClientMap = new ConcurrentHashMap<>();
-    
+
     /**
-     * Mapa para almacenar el clientId y el objeto Jugador asociado.
+     * Mapa que relaciona un identificador de cliente con su modelo de jugador.
      */
     private static Map<String, ModeloJugador> clientIdToJugadorMap = new ConcurrentHashMap<>();
 
     /**
-     * Método para agregar un cliente y asociar su clientId con un Jugador.
-     * 
+     * Agrega un nuevo cliente al sistema y establece sus relaciones.
+     *
      * @param clientSocket Socket del cliente.
      * @param clientId Identificador del cliente.
-     * @param jugador Objeto Jugador asociado al cliente.
+     * @param jugador Objeto del modelo asociado al cliente.
      */
     public static void addClient(Socket clientSocket, String clientId, ModeloJugador jugador) {
-        // Verificar si clientSocket y clientId son no nulos antes de agregar
         if (clientSocket == null || clientId == null || jugador == null) {
             System.out.println("Error: Los valores de clientSocket, clientId o jugador no pueden ser nulos.");
             return;
         }
 
-        clientToIdMap.put(clientSocket, clientId);  // Asociamos el socket con el clientId
-        idToClientMap.put(clientId, clientSocket);  // Asociamos el clientId con el socket
-        clientIdToJugadorMap.put(clientId, jugador); // Asociamos el clientId con el jugador
+        clientToIdMap.put(clientSocket, clientId);
+        idToClientMap.put(clientId, clientSocket);
+        clientIdToJugadorMap.put(clientId, jugador);
 
         System.out.println("Cliente agregado: " + clientId);
     }
 
     /**
-     * Método para obtener el Jugador dado el clientId.
-     * 
+     * Retorna el jugador asociado a un identificador de cliente.
+     *
      * @param clientId Identificador del cliente.
-     * @return Objeto Jugador asociado al clientId.
+     * @return ModeloJugador asociado, o null si no existe.
      */
     public static synchronized ModeloJugador getJugadorByClientId(String clientId) {
         if (clientId == null) {
@@ -66,10 +70,10 @@ public class ClientManager {
     }
 
     /**
-     * Método para obtener el clientId dado el socket.
-     * 
+     * Retorna el identificador de cliente asociado a un socket.
+     *
      * @param clientSocket Socket del cliente.
-     * @return Identificador del cliente asociado al socket.
+     * @return Identificador del cliente, o null si no existe.
      */
     public static synchronized String getClientId(Socket clientSocket) {
         if (clientSocket == null) {
@@ -80,10 +84,10 @@ public class ClientManager {
     }
 
     /**
-     * Método para obtener el socket dado el clientId.
-     * 
+     * Retorna el socket asociado a un identificador de cliente.
+     *
      * @param clientId Identificador del cliente.
-     * @return Socket asociado al clientId.
+     * @return Socket correspondiente, o null si no existe.
      */
     public static synchronized Socket getClientSocket(String clientId) {
         if (clientId == null) {
@@ -94,8 +98,8 @@ public class ClientManager {
     }
 
     /**
-     * Método para eliminar un cliente cuando se desconecta.
-     * 
+     * Elimina un cliente del sistema usando su socket.
+     *
      * @param clientSocket Socket del cliente a eliminar.
      */
     public static synchronized void removeClient(Socket clientSocket) {
@@ -115,10 +119,10 @@ public class ClientManager {
     }
 
     /**
-     * Método para obtener un jugador que no coincida con el clientId dado.
-     * 
+     * Retorna un jugador distinto al que tiene el identificador dado.
+     *
      * @param excludeClientId Identificador del cliente a excluir.
-     * @return Objeto Jugador que no coincide con el clientId excluido, o null si no se encuentra.
+     * @return Otro ModeloJugador disponible, o null si no hay otro.
      */
     public static synchronized ModeloJugador getOtherPlayer(String excludeClientId) {
         if (excludeClientId == null) {
@@ -133,9 +137,14 @@ public class ClientManager {
         }
 
         System.out.println("No se encontró un jugador que no coincida con el clientId: " + excludeClientId);
-        return null; // Si no se encuentra ningún jugador
+        return null;
     }
 
+    /**
+     * Retorna el mapa completo de clientId a ModeloJugador.
+     *
+     * @return Mapa actual de jugadores registrados.
+     */
     public static synchronized Map<String, ModeloJugador> getClientIdToJugadorMap() {
         return clientIdToJugadorMap;
     }
