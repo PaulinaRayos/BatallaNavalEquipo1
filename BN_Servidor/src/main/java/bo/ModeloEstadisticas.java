@@ -1,9 +1,10 @@
-package Modelo;
+package bo;
+
 
 /**
- * Representa las estadísticas de un jugador durante una partida. Incluye la
- * cantidad de disparos exitosos, movimientos realizados y turnos jugados.
- *
+ * Representa las estadísticas de un jugador durante una partida.
+ * Incluye la cantidad de disparos exitosos, movimientos realizados y turnos jugados.
+ * 
  * @author ivanochoa
  * @author paulvazquez
  * @author paulinarodriguez
@@ -34,7 +35,7 @@ public class ModeloEstadisticas {
 
     /**
      * Constructor con parámetros para inicializar todas las estadísticas.
-     *
+     * 
      * @param disparosExitosos número de disparos exitosos
      * @param movimientos número de movimientos realizados
      * @param turnos número de turnos jugados
@@ -47,7 +48,7 @@ public class ModeloEstadisticas {
 
     /**
      * Devuelve el número de disparos exitosos.
-     *
+     * 
      * @return disparos exitosos
      */
     public int getDisparosExitosos() {
@@ -56,7 +57,7 @@ public class ModeloEstadisticas {
 
     /**
      * Establece el número de disparos exitosos.
-     *
+     * 
      * @param disparosExitosos nuevo valor de disparos exitosos
      */
     public void setDisparosExitosos(int disparosExitosos) {
@@ -65,7 +66,7 @@ public class ModeloEstadisticas {
 
     /**
      * Devuelve el número de movimientos realizados.
-     *
+     * 
      * @return número de movimientos
      */
     public int getMovimientos() {
@@ -74,7 +75,7 @@ public class ModeloEstadisticas {
 
     /**
      * Establece el número de movimientos realizados.
-     *
+     * 
      * @param movimientos nuevo número de movimientos
      */
     public void setMovimientos(int movimientos) {
@@ -83,7 +84,7 @@ public class ModeloEstadisticas {
 
     /**
      * Devuelve el número de turnos jugados.
-     *
+     * 
      * @return número de turnos
      */
     public int getTurnos() {
@@ -92,7 +93,7 @@ public class ModeloEstadisticas {
 
     /**
      * Establece el número de turnos jugados.
-     *
+     * 
      * @param turnos nuevo número de turnos
      */
     public void setTurnos(int turnos) {
@@ -101,7 +102,7 @@ public class ModeloEstadisticas {
 
     /**
      * Devuelve una representación en forma de cadena de las estadísticas.
-     *
+     * 
      * @return cadena con los valores de disparos exitosos, movimientos y turnos
      */
     @Override

@@ -14,7 +14,10 @@ import java.util.Map;
  * implementa un patrón singleton, lo que asegura que solo exista una instancia
  * global de la clase.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class EventBus {
 

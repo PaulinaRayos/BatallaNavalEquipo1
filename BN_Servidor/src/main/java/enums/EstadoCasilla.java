@@ -5,9 +5,16 @@
 package enums;
 
 /**
+ * Enumeración que representa los posibles estados de una casilla en el tablero.
+ * Los estados incluyen: - OCUPADA: La casilla está ocupada por una unidad. -
+ * VACIA: La casilla está vacía, sin unidades. - IMPACTADA: La casilla ha sido
+ * impactada por un disparo.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public enum EstadoCasilla {
-    OCUPADA,VACIA,IMPACTADA
+    OCUPADA, VACIA, IMPACTADA;
 }

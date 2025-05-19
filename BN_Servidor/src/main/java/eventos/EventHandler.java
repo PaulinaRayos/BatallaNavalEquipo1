@@ -12,7 +12,10 @@ import java.util.Map;
  * contrato, proporcionando su propia implementación del método `handle` para
  * procesar los datos del evento.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface EventHandler {
 

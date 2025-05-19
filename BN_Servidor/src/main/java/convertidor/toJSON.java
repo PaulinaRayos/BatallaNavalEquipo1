@@ -9,17 +9,23 @@ import java.util.Map;
 
 /**
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class toJSON {
+
     /**
-     * Crea un Map<String, Object> a partir de pares de argumentos proporcionados.
-     * Se espera que los argumentos estén en orden: clave1, valor1, clave2, valor2, ...
-     * 
-     * @param args Lista variable de argumentos donde los índices pares deben ser Strings (claves)
-     *             y los índices impares los valores asociados.
+     * Crea un Map<String, Object> a partir de pares de argumentos
+     * proporcionados. Se espera que los argumentos estén en orden: clave1,
+     * valor1, clave2, valor2, ...
+     *
+     * @param args Lista variable de argumentos donde los índices pares deben
+     * ser Strings (claves) y los índices impares los valores asociados.
      * @return Un mapa que asocia cada clave con su valor correspondiente.
-     * @throws IllegalArgumentException si alguna clave no es una cadena de texto (String).
+     * @throws IllegalArgumentException si alguna clave no es una cadena de
+     * texto (String).
      */
     public static Map<String, Object> dataToJSON(Object... args) {
         Map<String, Object> data = new HashMap<>();

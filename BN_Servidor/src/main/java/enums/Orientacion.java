@@ -5,8 +5,13 @@
 package enums;
 
 /**
+ * Enumeración que representa las posibles orientaciones para ubicar una unidad
+ * en el tablero. Puede ser horizontal o vertical.
  *
+ * @author ivanochoa
  * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public enum Orientacion {
     HORIZONTAL,
