@@ -5,15 +5,25 @@
 package modelo;
 
 /**
+ * Clase que representa una coordenada en el tablero del juego. Contiene las
+ * posiciones x e y, utilizadas para ubicar casillas y elementos dentro del
+ * tablero.
+ *
+ * Esta clase es fundamental para la lógica espacial del juego.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloCoordenada {
+
     /**
      * Coordenada x en el tablero.
      */
     private int x;
-    
+
     /**
      * Coordenada y en el tablero.
      */
@@ -47,5 +57,4 @@ public class ModeloCoordenada {
     public int getY() {
         return y;
     }
-    
 }

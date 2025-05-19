@@ -27,110 +27,125 @@ import vistaModelo.Juego;
 import vistaModelo.VistaModeloJuego;
 
 /**
+ * La clase {@code VistaJuego} representa la interfaz gráfica durante una
+ * partida del juego de batalla naval. Muestra los tableros del jugador y del
+ * oponente, y permite realizar acciones como atacar, rendirse o guardar la
+ * partida.
  *
- * @author pauli
+ * Esta clase forma parte del patrón MVC como la "vista" y es utilizada por el
+ * controlador para interactuar con el usuario.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class VistaJuego implements IVistaPanel, IVistaJuego{
+public class VistaJuego implements IVistaPanel, IVistaJuego {
+
     /**
-     * El panel de juego principal donde se agregarán los componentes de la vista.
+     * El panel de juego principal donde se agregarán los componentes de la
+     * vista.
      */
     private VistaPanel panelJuego;
-    
+
     /**
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
-    
+
     /**
      * Indica si es el turno del jugador actual.
      */
     private boolean esMiTurno;
-    
+
     /**
      * El tablero del jugador.
      */
     private VistaTablero tableroJugador;
-    
+
     /**
      * El tablero del enemigo.
      */
     private VistaTablero tableroEnemigo;
-    
+
     /**
      * Lista de unidades del jugador.
      */
     private List<VistaNave> unidadesJugador;
-    
+
     /**
      * Lista de unidades del enemigo.
      */
     private List<VistaNave> unidadesEnemigo;
-    
+
     /**
      * Etiqueta que muestra el estado del turno.
      */
     private JLabel lblTurno;
-    
+
     /**
      * Etiqueta que muestra el tiempo restante del turno.
      */
     private JLabel lblTemporizador;
-    
+
     /**
      * Último mensaje mostrado.
      */
     private String ultimoMensaje;
-    
+
     /**
      * Nombre del oponente.
      */
     private String nombreOponente;
-    
+
     /**
-     * Etiqueta que muestra el último mensaje relacionado con el estado del juego.
+     * Etiqueta que muestra el último mensaje relacionado con el estado del
+     * juego.
      */
     private JLabel lblUltimoMensaje;
-    
+
     /**
      * Temporizador que controla el tiempo restante para cada turno.
      */
     private Timer temporizador;
-    
+
     /**
      * Tiempo restante del turno en segundos.
      */
     private int tiempoRestante = 10;
-    
+
     /**
      * Botón para rendirse durante el juego.
      */
     private JButton btnRendirse;
-    
+
     /**
-     * Botón para continuar a la pantalla de estadisticas al terminar la partida.
+     * Botón para continuar a la pantalla de estadisticas al terminar la
+     * partida.
      */
     private JButton btnEstadisticas;
-    
+
     /**
      * El vistaModelo asociado a la vista de juego.
      */
     private VistaModeloJuego vistaModelo;
-    
+
     /**
      * Indica si el juego ha terminado.
      */
     private boolean juegoTerminado = false;
-    
+
     /**
      * Indica si el jugador es el ganador.
      */
     private boolean esGanador = false;
 
     /**
-     * Constructor de la clase VistaJuego.
-     * Inicializa el vistaModelo y los componentes de la vista.
+     * Constructor de la clase VistaJuego. Inicializa el vistaModelo y los
+     * componentes de la vista.
      *
-     * @param panelJuego El panel de juego principal donde se agregarán los componentes.
+     * @param panelJuego El panel de juego principal donde se agregarán los
+     * componentes.
      */
     public VistaJuego(VistaPanel panelJuego, Juego juego) {
         this.panelJuego = panelJuego;
@@ -141,12 +156,12 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
     }
 
     /**
-     * Crea los componentes necesarios para la vista del juego, como los tableros, las unidades y las etiquetas de estado.
+     * Crea los componentes necesarios para la vista del juego, como los
+     * tableros, las unidades y las etiquetas de estado.
      */
     @Override
     public void crearComponentes() {
-        
-        
+
         tableroEnemigo = new VistaTablero();
         tableroEnemigo.setModo(ModoTableroStrategy.ENEMIGO);
         tableroEnemigo.habilitarInteraccion(false);
@@ -172,22 +187,23 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         lblTemporizador = new JLabel("Tiempo restante: 10", SwingConstants.CENTER);
         lblTemporizador.setFont(VistaUtilidades.FUENTE_SUBTITULO);
         lblTemporizador.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
-        
+
         if (!panelJuego.isAncestorOf(lblTemporizador)) {
             panelJuego.agregarComponente(lblTemporizador, 0, 600, labelWidth, labelHeight);
         }
-        
+
         tableroEnemigo.getVistaModelo().setAtaqueListener(vistaModelo);
 
         btnRendirse = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_RENDIRSE);
         btnEstadisticas = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_ESTADISTICAS);
-        
+
         panelJuego.revalidate();
         panelJuego.repaint();
     }
 
     /**
-     * Define las acciones para los componentes de la vista, como el botón de rendición.
+     * Define las acciones para los componentes de la vista, como el botón de
+     * rendición.
      */
     @Override
     public void accionesComponentes() {
@@ -201,7 +217,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
                 }
             }
         });
-        
+
         btnEstadisticas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,14 +230,15 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
     /**
      * Dibuja la vista del juego en el panel de juego.
      *
-     * @param g El objeto Graphics utilizado para dibujar los elementos gráficos.
+     * @param g El objeto Graphics utilizado para dibujar los elementos
+     * gráficos.
      */
     @Override
     public void dibujar(Graphics g) {
-         if (portada != null) {
+        if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } 
-         int botonAncho = btnRendirse.getPreferredSize().width;
+        }
+        int botonAncho = btnRendirse.getPreferredSize().width;
         int botonAlto = btnRendirse.getPreferredSize().height;
 
         // Mostrar la superposición y el mensaje si el juego ha terminado
@@ -235,9 +252,9 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
 
             // Configurar el texto
             String mensaje = esGanador ? "¡VICTORIA!" : "DERROTA";
-            
+
             g2d.setFont(VistaUtilidades.FUENTE_RESULTADO);
-            
+
             if (esGanador) {
                 g2d.setColor(VistaUtilidades.COLOR_TEXTO_AZUL_OSCURO);
             } else {
@@ -254,14 +271,14 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             g2d.drawString(mensaje, x, y);
 
             g2d.dispose();
-            
+
             // añadir el boton de estadisticas
             if (!panelJuego.isAncestorOf(btnEstadisticas)) {
                 panelJuego.agregarComponente(btnEstadisticas, (Juego.GAME_ANCHO - 200) / 2, 660, botonAncho, botonAlto);
             }
-            
+
         } else {
-        
+
             if (!panelJuego.isAncestorOf(btnRendirse)) {
                 panelJuego.agregarComponente(btnRendirse, (Juego.GAME_ANCHO - 200) / 2, 660, botonAncho, botonAlto);
             }
@@ -318,7 +335,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             detenerTemporizador(); // Detener el temporizador
         }
     }
-    
+
     /**
      * Inicia el temporizador del turno.
      */
@@ -349,7 +366,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
             temporizador.stop();
         }
     }
-    
+
     /**
      * Envia un ataque luego de que se termino el tiempo sin ataque
      */
@@ -637,7 +654,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         panelJuego.quitarComponente(lblUltimoMensaje);
         panelJuego.quitarComponente(btnRendirse);
         panelJuego.quitarComponente(btnEstadisticas);
-    
+
     }
 
     /**
@@ -650,7 +667,8 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
     }
 
     /**
-     * Finaliza el juego debido a una rendición, indicando si el jugador es el ganador.
+     * Finaliza el juego debido a una rendición, indicando si el jugador es el
+     * ganador.
      *
      * @param ganador El nombre del jugador que ganó la partida.
      */
@@ -661,7 +679,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego{
         esGanador = ModeloJugador.getInstance().getNombre().equals(ganador);
         panelJuego.repaint();
     }
-    
+
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
 

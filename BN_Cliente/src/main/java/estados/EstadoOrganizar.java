@@ -17,32 +17,42 @@ import vistaModelo.Juego;
 import vistaModelo.VistaModeloOrganizar;
 
 /**
+ * Representa el estado del juego donde los jugadores organizan sus naves antes
+ * de iniciar la partida.
  *
- * @author pauli
+ * En este estado se configura el tablero, se recibe la espera del oponente y se
+ * inicia el juego cuando ambos están listos.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class EstadoOrganizar implements IEstado{
+public class EstadoOrganizar implements IEstado {
+
     /**
      * Referencia al juego principal.
      */
     private Juego juego;
-    
+
     /**
      * Vista que representa la interfaz de organización de naves.
      */
     private VistaOrganizar vista;
-    
+
     /**
      * VistaModelo asociado a la vista de organización de naves.
      */
     private VistaModeloOrganizar vistaModelo;
-    
+
     /**
      * Mapa que contiene los comandos disponibles en el estado de organización.
      */
     private Map<String, IComando> comandos;
 
     /**
-     * Constructor que inicializa el estado de organización con el juego especificado.
+     * Constructor que inicializa el estado de organización con el juego
+     * especificado.
      *
      * @param juego la referencia al juego principal
      */
@@ -54,7 +64,8 @@ public class EstadoOrganizar implements IEstado{
     }
 
     /**
-     * Inicializa los comandos disponibles para manejar los mensajes en este estado.
+     * Inicializa los comandos disponibles para manejar los mensajes en este
+     * estado.
      */
     private void inicializarComandos() {
         comandos = new HashMap<>();
@@ -124,7 +135,6 @@ public class EstadoOrganizar implements IEstado{
     public void handleJugadorEsperando(Map<String, Object> mensaje) {
         String nombreJugador = (String) mensaje.get("nombre_jugador");
         vistaModelo.manejarJugadorEsperando(nombreJugador);
-
     }
 
 }

@@ -8,13 +8,24 @@ import java.awt.Graphics;
 import java.util.Map;
 
 /**
+ * Interfaz que define los métodos necesarios para representar un estado dentro
+ * del juego.
  *
- * @author pauli
+ * Cada estado debe poder manejar su salida, renderización visual y
+ * procesamiento de mensajes.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IEstado {
-    
-     /**
+
+    /**
      * Salir del estado actual del juego.
+     *
+     * Este método se invoca cuando se realiza una transición desde este estado
+     * hacia otro.
      */
     void salir();
 
@@ -23,7 +34,7 @@ public interface IEstado {
      *
      * @param g el objeto Graphics utilizado para dibujar el estado
      */
-    void renderizar(Graphics g); 
+    void renderizar(Graphics g);
 
     /**
      * Maneja un mensaje recibido en el estado actual del juego.
@@ -31,5 +42,4 @@ public interface IEstado {
      * @param mensaje un mapa que contiene los datos del mensaje recibido
      */
     void handleMessage(Map<String, Object> mensaje);
-
 }

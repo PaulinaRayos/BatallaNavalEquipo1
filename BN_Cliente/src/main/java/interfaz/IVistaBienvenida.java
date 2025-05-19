@@ -5,11 +5,18 @@
 package interfaz;
 
 /**
+ * Interfaz que define el comportamiento de la vista de bienvenida.
  *
- * @author pauli
+ * Contiene métodos para mostrar mensajes de error y obtener el nombre del
+ * jugador ingresado.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IVistaBienvenida {
-    
+
     /**
      * Muestra un mensaje de error en la interfaz de bienvenida.
      *

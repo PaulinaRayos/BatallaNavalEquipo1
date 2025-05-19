@@ -5,15 +5,21 @@
 package interfaz;
 
 /**
+ * Interfaz que define el comportamiento de la vista del menú principal.
  *
- * @author pauli
+ * Proporciona métodos para mostrar mensajes, como mensajes de error.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IVistaMenu {
+
     /**
      * Muestra un mensaje de error en la interfaz del menú.
      *
      * @param mensaje el mensaje de error a mostrar
      */
     public void mostrarMensajeError(String mensaje);
-
 }

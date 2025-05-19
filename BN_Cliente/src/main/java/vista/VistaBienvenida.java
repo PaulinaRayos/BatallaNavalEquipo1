@@ -14,8 +14,19 @@ import javax.swing.JTextField;
 import interfaz.IVistaBienvenida;
 
 /**
+ * Clase que representa la vista de bienvenida del juego.
  *
- * @author pauli
+ * Esta clase implementa las interfaces IVistaPanel e IVistaBienvenida y
+ * administra la interfaz gráfica para que el usuario ingrese su nombre y
+ * comience la partida.
+ *
+ * Contiene componentes gráficos como botones, campos de texto e imágenes, y se
+ * comunica con el VistaModelo para manejar la lógica de negocio.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
 
@@ -24,7 +35,7 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * vista.
      */
     private VistaPanel vistaPanel;
-    
+
     /**
      * Vista del tablero vacío.
      */
@@ -44,9 +55,9 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
-    
+
     /**
-     * Imagen del titulo utilizado en la vista de bienvenida.
+     * Imagen del título utilizado en la vista de bienvenida.
      */
     private BufferedImage titulo;
 
@@ -58,6 +69,9 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
     /**
      * Constructor de la clase VistaBienvenida.
      *
+     * Inicializa los componentes de la vista, configura acciones y carga
+     * imágenes.
+     *
      * @param vistaPanel El panel principal del juego donde se agregarán los
      * componentes de la vista.
      * @param juego La instancia del juego actual.
@@ -68,74 +82,66 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
         crearComponentes();
         accionesComponentes();
         cargarImagenes();
-
     }
 
     /**
      * Dibuja la vista de bienvenida en el panel de juego.
+     *
+     * Muestra la imagen de portada y título, y dibuja texto e imágenes en
+     * pantalla.
      *
      * @param g El objeto Graphics utilizado para dibujar los elementos
      * gráficos.
      */
     @Override
     public void dibujar(Graphics g) {
-        // Dibujar la imagen de fondo que ocupa toda la pantalla
         if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
         }
-        // Dibujar la imagen del titulo en la pantalla
         if (titulo != null) {
             g.drawImage(titulo, (Juego.GAME_ANCHO - titulo.getWidth()) / 2, 60, titulo.getWidth(), titulo.getHeight(), null);
         }
 
         g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
         g.setFont(VistaUtilidades.FUENTE_SUBTITULO);
-        //VistaUtilidades.dibujarTextoCentrado(g, "Por favor, ingrese su nombre de usuario", 550, VistaUtilidades.FUENTE_SUBTITULO);
+
         g.drawString("Nombre:", 125, 220);
         g.drawString("Utiliza 15 caracteres", 125, 285);
         g.drawString("máximo y/o números", 125, 315);
-        //VistaUtilidades.dibujarTextoCentrado(g, "El nombre puede ser de hasta 15 caracteres y estar compuesto por letras y numeros", 580, VistaUtilidades.FUENTE_SUBTITULO);
 
         if (!vistaPanel.isAncestorOf(campoNombre)) {
             vistaPanel.agregarComponente(campoNombre, 125, 230, 200, 30);
         }
         if (!vistaPanel.isAncestorOf(botonIniciar)) {
-            //vistaPanel.agregarComponente(botonIniciar, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 80, 200, 40);
-            // Obtener dimensiones del botón
             int botonAncho = botonIniciar.getPreferredSize().width;
             int botonAlto = botonIniciar.getPreferredSize().height;
-
-            // Calcular posición centrada horizontalmente
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
-
-            // Agregar el botón con sus dimensiones originales
             vistaPanel.agregarComponente(botonIniciar, posX, Juego.GAME_ALTO - 150, botonAncho, botonAlto);
         }
-        
+
         if (!vistaPanel.isAncestorOf(tablero)) {
-            //tablero.setCursor(new Cursor(Cursor.HAND_CURSOR));
             vistaPanel.agregarComponente(tablero, 490, 200, 300, 300);
         }
-
     }
 
     /**
-     * Crea los componentes necesarios para la vista de bienvenida, como el
-     * campo de texto y el botón de iniciar.
+     * Crea los componentes necesarios para la vista de bienvenida.
+     *
+     * Inicializa el campo de texto para nombre, el botón de inicio y la vista
+     * del tablero.
      */
     public void crearComponentes() {
         campoNombre = VistaUtilidades.crearCampoTexto(60);
-        //botonIniciar = VistaUtilidades.crearBoton("Iniciar Juego");
         botonIniciar = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_INICIO);
         this.tablero = new VistaTablero();
     }
 
     /**
-     * Define las acciones para los componentes de la vista, como el botón de
-     * iniciar juego.
+     * Define las acciones para los componentes de la vista.
+     *
+     * Agrega el listener al botón para iniciar el juego.
      */
     public void accionesComponentes() {
-        // Agregar acción al botón
         botonIniciar.addActionListener(e -> {
             vistaModelo.iniciarJuego();
         });
@@ -143,30 +149,32 @@ public class VistaBienvenida implements IVistaPanel, IVistaBienvenida {
 
     /**
      * Quita los componentes de la vista de bienvenida del panel de juego.
+     *
+     * Remueve el campo de texto, botón y tablero del panel principal.
      */
     public void quitarComponentes() {
         vistaPanel.quitarComponente(campoNombre);
         vistaPanel.quitarComponente(botonIniciar);
         vistaPanel.quitarComponente(tablero);
     }
-    
+
     /**
      * Obtiene la vista del tablero.
      *
      * @return VistaTablero utilizada para organizar las unidades.
      */
-    
     public VistaTablero getTablero() {
         return tablero;
     }
 
     /**
      * Carga las imágenes necesarias para la vista de bienvenida.
+     *
+     * Carga la portada y el título desde los recursos.
      */
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
         this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
-
     }
 
     /**

@@ -7,10 +7,18 @@ package interfaz;
 import vista.VistaTablero;
 
 /**
+ * Interfaz que define el comportamiento de la vista de juego.
  *
- * @author pauli
+ * Contiene métodos para actualizar tableros, mostrar mensajes, controlar la
+ * interacción del jugador y finalizar el juego.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IVistaJuego {
+
     /**
      * Actualiza la interfaz para reflejar si es el turno del jugador.
      *
@@ -19,7 +27,8 @@ public interface IVistaJuego {
     void actualizarInterfazTurno(boolean esMiTurno);
 
     /**
-     * Actualiza el tablero del enemigo en la interfaz con el resultado de un ataque.
+     * Actualiza el tablero del enemigo en la interfaz con el resultado de un
+     * ataque.
      *
      * @param x la coordenada x del ataque
      * @param y la coordenada y del ataque
@@ -36,7 +45,8 @@ public interface IVistaJuego {
     void actualizarEstadoFlotaEnemigo(int numeroNave, int vidaNave);
 
     /**
-     * Actualiza el tablero del jugador en la interfaz con el resultado de un ataque.
+     * Actualiza el tablero del jugador en la interfaz con el resultado de un
+     * ataque.
      *
      * @param x la coordenada x del ataque
      * @param y la coordenada y del ataque
@@ -97,18 +107,18 @@ public interface IVistaJuego {
      *
      * @param nombreOponente el nombre del oponente
      */
-    public void setNombreOponente(String nombreOponente);
-    
+    void setNombreOponente(String nombreOponente);
+
     /**
      * Detiene el temporizador del juego.
      */
-    public void detenerTemporizador();
-    
+    void detenerTemporizador();
+
     /**
-     * Finaliza el juego debido a la rendición de un jugador y muestra al ganador.
+     * Finaliza el juego debido a la rendición de un jugador y muestra al
+     * ganador.
      *
      * @param ganador el nombre del ganador
      */
     void finalizarJuegoPorRendicion(String ganador);
-
 }

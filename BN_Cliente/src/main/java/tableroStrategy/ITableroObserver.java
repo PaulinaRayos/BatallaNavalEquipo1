@@ -5,8 +5,16 @@
 package tableroStrategy;
 
 /**
+ * Interfaz que define el comportamiento de un observador del tablero.
+ *
+ * Las clases que implementen esta interfaz serán notificadas cuando el tablero
+ * sea actualizado para reaccionar a dichos cambios.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface ITableroObserver {
 

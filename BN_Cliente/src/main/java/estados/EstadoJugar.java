@@ -15,13 +15,21 @@ import vista.VistaTablero;
 import vistaModelo.Juego;
 import vistaModelo.VistaModeloJuego;
 
-
 /**
+ * Representa el estado del juego en el que los jugadores interactúan
+ * directamente en la batalla.
  *
- * @author pauli
+ * En este estado se manejan acciones como atacar, rendirse y se actualiza la
+ * lógica del turno y resultado.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class EstadoJugar implements IEstado{
-     /**
+public class EstadoJugar implements IEstado {
+
+    /**
      * Referencia al juego principal.
      */
     private Juego juego;
@@ -59,7 +67,6 @@ public class EstadoJugar implements IEstado{
         vista.setTableroJugador(tableroJugador);
         vistaModelo.inicializarJuego(nombreOponente, tuTurno);
         inicializarComandos();
-
     }
 
     /**
@@ -132,7 +139,6 @@ public class EstadoJugar implements IEstado{
             this.vistaModelo.setGanador((String) mensaje.get("ganador"));
             this.vistaModelo.setTiempoPartida((String) mensaje.get("tiempo_partida"));
         }
-
     }
 
     /**

@@ -21,29 +21,36 @@ import vista.VistaTablero;
 import vista.VistaUtilidades;
 
 /**
+ * ViewModel para la vista de organización de unidades. Gestiona la interacción
+ * entre la vista y el modelo para organizar las unidades del jugador.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaModeloOrganizar {
+
     /**
-     * Vista de organización.
+     * Vista de organización de unidades.
      */
     private IVistaOrganizar vista;
-    
+
     /**
      * Modelo del jugador.
      */
     private ModeloJugador modeloJugador;
-    
+
     /**
      * Conexión con el servidor.
      */
     private ConexionCliente conexionCliente;
 
     /**
-     * Constructor que inicializa el presentador con la vista especificada.
+     * Constructor que inicializa el ViewModel con la vista especificada, el
+     * modelo del jugador y la conexión con el servidor.
      *
-     * @param vista la vista de organización
+     * @param vista la vista de organización que será gestionada
      */
     public VistaModeloOrganizar(IVistaOrganizar vista) {
         this.vista = vista;
@@ -52,16 +59,19 @@ public class VistaModeloOrganizar {
     }
 
     /**
-     * Envía las unidades del jugador al servidor.
+     * Envía al servidor la información de las unidades organizadas por el
+     * jugador. Se serializan las unidades con su número de nave y las
+     * coordenadas ocupadas. Luego bloquea la interfaz para evitar más
+     * modificaciones.
      */
     public void enviarUnidadesAlServidor() {
         VistaTablero tablero = vista.getTablero();
         ModeloTablero modeloTablero = tablero.getVistaModelo().getModeloTablero();
 
-        // Obtener las unidades
+        // Obtener las unidades del tablero
         Set<ModeloUbicacionUnidad> unidades = modeloTablero.getUnidades();
 
-        // Serializar las unidades
+        // Serializar las unidades a una lista de mapas con sus datos
         List<Map<String, Object>> unidadesData = new ArrayList<>();
 
         for (ModeloUbicacionUnidad ubicacionUnidad : unidades) {
@@ -70,7 +80,7 @@ public class VistaModeloOrganizar {
 
             unidadData.put("numNave", unidad.getNumNave());
 
-            // Obtener las coordenadas
+            // Obtener las coordenadas ocupadas por la unidad
             List<Map<String, Integer>> coordenadas = new ArrayList<>();
             for (ModeloCasilla casilla : ubicacionUnidad.getCasillasOcupadas()) {
                 Map<String, Integer> coordenada = new HashMap<>();
@@ -83,36 +93,36 @@ public class VistaModeloOrganizar {
             unidadesData.add(unidadData);
         }
 
-        // Enviar las unidades al servidor
+        // Enviar la información de las unidades al servidor
         conexionCliente.enviarUnidades(unidadesData);
 
-        // Bloquear la interfaz si es necesario
+        // Bloquear la interfaz para evitar más cambios
         vista.bloquearInterfaz();
     }
 
     /**
-     * Cambia el color de las naves en la vista de organización.
+     * Cambia el color de las naves en la vista de organización. Actualiza el
+     * color en el tablero y en los paneles laterales.
      *
-     * @param nombreColor el nombre del nuevo color de las naves
+     * @param nombreColor nombre del nuevo color para las naves
      */
     public void cambiarColorNaves(String nombreColor) {
         Color nuevoColorNave = VistaUtilidades.obtenerColorBarco(nombreColor);
         vista.getTablero().setColorNave(nuevoColorNave);
-        // Podrías agregar un método en la vista para actualizar los paneles laterales
         vista.actualizarColorPanelesLaterales(nuevoColorNave);
     }
 
     /**
-     * Muestra un mensaje indicando que un jugador está esperando.
+     * Muestra un mensaje en la vista indicando que un jugador está esperando.
      *
-     * @param nombreJugador el nombre del jugador que está esperando
+     * @param nombreJugador nombre del jugador que está en espera
      */
     public void manejarJugadorEsperando(String nombreJugador) {
         vista.mostrarMensajeJugadorEsperando(nombreJugador);
     }
 
     /**
-     * Inicia el juego cambiando a la vista de juego.
+     * Cambia la vista a la pantalla de juego cuando se inicia la partida.
      */
     public void manejarIniciarJuego() {
         vista.navegarAJugar();

@@ -9,25 +9,38 @@ import vista.VistaTablero;
 import vistaModelo.VistaModeloTablero;
 
 /**
+ * Estrategia que implementa el modo enemigo para el tablero.
+ *
+ * En este modo se maneja la interacción con el tablero enemigo, permitiendo que
+ * el usuario realice acciones solo si la interacción está habilitada en la
+ * vista.
+ *
+ * Los eventos de suelta y arrastre del ratón no generan acción.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class ModoEnemigoStrategy implements IModoTableroStrategy{
+public class ModoEnemigoStrategy implements IModoTableroStrategy {
+
     /**
-     * Presentador del tablero asociado a esta estrategia.
+     * VistaModelo del tablero asociado a esta estrategia.
      */
     private VistaModeloTablero vistaModelo;
-    
+
     /**
      * Vista del tablero asociado a esta estrategia.
      */
     private VistaTablero vista;
 
     /**
-     * Constructor que inicializa la estrategia con la vista y el vistaModelo especificados.
+     * Constructor que inicializa la estrategia con la vista y el vistaModelo
+     * especificados.
      *
      * @param vista la vista del tablero
-     * @param vistaModelo el presentador del tablero
+     * @param vistaModelo el vistaModelo del tablero
      */
     public ModoEnemigoStrategy(VistaTablero vista, VistaModeloTablero vistaModelo) {
         this.vista = vista;
@@ -35,7 +48,8 @@ public class ModoEnemigoStrategy implements IModoTableroStrategy{
     }
 
     /**
-     * Maneja el evento cuando se presiona el ratón en el tablero enemigo.
+     * Maneja el evento cuando se presiona el ratón en el tablero enemigo. Solo
+     * procesa el click si la interacción está habilitada.
      *
      * @param e el evento de ratón
      */
@@ -48,7 +62,8 @@ public class ModoEnemigoStrategy implements IModoTableroStrategy{
     }
 
     /**
-     * Maneja el evento cuando se suelta el ratón. No tiene comportamiento en este modo.
+     * Maneja el evento cuando se suelta el ratón. No realiza ninguna acción en
+     * este modo.
      *
      * @param e el evento de ratón
      */
@@ -58,7 +73,8 @@ public class ModoEnemigoStrategy implements IModoTableroStrategy{
     }
 
     /**
-     * Maneja el evento cuando se arrastra el ratón. No tiene comportamiento en este modo.
+     * Maneja el evento cuando se arrastra el ratón. No realiza ninguna acción
+     * en este modo.
      *
      * @param e el evento de ratón
      */

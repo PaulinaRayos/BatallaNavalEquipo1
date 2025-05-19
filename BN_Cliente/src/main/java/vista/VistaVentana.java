@@ -10,21 +10,27 @@ import java.awt.event.WindowFocusListener;
 import javax.swing.JFrame;
 
 /**
+ * Clase que representa la ventana principal de la aplicación Batalla Naval.
+ * Esta ventana contiene un panel de vista específico y configura la apariencia
+ * y el comportamiento inicial de la ventana, incluyendo el manejo del cierre,
+ * tamaño, visibilidad y eventos de enfoque.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class VistaVentana  extends JFrame{
-    
+public class VistaVentana extends JFrame {
+
     /**
-     * Constructor de la clase VentanaJuego que recibe un VistaPanel como
-     * argumento. Configura la apariencia y comportamiento inicial de la
-     * ventana.
+     * Constructor que inicializa la ventana con el panel proporcionado.
+     * Configura el título, tamaño, comportamiento al cerrar y visibilidad.
      *
-     * @param panel VistaPanel a agregar a la ventana.
+     * @param panel el VistaPanel que se agrega a la ventana
      */
     public VistaVentana(VistaPanel panel) {
-        // Configuración inicial de la ventana
-        // Define el comportamiento al cerrar la ventana
+        // Configura la acción al cerrar la ventana para terminar la aplicación
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -32,34 +38,32 @@ public class VistaVentana  extends JFrame{
                 System.exit(0);
             }
         });
-        // Establece el título de la ventana
+
+        // Título de la ventana
         this.setTitle("Batalla Naval");
-        // Agrega el panel del juego a la ventana
+        // Agrega el panel al JFrame
         this.add(panel);
-        // Evita que la ventana se pueda redimensionar
+        // No permite redimensionar la ventana
         this.setResizable(false);
-        // Ajusta automáticamente el tamaño de la ventana al contenido
+        // Ajusta el tamaño de la ventana al tamaño del contenido
         this.pack();
         // Centra la ventana en la pantalla
         this.setLocationRelativeTo(null);
         // Hace visible la ventana
         this.setVisible(true);
-        // Agrega un escuchador para el enfoque de la ventana
+
+        // Escucha eventos de enfoque de la ventana
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-
+                // Se puede implementar acción cuando la ventana gana enfoque
             }
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                // Llama al método en el juego cuando se pierde el enfoque de la ventana
-//                panel.getJuego().windowFocusLost();
+                // Se puede implementar acción cuando la ventana pierde enfoque
+                // Ejemplo (comentado): panel.getJuego().windowFocusLost();
             }
         });
-        {
-
-        }
     }
-  
 }

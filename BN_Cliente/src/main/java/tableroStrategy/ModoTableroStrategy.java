@@ -5,8 +5,18 @@
 package tableroStrategy;
 
 /**
+ * Enumeración que define los modos posibles para el tablero en la estrategia de
+ * juego.
+ *
+ * - ORGANIZAR: modo para organizar las unidades en el tablero. - JUGADOR: modo
+ * del tablero que representa al jugador. - ENEMIGO: modo del tablero que
+ * representa al enemigo.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public enum ModoTableroStrategy {
     ORGANIZAR,

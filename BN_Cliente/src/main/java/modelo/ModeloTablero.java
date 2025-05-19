@@ -11,30 +11,37 @@ import java.util.Set;
 import tableroStrategy.ITableroObserver;
 
 /**
+ * Modelo que representa el tablero del juego, compuesto por una matriz de
+ * casillas y un conjunto de unidades ubicadas. Implementa el patrón Observer
+ * para notificar cambios a los observadores.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloTablero {
+
     /**
      * Número de filas del tablero.
      */
     private final int FILAS = 10;
-    
+
     /**
      * Número de columnas del tablero.
      */
     private final int COLUMNAS = 10;
-    
+
     /**
      * Matriz de casillas que componen el tablero.
      */
     private ModeloCasilla[][] casillas;
-    
+
     /**
      * Conjunto de unidades ubicadas en el tablero.
      */
     private Set<ModeloUbicacionUnidad> unidades;
-    
+
     /**
      * Lista de observadores del tablero.
      */
@@ -44,20 +51,17 @@ public class ModeloTablero {
      * Constructor que inicializa el tablero y sus casillas.
      */
     public ModeloTablero() {
-
         casillas = new ModeloCasilla[FILAS][COLUMNAS];
-        
-        // se crean las casillas
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                ModeloCasilla celda = new ModeloCasilla(new ModeloCoordenada(i, j));
-                casillas[i][j] = celda;
+
+        // Se crean las casillas
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                casillas[i][j] = new ModeloCasilla(new ModeloCoordenada(i, j));
             }
         }
 
-        // se inicia la lista ubicaciones
-        this.unidades = new HashSet();
-
+        // Se inicia el conjunto de unidades
+        this.unidades = new HashSet<>();
     }
 
     /**
@@ -91,7 +95,7 @@ public class ModeloTablero {
         }
         return null;
     }
-    
+
     /**
      * Agrega un observador del tablero.
      *
@@ -125,5 +129,4 @@ public class ModeloTablero {
             observer.onTableroUpdated();
         }
     }
-
 }

@@ -7,32 +7,39 @@ package modelo;
 import enums.Orientacion;
 
 /**
+ * Modelo que representa una unidad (nave) en el juego, con su número, nombre,
+ * orientación y tamaño.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloUnidad {
+
     /**
      * Nombre de la unidad.
      */
     private String nombre;
-    
+
     /**
      * Número de identificación de la nave.
      */
     private final int numNave;
-    
+
     /**
      * Orientación de la unidad (horizontal o vertical).
      */
     private Orientacion orientacion;
-    
+
     /**
      * Tamaño de la unidad.
      */
-    private final int tamaño;    
+    private final int tamaño;
 
     /**
-     * Constructor que inicializa la unidad con su número, nombre, orientación y tamaño.
+     * Constructor que inicializa la unidad con su número, nombre, orientación y
+     * tamaño.
      *
      * @param numNave el número de la nave
      * @param nombre el nombre de la unidad
@@ -72,7 +79,7 @@ public class ModeloUnidad {
     public Orientacion getOrientacion() {
         return orientacion;
     }
-    
+
     /**
      * Obtiene el tamaño de la unidad.
      *
@@ -81,5 +88,5 @@ public class ModeloUnidad {
     public int getTamaño() {
         return tamaño;
     }
-    
+
 }

@@ -4,20 +4,24 @@
  */
 package modelo;
 
-
-
 import java.util.Set;
 
 /**
+ * Modelo que representa la ubicación de una unidad (nave) en el tablero,
+ * incluyendo la unidad y las casillas que ocupa.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloUbicacionUnidad {
+
     /**
      * Unidad del modelo que se está ubicando.
      */
     private ModeloUnidad unidad;
-    
+
     /**
      * Conjunto de casillas ocupadas por la unidad.
      */
@@ -69,5 +73,5 @@ public class ModeloUbicacionUnidad {
     public void setCasillasOcupadas(Set<ModeloCasilla> casillasOcupadas) {
         this.casillasOcupadas = casillasOcupadas;
     }
-    
+
 }

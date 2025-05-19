@@ -11,12 +11,18 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
+ * Panel principal del juego donde se dibujan y gestionan los componentes
+ * visuales. Permite agregar y quitar elementos gráficos y actualiza su
+ * visualización según el estado del juego.
  *
  * @author pauli
+ * @author sebastian
+ * @author agustin
+ * @author joaquin
  */
-public class VistaPanel extends JPanel{
-    
-     /**
+public class VistaPanel extends JPanel {
+
+    /**
      * Referencia al objeto Juego.
      */
     private Juego juego;
@@ -34,10 +40,6 @@ public class VistaPanel extends JPanel{
         setPanelSize();
         requestFocus();
         setLayout(null);
-        // Agrega un escuchador de eventos de clic del mouse************************************************************************
-//        addMouseListener(mouse);
-        // Agrega un escuchador de eventos de movimiento del mouse********************************************************************
-//        addMouseMotionListener(mouse);
     }
 
     /**
@@ -52,7 +54,7 @@ public class VistaPanel extends JPanel{
         // Muestra las dimensiones en la consola
         System.out.println("Size: " + Juego.GAME_ANCHO + " : " + Juego.GAME_ALTO);
     }
-    
+
     /**
      * Agrega un componente al panel en la posición y tamaño especificados.
      *
@@ -65,10 +67,10 @@ public class VistaPanel extends JPanel{
     public void agregarComponente(JComponent componente, int x, int y, int ancho, int alto) {
         componente.setBounds(x, y, ancho, alto);
         add(componente);
-        revalidate(); 
+        revalidate();
         repaint();
     }
-    
+
     /**
      * Quita un componente del panel.
      *
@@ -108,6 +110,5 @@ public class VistaPanel extends JPanel{
     public Juego getJuego() {
         return juego;
     }
-    
-}
 
+}

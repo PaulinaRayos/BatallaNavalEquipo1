@@ -5,10 +5,16 @@
 package modelo;
 
 /**
+ * Modelo que define los diferentes tipos de unidades (naves) disponibles en el
+ * juego, con sus respectivos nombres y tamaños.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloTipoUnidad {
+
     /**
      * Clase que define las características del Barco.
      */
@@ -18,14 +24,14 @@ public class ModeloTipoUnidad {
          * Nombre del tipo de unidad.
          */
         public static final String NOMBRE = "Barco";
-        
+
         /**
          * Tamaño del tipo de unidad.
          */
         public static final int TAMANO = 1;
 
     }
-    
+
     /**
      * Clase que define las características del Submarino.
      */
@@ -35,14 +41,14 @@ public class ModeloTipoUnidad {
          * Nombre del tipo de unidad.
          */
         public static final String NOMBRE = "Submarino";
-        
+
         /**
          * Tamaño del tipo de unidad.
          */
         public static final int TAMANO = 2;
 
     }
-    
+
     /**
      * Clase que define las características del Crucero.
      */
@@ -52,14 +58,14 @@ public class ModeloTipoUnidad {
          * Nombre del tipo de unidad.
          */
         public static final String NOMBRE = "Crucero";
-        
+
         /**
          * Tamaño del tipo de unidad.
          */
         public static final int TAMANO = 3;
 
     }
-    
+
     /**
      * Clase que define las características del Portaaviones.
      */
@@ -69,13 +75,11 @@ public class ModeloTipoUnidad {
          * Nombre del tipo de unidad.
          */
         public static final String NOMBRE = "Portaaviones";
-        
+
         /**
          * Tamaño del tipo de unidad.
          */
         public static final int TAMANO = 4;
 
     }
-    
 }
-

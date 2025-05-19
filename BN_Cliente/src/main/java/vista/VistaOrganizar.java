@@ -20,8 +20,20 @@ import vistaModelo.VistaModeloOrganizar;
 import vistaModelo.VistaModeloTablero;
 
 /**
+ * Clase que representa la vista de organización del juego, permitiendo al
+ * jugador seleccionar y posicionar sus naves en el tablero. Implementa las
+ * interfaces IVistaPanel e IVistaOrganizar.
+ *
+ * Controla la visualización, interacción y configuración previa al inicio de la
+ * partida. Incluye componentes visuales como botones, paneles y selecciones de
+ * color. También se comunica con el modelo de vista (VistaModeloOrganizar) para
+ * aplicar la lógica del juego.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
 
@@ -39,22 +51,22 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * Selector de color para las naves.
      */
     private JComboBox<String> colorSelector;
-    
+
     /**
      * Botón para colocar Portaviones
      */
     private JButton botonPortaaviones;
-    
+
     /**
      * Botón para colocar Crucero
      */
     private JButton botonCrucero;
-    
+
     /**
      * Botón para colocar Submarino
      */
     private JButton botonSubmarino;
-    
+
     /**
      * Botón para colocar Barco
      */
@@ -94,36 +106,34 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
      * vistaModelo que maneja la lógica de organización de las naves.
      */
     private VistaModeloOrganizar vistaModelo;
-    
-    
 
     /**
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
-    
+
     /**
      * Imagen de titulo utilizada en la vista de buscar.
      */
     private BufferedImage titulo;
-    
+
     /**
-     * Contador para contar las naves para colocar en el tablero 
+     * Contador para contar las naves para colocar en el tablero
      */
     private int contadorPortaaviones = 0;
-    
+
     /**
-     * Contador para contar las naves para colocar en el tablero 
+     * Contador para contar las naves para colocar en el tablero
      */
     private int contadorCrucero = 2;
-    
+
     /**
-     * Contador para contar las naves para colocar en el tablero 
+     * Contador para contar las naves para colocar en el tablero
      */
     private int contadorSubmarino = 4;
-    
+
     /**
-     * Contador para contar las naves para colocar en el tablero 
+     * Contador para contar las naves para colocar en el tablero
      */
     private int contadorBarco = 8;
 
@@ -136,7 +146,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     public VistaOrganizar(VistaPanel panelJuego) {
         this.panelJuego = panelJuego;
         this.vistaModelo = new VistaModeloOrganizar(this);
-        
+
         crearComponentes();
         accionesComponentes();
         cargarImagenes();
@@ -183,28 +193,28 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         }
 //        g.drawString("Portaaviones", 600, 220);antes 320 la Y
         if (!panelJuego.isAncestorOf(botonPortaaviones)) {
-            panelJuego.agregarComponente(botonPortaaviones, 600,200, 200, 30);
+            panelJuego.agregarComponente(botonPortaaviones, 600, 200, 200, 30);
         }
         if (!panelJuego.isAncestorOf(portaaviones)) {
             panelJuego.agregarComponente(portaaviones, 600, 240, (30 * 4), 30);//330Y
         }
 //        g.drawString("Crucero", 600, 290);390
         if (!panelJuego.isAncestorOf(botonCrucero)) {
-            panelJuego.agregarComponente(botonCrucero, 600,290, 217, 30);
+            panelJuego.agregarComponente(botonCrucero, 600, 290, 217, 30);
         }
         if (!panelJuego.isAncestorOf(crucero)) {
             panelJuego.agregarComponente(crucero, 600, 330, (30 * 3), 30);//400
         }
 //       g.drawString("Submarino", 600, 360);
         if (!panelJuego.isAncestorOf(botonSubmarino)) {
-            panelJuego.agregarComponente(botonSubmarino, 600,380, 204, 30);
+            panelJuego.agregarComponente(botonSubmarino, 600, 380, 204, 30);
         }
         if (!panelJuego.isAncestorOf(submarino)) {
             panelJuego.agregarComponente(submarino, 600, 420, (30 * 2), 30);
         }
 //        g.drawString("Barco", 600, 430);
         if (!panelJuego.isAncestorOf(botonBarco)) {
-            panelJuego.agregarComponente(botonBarco, 600,470, 210, 30);
+            panelJuego.agregarComponente(botonBarco, 600, 470, 210, 30);
         }
         if (!panelJuego.isAncestorOf(barco)) {
             panelJuego.agregarComponente(barco, 600, 510, (30 * 1), 30);
@@ -246,50 +256,50 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
             String nombreColorSeleccionado = (String) colorSelector.getSelectedItem();
             vistaModelo.cambiarColorNaves(nombreColorSeleccionado);
         });
-        
+
         botonPortaaviones.addActionListener(e -> {
 //      Agrega Portaviones al tablero    
-        if (contadorPortaaviones <= 1) {
-        
-        int y = tablero.colocarNave(contadorPortaaviones);
-            if (y == 1) {
-                contadorPortaaviones++;
+            if (contadorPortaaviones <= 1) {
+
+                int y = tablero.colocarNave(contadorPortaaviones);
+                if (y == 1) {
+                    contadorPortaaviones++;
+                }
+
             }
-        
-    }
         });
-        
+
         botonCrucero.addActionListener(e -> {
 //      Agrega Crucero al tablero    
-        if (contadorCrucero <= 3) {
-        
-        int y =tablero.colocarNave(contadorCrucero);
-        if (y == 1) {
-                contadorCrucero++;
+            if (contadorCrucero <= 3) {
+
+                int y = tablero.colocarNave(contadorCrucero);
+                if (y == 1) {
+                    contadorCrucero++;
+                }
             }
-    }
         });
-        
+
         botonSubmarino.addActionListener(e -> {
 //      Agrega Submarino al tablero    
-        if (contadorSubmarino <= 7) {
-        
-        int y = tablero.colocarNave(contadorSubmarino);
-        if (y == 1) {
-                contadorSubmarino++;
+            if (contadorSubmarino <= 7) {
+
+                int y = tablero.colocarNave(contadorSubmarino);
+                if (y == 1) {
+                    contadorSubmarino++;
+                }
             }
-    }
         });
-        
+
         botonBarco.addActionListener(e -> {
 //      Agrega Barco al tablero    
-        if (contadorBarco <= 10) {
-        
-        int y = tablero.colocarNave(contadorBarco);
-        if (y == 1) {
-                contadorBarco++;
+            if (contadorBarco <= 10) {
+
+                int y = tablero.colocarNave(contadorBarco);
+                if (y == 1) {
+                    contadorBarco++;
+                }
             }
-    }
         });
 
     }
@@ -393,9 +403,10 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
     public VistaModeloOrganizar getVistaModelo() {
         return vistaModelo;
     }
-     public void cargarImagenes() {
+
+    public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
         this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
-    
+
 }

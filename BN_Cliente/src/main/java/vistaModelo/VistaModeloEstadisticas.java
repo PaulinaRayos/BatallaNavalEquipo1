@@ -11,36 +11,55 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
+ * ViewModel para la vista de estadísticas. Gestiona las acciones del usuario
+ * relacionadas con la finalización de la partida, como volver a jugar o salir
+ * al menú principal.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaModeloEstadisticas {
 
+    /**
+     * Referencia a la clase principal del juego para cambiar estados.
+     */
     private Juego juego;
 
+    /**
+     * Constructor que inicializa el ViewModel con la instancia principal del
+     * juego.
+     *
+     * @param juego la instancia principal del juego
+     */
     public VistaModeloEstadisticas(Juego juego) {
         this.juego = juego;
     }
 
+    /**
+     * Envía una solicitud al servidor para volver a jugar y muestra un mensaje
+     * informando que se espera la respuesta del oponente.
+     */
     public void volverAJugar() {
-        // Enviar solicitud al servidor para volver a jugar
         Map<String, Object> mensaje = new HashMap<>();
         mensaje.put("accion", "VOLVER_A_JUGAR");
 
         ConexionCliente.getInstance().sendMessage(mensaje);
 
-        // Mostrar mensaje de espera
         JOptionPane.showMessageDialog(null, "Has solicitado volver a jugar. Esperando respuesta del oponente.");
     }
 
+    /**
+     * Envía una notificación al servidor indicando que el jugador quiere salir,
+     * y cambia el estado del juego a menú principal.
+     */
     public void salirAlMenu() {
-        // Enviar notificación al servidor de que el jugador quiere salir
         Map<String, Object> mensaje = new HashMap<>();
         mensaje.put("accion", "SALIR");
 
         ConexionCliente.getInstance().sendMessage(mensaje);
 
-        // Transicionar al estado del menú
         juego.cambiarEstado(new EstadoMenu(juego));
     }
 

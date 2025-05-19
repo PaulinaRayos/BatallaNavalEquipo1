@@ -11,35 +11,43 @@ import interfaz.IVistaMenu;
 import modelo.ModeloJugador;
 
 /**
+ * ViewModel para la vista del menú principal. Gestiona la interacción entre la
+ * vista del menú, el modelo del jugador, la conexión con el servidor y el
+ * control del flujo del juego.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaModeloMenu {
+
     /**
-     * Vista del menú.
+     * Vista del menú principal.
      */
     private IVistaMenu vista;
-    
+
     /**
-     * Conexión con el servidor.
+     * Conexión con el servidor para las operaciones de red.
      */
     private ConexionCliente conexionCliente;
-    
+
     /**
-     * Modelo del jugador.
+     * Modelo que contiene los datos del jugador actual.
      */
     private ModeloJugador jugador;
-    
+
     /**
-     * Referencia al juego principal.
+     * Referencia al juego principal para cambiar estados.
      */
     private Juego juego;
 
     /**
-     * Constructor que inicializa el presentador con la vista y el juego especificados.
+     * Constructor que inicializa el ViewModel con la vista del menú y la
+     * referencia al juego principal.
      *
-     * @param vista la vista del menú
-     * @param juego la referencia al juego principal
+     * @param vista la vista del menú principal
+     * @param juego la instancia del juego principal
      */
     public VistaModeloMenu(IVistaMenu vista, Juego juego) {
         this.vista = vista;
@@ -49,7 +57,9 @@ public class VistaModeloMenu {
     }
 
     /**
-     * Crea una nueva partida y cambia al estado correspondiente.
+     * Crea una nueva partida solicitando al servidor la creación y cambia al
+     * estado de sala de espera si el nombre del jugador es válido. Si el nombre
+     * no es válido, muestra un mensaje de error en la vista.
      */
     public void crearPartida() {
         String nombreJugador = jugador.getNombre();
@@ -60,20 +70,19 @@ public class VistaModeloMenu {
         conexionCliente.crearPartida(nombreJugador);
         avanzarACrearPartida();
     }
-    
+
     /**
-     * Cambia al estado de creación de partida (sala de espera).
+     * Cambia el estado del juego a sala de espera para crear la partida.
      */
     public void avanzarACrearPartida() {
         juego.cambiarEstado(new EstadoSalaEspera(juego));
     }
-    
+
     /**
-     * Cambia al estado de unión a una partida existente.
+     * Cambia el estado del juego a búsqueda de partidas para unirse a una
+     * existente.
      */
     public void avanzarAUnirseAPartida() {
         juego.cambiarEstado(new EstadoBuscarPartida(juego));
     }
-    
-    
 }

@@ -30,7 +30,14 @@ import vistaModelo.Juego;
 
 /**
  *
- * @author pauli
+ * Clase utilitaria que contiene constantes y métodos para la interfaz gráfica.
+ * Proporciona recursos visuales compartidos como colores, fuentes y
+ * componentes.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaUtilidades {
 
@@ -47,13 +54,11 @@ public class VistaUtilidades {
     public static final String BOTON_REGRESAR = "/recursos/botonRegresar.png";
     public static final String BOTON_JUGAR = "/recursos/botonJugar.png";
     public static final String BOTON_RENDIRSE = "/recursos/botonRendirse.png";
-    public static final String BOTON_ESTADISTICAS= "/recursos/botonEstadisticas.png";
-    public static final String BOTON_COLOCAR_PORTA_AVIONES= "/recursos/botonColocarPortaAviones.png";
-    public static final String BOTON_COLOCAR_CRUCERO= "/recursos/botonColocarCrucero.png";
-    public static final String BOTON_COLOCAR_SUBMARINO= "/recursos/botonColocarSubmarino.png";
-    public static final String BOTON_COLOCAR_BARCO= "/recursos/botonColocarBarco.png";
-    
-    
+    public static final String BOTON_ESTADISTICAS = "/recursos/botonEstadisticas.png";
+    public static final String BOTON_COLOCAR_PORTA_AVIONES = "/recursos/botonColocarPortaAviones.png";
+    public static final String BOTON_COLOCAR_CRUCERO = "/recursos/botonColocarCrucero.png";
+    public static final String BOTON_COLOCAR_SUBMARINO = "/recursos/botonColocarSubmarino.png";
+    public static final String BOTON_COLOCAR_BARCO = "/recursos/botonColocarBarco.png";
 
     // Colores componentes
     public static final Color COLOR_FONDO = new Color(139, 137, 126);
@@ -153,7 +158,7 @@ public class VistaUtilidades {
 
         return boton;
     }
-    
+
     /**
      * Crea un campo de texto personalizado con estilo consistente.
      *

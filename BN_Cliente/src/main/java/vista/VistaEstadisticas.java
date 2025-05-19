@@ -21,8 +21,19 @@ import vistaModelo.Juego;
 import vistaModelo.VistaModeloEstadisticas;
 
 /**
+ * Clase que representa la vista de las estadísticas de la batalla.
  *
- * @author pauli
+ * Esta clase implementa la interfaz IVistaPanel y se encarga de mostrar la
+ * información visual de los resultados, incluyendo el ganador, duración, y
+ * estadísticas por jugador.
+ *
+ * Utiliza un esquema de colores y fuentes inspirado en un tema naval para la
+ * interfaz.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaEstadisticas implements IVistaPanel {
 
@@ -60,6 +71,18 @@ public class VistaEstadisticas implements IVistaPanel {
     private JLabel lblGanador, lblTiempoPartida, lblTitulo;
     private JScrollPane scrollPane;
 
+    /**
+     * Constructor de la clase VistaEstadisticas.
+     *
+     * Inicializa los componentes, recibe las estadísticas, ganador y duración,
+     * y prepara la vista para ser mostrada.
+     *
+     * @param panelJuego panel principal donde se agrega esta vista
+     * @param estadisticas mapa con las estadísticas de los jugadores
+     * @param ganador nombre del jugador ganador
+     * @param tiempoPartida duración de la batalla
+     * @param juego referencia al modelo del juego para interacción
+     */
     public VistaEstadisticas(VistaPanel panelJuego, Map<String, Object> estadisticas,
             String ganador, String tiempoPartida, Juego juego) {
         this.panelJuego = panelJuego;
@@ -73,6 +96,10 @@ public class VistaEstadisticas implements IVistaPanel {
         cargarImagenes();
     }
 
+    /**
+     * Crea los componentes visuales que formarán parte de la vista, tales como
+     * etiquetas, botones y tabla de estadísticas.
+     */
     @Override
     public void crearComponentes() {
         // Título principal
@@ -109,6 +136,11 @@ public class VistaEstadisticas implements IVistaPanel {
         btnSalir.setFocusPainted(false);
     }
 
+    /**
+     * Crea la tabla de estadísticas con las columnas y filas correspondientes,
+     * configurando los estilos de fuente y colores para la tabla y su
+     * encabezado.
+     */
     private void crearTablaEstadisticas() {
         String[] nombresJugadores = obtenerNombresJugadores();
         String[] nombresEstadisticas = {
@@ -143,6 +175,11 @@ public class VistaEstadisticas implements IVistaPanel {
         header.setBackground(COLOR_BOTON_FONDO);
     }
 
+    /**
+     * Obtiene los nombres de los jugadores a partir del mapa de estadísticas.
+     *
+     * @return arreglo con los nombres de los jugadores
+     */
     private String[] obtenerNombresJugadores() {
         Set<String> idsJugadores = estadisticas.keySet();
         String[] nombres = new String[idsJugadores.size()];
@@ -154,6 +191,14 @@ public class VistaEstadisticas implements IVistaPanel {
         return nombres;
     }
 
+    /**
+     * Obtiene los datos numéricos de las estadísticas para mostrar en la tabla,
+     * organizados por tipo de estadística y jugador.
+     *
+     * @param nombresEstadisticas arreglo con los nombres de las estadísticas a
+     * mostrar
+     * @return matriz de objetos con los datos para la tabla
+     */
     private Object[][] obtenerDatosEstadisticas(String[] nombresEstadisticas) {
         Set<String> idsJugadores = estadisticas.keySet();
         int numJugadores = idsJugadores.size();
@@ -171,14 +216,23 @@ public class VistaEstadisticas implements IVistaPanel {
         return datos;
     }
 
+    /**
+     * Dibuja la imagen de portada en la vista utilizando el objeto Graphics.
+     *
+     * @param g objeto Graphics para dibujar en el panel
+     */
     @Override
     public void dibujar(Graphics g) {
-       if (portada != null) {
+        if (portada != null) {
             g.drawImage(portada, 0, 0, Juego.GAME_ANCHO, Juego.GAME_ALTO, null);
-        } 
+        }
 
     }
 
+    /**
+     * Configura el posicionamiento y propiedades de los componentes agregados
+     * al panel principal.
+     */
     private void configurarComponentes() {
         // Posicionamiento con parámetros correctos (x, y, width, height)
         panelJuego.agregarComponente(lblTitulo, 0, 70, Juego.GAME_ANCHO, 40);
@@ -194,12 +248,20 @@ public class VistaEstadisticas implements IVistaPanel {
         panelJuego.repaint();
     }
 
+    /**
+     * Asocia los eventos (acciones) a los botones para responder a
+     * interacciones del usuario.
+     */
     @Override
     public void accionesComponentes() {
         btnVolverAJugar.addActionListener(e -> vistaModelo.volverAJugar());
         btnSalir.addActionListener(e -> vistaModelo.salirAlMenu());
     }
 
+    /**
+     * Remueve todos los componentes visuales de esta vista del panel principal,
+     * para limpiar la interfaz al cambiar de vista.
+     */
     @Override
     public void quitarComponentes() {
         panelJuego.quitarComponente(lblTitulo);
@@ -209,11 +271,13 @@ public class VistaEstadisticas implements IVistaPanel {
         panelJuego.quitarComponente(btnVolverAJugar);
         panelJuego.quitarComponente(btnSalir);
     }
-    
+
+    /**
+     * Carga las imágenes necesarias para la vista, como la portada.
+     */
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
 
     }
-
 
 }

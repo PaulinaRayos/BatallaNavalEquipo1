@@ -10,15 +10,26 @@ import vista.VistaMenu;
 import vistaModelo.Juego;
 
 /**
+ * Representa el estado del juego correspondiente al menú principal.
  *
- * @author pauli
+ * En este estado, se muestra la interfaz principal del juego desde donde el
+ * usuario puede acceder a diferentes opciones como iniciar partida, ver
+ * instrucciones, entre otras.
+ *
+ * Este estado no maneja mensajes externos por el momento.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class EstadoMenu implements IEstado{
+public class EstadoMenu implements IEstado {
+
     /**
      * Referencia al juego principal.
      */
     private Juego juego;
-    
+
     /**
      * Vista que representa la interfaz del menú.
      */
@@ -55,10 +66,12 @@ public class EstadoMenu implements IEstado{
     /**
      * Maneja un mensaje recibido en el estado del menú.
      *
+     * Actualmente, este estado no espera ni maneja mensajes.
+     *
      * @param mensaje un mapa que contiene los datos del mensaje recibido
      */
     @Override
     public void handleMessage(Map<String, Object> mensaje) {
-        // no se esperan mensajes en este estado al momento
+        // No se esperan mensajes en este estado al momento
     }
 }

@@ -8,10 +8,19 @@ import java.awt.Color;
 import vista.VistaTablero;
 
 /**
+ * Interfaz que define el comportamiento de la vista de organización de naves.
  *
- * @author pauli
+ * Esta vista permite al jugador organizar sus naves antes de iniciar la
+ * partida. Ofrece métodos para bloquear la interfaz, actualizar la
+ * visualización y navegar al siguiente estado del juego.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IVistaOrganizar {
+
     /**
      * Muestra un mensaje indicando que un jugador está esperando.
      *
@@ -49,5 +58,4 @@ public interface IVistaOrganizar {
      * @param nuevoColorNave el nuevo color de las naves
      */
     void actualizarColorPanelesLaterales(Color nuevoColorNave);
-
 }

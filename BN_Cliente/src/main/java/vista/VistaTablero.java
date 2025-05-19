@@ -27,32 +27,39 @@ import tableroStrategy.ModoEnemigoStrategy;
 import tableroStrategy.ModoJugadorStrategy;
 import tableroStrategy.ModoOrganizarStrategy;
 
-
 /**
  *
- * @author pauli
+ * Vista gráfica del tablero de juego que implementa el patrón Observer. Maneja
+ * la representación visual y las interacciones del usuario.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class VistaTablero extends JPanel implements ITableroObserver{
+public class VistaTablero extends JPanel implements ITableroObserver {
+
     /**
-     * Presentador encargado de gestionar la lógica asociada a la vista del tablero.
+     * Presentador encargado de gestionar la lógica asociada a la vista del
+     * tablero.
      */
     private VistaModeloTablero vistaModelo;
-    
+
     /**
      * Modo actual del tablero (ORGANIZAR, JUGADOR, ENEMIGO).
      */
     private ModoTableroStrategy modo;
-    
+
     /**
      * Estrategia de comportamiento actual según el modo del tablero.
      */
     private IModoTableroStrategy estrategiaActual;
-    
+
     /**
      * Listener del mouse para el modo ORGANIZAR.
      */
     private MouseListener mouseListenerOrganizar;
-    
+
     /**
      * Listener del movimiento del mouse para el modo ORGANIZAR.
      */
@@ -62,54 +69,55 @@ public class VistaTablero extends JPanel implements ITableroObserver{
      * Listener del mouse para el modo ENEMIGO.
      */
     private MouseListener mouseListenerEnemigo;
-    
+
     /**
      * Indica si la interacción con el tablero enemigo está habilitada.
      */
-    private boolean interaccionHabilitada = true; 
-    
+    private boolean interaccionHabilitada = true;
+
     /**
      * Dimensiones de cada celda en el tablero.
      */
     private Dimension tamañoCelda;
-    
+
     /**
      * Imagen de fondo del tablero.
      */
     private BufferedImage fondo;
-    
+
     /**
      * Indica si se está arrastrando una nave actualmente.
      */
     private boolean isDragging;
-    
+
     /**
      * Unidad seleccionada que se está moviendo en el tablero.
      */
     private ModeloUbicacionUnidad unidadSeleccionada;
-    
+
     /**
      * Color de las naves en el tablero.
      */
     private Color colorNave = VistaUtilidades.BARCO_AZUL;
-    
+
     /**
-     * Constructor de la clase VistaTablero.
-     * Inicializa el presentador, establece el tamaño del tablero y carga las imágenes y listeners.
+     * Constructor de la clase VistaTablero. Inicializa el presentador,
+     * establece el tamaño del tablero y carga las imágenes y listeners.
      */
     public VistaTablero() {
         this.vistaModelo = new VistaModeloTablero(this);
         setPreferredSize(new Dimension(300, 300)); // Tamaño del tablero
         tamañoCelda = new Dimension(30, 30); // Tamaño de cada celda
-        
+
         cargarImagenes();
-        
+
         inicializarListeners();
 
     }
 
     /**
-     * Sobrescribe el método paintComponent para dibujar el tablero y su contenido.
+     * Sobrescribe el método paintComponent para dibujar el tablero y su
+     * contenido.
      *
      * @param g Objeto Graphics utilizado para dibujar el tablero.
      */
@@ -330,7 +338,7 @@ public class VistaTablero extends JPanel implements ITableroObserver{
             casilla.setAtacado(true);
             // Enviar el ataque al servidor
             vistaModelo.enviarAtaque(fila, columna);
-            
+
             if (vistaModelo.getAtaqueListener() != null) {
                 vistaModelo.getAtaqueListener().enAtaqueRealizado();
             }
@@ -342,7 +350,8 @@ public class VistaTablero extends JPanel implements ITableroObserver{
     /**
      * Habilita o deshabilita la interacción con el tablero enemigo.
      *
-     * @param habilitar true para habilitar la interacción, false para deshabilitarla.
+     * @param habilitar true para habilitar la interacción, false para
+     * deshabilitarla.
      */
     void habilitarInteraccion(boolean habilitar) {
         this.interaccionHabilitada = habilitar;
@@ -387,11 +396,10 @@ public class VistaTablero extends JPanel implements ITableroObserver{
             repaint();
         });
     }
-    
-    int  colocarNave(int x){
+
+    int colocarNave(int x) {
         int coloco = vistaModelo.inicializarNaves(x);
         return coloco;
     }
-
 
 }

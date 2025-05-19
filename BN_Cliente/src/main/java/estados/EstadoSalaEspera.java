@@ -20,8 +20,16 @@ import vistaModelo.Juego;
 import vistaModelo.VistaModeloSalaEspera;
 
 /**
+ * Representa el estado del juego correspondiente a la sala de espera.
  *
- * @author pauli
+ * En este estado, se manejan las interacciones relacionadas con la creación y
+ * unión de partidas, así como la actualización del estado de los jugadores
+ * antes de iniciar el juego.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class EstadoSalaEspera implements IEstado {
 

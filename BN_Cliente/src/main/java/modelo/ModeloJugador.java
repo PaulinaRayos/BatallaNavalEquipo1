@@ -5,27 +5,32 @@
 package modelo;
 
 /**
+ * Clase que representa al jugador en el modelo del juego. Contiene información
+ * básica como el nombre y el identificador del jugador.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloJugador {
-    
-/**
+
+    /**
      * Nombre del jugador.
      */
     private String nombre;
-    
+
     /**
      * Identificador del jugador.
      */
     private String id;
-    
+
     /**
-     * Constructor privado 
+     * Constructor privado
      */
     private ModeloJugador() {
     }
-    
+
     /**
      * Obtiene la instancia única del jugador.
      *
@@ -34,15 +39,12 @@ public class ModeloJugador {
     public static ModeloJugador getInstance() {
         return ModeloJugadorHolder.INSTANCE;
     }
-    
+
     /**
      * Clase interna que mantiene la instancia única del jugador.
      */
     private static class ModeloJugadorHolder {
 
-        /**
-         * Instancia única del jugador.
-         */
         private static final ModeloJugador INSTANCE = new ModeloJugador();
     }
 
@@ -81,5 +83,5 @@ public class ModeloJugador {
     public void setId(String id) {
         this.id = id;
     }
-    
+
 }

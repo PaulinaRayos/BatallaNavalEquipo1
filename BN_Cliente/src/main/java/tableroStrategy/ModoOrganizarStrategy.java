@@ -9,23 +9,33 @@ import vista.VistaTablero;
 import vistaModelo.VistaModeloTablero;
 
 /**
+ * Estrategia que implementa el modo de organización del tablero. En este modo,
+ * el jugador puede organizar las unidades en el tablero mediante interacciones
+ * con el ratón.
+ *
+ * Esta clase delega los eventos de ratón al VistaModelo correspondiente.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModoOrganizarStrategy implements IModoTableroStrategy {
-    
+
     /**
      * VistaModelo del tablero asociado a esta estrategia.
      */
     private VistaModeloTablero vistaModelo;
-    
+
     /**
      * Vista del tablero asociado a esta estrategia.
      */
     private VistaTablero vista;
-    
+
     /**
-     * Constructor que inicializa la estrategia con la vista y el presentador especificados.
+     * Constructor que inicializa la estrategia con la vista y el vistaModelo
+     * especificados.
      *
      * @param vista la vista del tablero
      * @param vistaModelo el vistaModelo del tablero
@@ -36,7 +46,8 @@ public class ModoOrganizarStrategy implements IModoTableroStrategy {
     }
 
     /**
-     * Maneja el evento cuando se presiona el ratón en el tablero para organizar las unidades.
+     * Maneja el evento cuando se presiona el ratón en el tablero para organizar
+     * las unidades.
      *
      * @param e el evento de ratón
      */
@@ -46,7 +57,8 @@ public class ModoOrganizarStrategy implements IModoTableroStrategy {
     }
 
     /**
-     * Maneja el evento cuando se suelta el ratón en el tablero para organizar las unidades.
+     * Maneja el evento cuando se suelta el ratón en el tablero para organizar
+     * las unidades.
      *
      * @param e el evento de ratón
      */
@@ -56,7 +68,8 @@ public class ModoOrganizarStrategy implements IModoTableroStrategy {
     }
 
     /**
-     * Maneja el evento cuando se arrastra el ratón en el tablero para organizar las unidades.
+     * Maneja el evento cuando se arrastra el ratón en el tablero para organizar
+     * las unidades.
      *
      * @param e el evento de ratón
      */
@@ -64,5 +77,5 @@ public class ModoOrganizarStrategy implements IModoTableroStrategy {
     public void mouseDragged(MouseEvent e) {
         vistaModelo.onMouseDragged(e);
     }
-    
+
 }

@@ -5,9 +5,18 @@
 package vistaModelo;
 
 /**
+ * Interfaz que define un listener para eventos de ataque. Debe ser implementada
+ * por clases que necesiten reaccionar cuando se realiza un ataque.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface AtaqueListener {
+
+    /**
+     * Método llamado cuando se ha realizado un ataque.
+     */
     void enAtaqueRealizado();
 }

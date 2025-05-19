@@ -13,42 +13,58 @@ import java.util.Map;
 import modelo.ModeloJugador;
 
 /**
+ * ViewModel para la vista del juego. Gestiona la lógica de la partida,
+ * comunicación con el servidor, manejo de ataques, actualización de la interfaz
+ * y transición entre estados.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaModeloJuego implements AtaqueListener {
+
     /**
-     * Vista del juego.
+     * Vista del juego que maneja la interfaz gráfica.
      */
     private IVistaJuego vista;
-    
+
     /**
-     * Modelo del jugador.
+     * Modelo que contiene los datos del jugador actual.
      */
     private ModeloJugador modeloJugador;
-    
+
     /**
-     * Conexión con el servidor.
+     * Conexión con el servidor para enviar y recibir mensajes.
      */
     private ConexionCliente conexionCliente;
-    
+
     /**
-     * Instancia de la clase juego
+     * Referencia a la clase principal del juego para cambiar estados.
      */
     private Juego juego;
-    
+
     /**
-     * Mapa que contiene las estadisticas de los jugadores.
+     * Mapa que contiene las estadísticas de la partida para los jugadores.
      */
     private Map<String, Object> estadisticas;
-    
+
+    /**
+     * Nombre del jugador ganador de la partida.
+     */
     private String ganador;
+
+    /**
+     * Tiempo total de duración de la partida.
+     */
     private String tiempoPartida;
 
     /**
-     * Constructor que inicializa el presentador con la vista especificada.
+     * Constructor que inicializa el ViewModel con la vista del juego y la
+     * instancia del juego.
      *
      * @param vista la vista del juego
+     * @param juego la instancia principal del juego
      */
     public VistaModeloJuego(IVistaJuego vista, Juego juego) {
         this.vista = vista;
@@ -58,10 +74,12 @@ public class VistaModeloJuego implements AtaqueListener {
     }
 
     /**
-     * Inicializa la partida con el nombre del oponente y el turno inicial.
+     * Inicializa la partida mostrando el nombre del oponente y el turno
+     * inicial.
      *
-     * @param nombreOponente el nombre del oponente
-     * @param esMiTurno true si es el turno del jugador, false en caso contrario
+     * @param nombreOponente el nombre del jugador contrario
+     * @param esMiTurno true si es el turno del jugador actual, false en caso
+     * contrario
      */
     public void inicializarJuego(String nombreOponente, boolean esMiTurno) {
         vista.setNombreOponente(nombreOponente);
@@ -69,9 +87,10 @@ public class VistaModeloJuego implements AtaqueListener {
     }
 
     /**
-     * Maneja la respuesta del servidor ante un ataque.
+     * Maneja la respuesta del servidor a un ataque realizado o recibido,
+     * actualizando el tablero, la vida de las naves y el turno de juego.
      *
-     * @param mensaje el mensaje recibido del servidor
+     * @param mensaje mapa con los datos de la respuesta del servidor
      */
     public void manejarAtaqueResponse(Map<String, Object> mensaje) {
         String resultado = (String) mensaje.get("resultado");
@@ -116,19 +135,19 @@ public class VistaModeloJuego implements AtaqueListener {
      * @param y la coordenada y del ataque
      */
     public void atacar(int x, int y) {
-        // Enviar ataque al servidor
         conexionCliente.atacar(x, y);
     }
-    
+
     /**
-     * Envía un ataque vacío al servidor.
+     * Envía un ataque "vacío" al servidor para casos especiales.
      */
     public void enviarAtaqueVacio() {
         conexionCliente.atacar(10, 10);
     }
 
     /**
-     * Detiene el temporizador de la vista cuando se realiza un ataque.
+     * Método llamado cuando se realiza un ataque, detiene el temporizador de la
+     * vista.
      */
     @Override
     public void enAtaqueRealizado() {
@@ -136,42 +155,57 @@ public class VistaModeloJuego implements AtaqueListener {
     }
 
     /**
-     * Envía un mensaje de rendición al servidor.
+     * Envía un mensaje de rendición al servidor indicando que el jugador se
+     * rinde.
      */
     public void enviarRendicion() {
-        // Enviar mensaje de rendición al servidor
         Map<String, Object> datos = new HashMap<>();
         datos.put("accion", "RENDIRSE");
         datos.put("id_jugador", modeloJugador.getId());
         ConexionCliente.getInstance().enviarRendicion(datos);
     }
-    
+
     /**
-     * Finaliza el juego debido a la rendición de un jugador y muestra al ganador.
+     * Finaliza la partida debido a la rendición y muestra el ganador en la
+     * vista.
      *
-     * @param ganador el nombre del ganador
+     * @param ganador el nombre del jugador ganador tras la rendición
      */
     public void finalizarJuegoPorRendicion(String ganador) {
         vista.finalizarJuegoPorRendicion(ganador);
     }
 
+    /**
+     * Establece las estadísticas de la partida.
+     *
+     * @param estadisticas mapa con estadísticas relevantes
+     */
     public void setEstadisticas(Map<String, Object> estadisticas) {
         this.estadisticas = estadisticas;
     }
 
+    /**
+     * Establece el nombre del ganador de la partida.
+     *
+     * @param ganador nombre del jugador ganador
+     */
     public void setGanador(String ganador) {
         this.ganador = ganador;
     }
 
+    /**
+     * Establece el tiempo total de duración de la partida.
+     *
+     * @param tiempoPartida duración de la partida en formato texto
+     */
     public void setTiempoPartida(String tiempoPartida) {
         this.tiempoPartida = tiempoPartida;
     }
 
     /**
-     * Accion del boton para continuar a la vista de estadisticas
+     * Acción para continuar y navegar a la vista de estadísticas.
      */
     public void continuarEstadisticas() {
         juego.cambiarEstado(new EstadoEstadisticas(juego, estadisticas, ganador, tiempoPartida));
     }
-
 }

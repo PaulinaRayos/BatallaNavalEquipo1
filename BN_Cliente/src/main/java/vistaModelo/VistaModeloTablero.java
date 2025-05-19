@@ -4,7 +4,6 @@
  */
 package vistaModelo;
 
-
 import comunicacion.ConexionCliente;
 import modelo.ModeloCasilla;
 import modelo.ModeloTablero;
@@ -25,16 +24,22 @@ import modelo.ModeloUnidad;
 import vista.VistaTablero;
 
 /**
+ * Clase VistaModeloTablero que actúa como intermediaria entre la vista y el
+ * modelo para el tablero de juego, manejando interacciones de usuario y
+ * actualizaciones del estado.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class VistaModeloTablero {
-    
-/**
+
+    /**
      * Modelo del tablero del juego.
      */
     private ModeloTablero modeloTablero;
-    
+
     /**
      * Vista del tablero del juego.
      */
@@ -44,29 +49,32 @@ public class VistaModeloTablero {
      * Indica si se está arrastrando una unidad en el tablero.
      */
     private boolean isDragging;
-    
+
     /**
      * Casilla inicial donde se comenzó la interacción (arrastre o selección).
      */
     private ModeloCasilla casillaInicial;
-    
+
     /**
      * Unidad seleccionada para ser movida o rotada.
      */
     private ModeloUbicacionUnidad unidadSeleccionada;
-    
+
     /**
-     * Conjunto de casillas originales que ocupaba la unidad antes de ser movida.
+     * Conjunto de casillas originales que ocupaba la unidad antes de ser
+     * movida.
      */
     private Set<ModeloCasilla> casillasOriginales;
-    
+
     /**
-     * Orientación original de la unidad antes de cualquier operación de rotación.
+     * Orientación original de la unidad antes de cualquier operación de
+     * rotación.
      */
     private Orientacion orientacionOriginal;
-    
+
     /**
-     * Conjunto de casillas resaltadas durante la interacción para indicar las posiciones posibles.
+     * Conjunto de casillas resaltadas durante la interacción para indicar las
+     * posiciones posibles.
      */
     private Set<ModeloCasilla> celdasResaltadas = new HashSet<>();
 
@@ -83,9 +91,10 @@ public class VistaModeloTablero {
     public VistaModeloTablero(VistaTablero vista) {
         this.vista = vista;
         this.modeloTablero = new ModeloTablero();
-        
+
     }
-/**
+
+    /**
      * Maneja el evento cuando se presiona el ratón en el tablero.
      *
      * @param e el evento de ratón
@@ -215,7 +224,8 @@ public class VistaModeloTablero {
         // Notificar al modelo que se actualizó
         modeloTablero.actualizarTablero();
     }
-/**
+
+    /**
      * Mueve la unidad especificada a una nueva casilla en el tablero.
      *
      * @param ubicacionUnidad la unidad a mover
@@ -250,7 +260,8 @@ public class VistaModeloTablero {
      *
      * @param casillaAncla la casilla ancla
      * @param unidad la unidad a colocar
-     * @return un conjunto de casillas que ocupará la unidad, o null si no es posible colocarla
+     * @return un conjunto de casillas que ocupará la unidad, o null si no es
+     * posible colocarla
      */
     private Set<ModeloCasilla> calcularCasillasUnidad(ModeloCasilla casillaAncla, ModeloUnidad unidad) {
         Set<ModeloCasilla> casillas = new HashSet<>();
@@ -282,7 +293,8 @@ public class VistaModeloTablero {
     }
 
     /**
-     * Verifica si una unidad se puede colocar en un conjunto de casillas especificado.
+     * Verifica si una unidad se puede colocar en un conjunto de casillas
+     * especificado.
      *
      * @param casillas el conjunto de casillas
      * @param unidadActual la unidad que se desea colocar
@@ -302,7 +314,8 @@ public class VistaModeloTablero {
         }
         return true;
     }
- /**
+
+    /**
      * Coloca una unidad en el tablero en las casillas especificadas.
      *
      * @param ubicacionUnidad la unidad a colocar
@@ -354,7 +367,8 @@ public class VistaModeloTablero {
     }
 
     /**
-     * Marca o desmarca las casillas adyacentes a un conjunto de casillas especificado.
+     * Marca o desmarca las casillas adyacentes a un conjunto de casillas
+     * especificado.
      *
      * @param casillas el conjunto de casillas
      * @param unidad la unidad para la cual se marcarán las adyacencias
@@ -373,7 +387,8 @@ public class VistaModeloTablero {
             }
         }
     }
-/**
+
+    /**
      * Obtiene las casillas adyacentes a una casilla especificada.
      *
      * @param casilla la casilla para la cual se desean obtener las adyacencias
@@ -407,76 +422,74 @@ public class VistaModeloTablero {
         int Coloco = 0;
         // Definir las posiciones iniciales de las naves
         Map<ModeloUnidad, ModeloCasilla> posicionesIniciales = new HashMap<>();
-        
+
         // Crear 2 naves de tamaño 4
-        if(x==0){
-        unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));   
-        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 1
-        Coloco = 1;
+        if (x == 0) {
+            unidades.add(new ModeloUnidad(1, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 1
+            Coloco = 1;
         }
-        if(x==1){
-        unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
-        posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 2 
-        Coloco = 1;
+        if (x == 1) {
+            unidades.add(new ModeloUnidad(2, ModeloTipoUnidad.PORTAAVIONES.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.PORTAAVIONES.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 2 
+            Coloco = 1;
         }
-        
+
         // Crear 2 naves de tamaño 3
-         if(x==2){
-         unidades.add(new ModeloUnidad(3, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 3
-         Coloco = 1;
-         }
-         
-         if(x==3){
-         unidades.add(new ModeloUnidad(4, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 4
-         Coloco = 1;
-         }
-          // Crear 4 naves de tamaño 2
-         if(x==4){
-        unidades.add(new ModeloUnidad(5, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 5
-         Coloco = 1;
-         }
-         
-         if(x==5){
-         unidades.add(new ModeloUnidad(6, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 6
-         Coloco = 1;
-         }
-         
-         if(x==6){
-          unidades.add(new ModeloUnidad(7, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-          posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 7
-          Coloco = 1;
-          }
-          
-         if(x==7){
-         unidades.add(new ModeloUnidad(8, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 8
-         Coloco = 1;
-           }
-         
-          // Crear 3 naves de tamaño 1
-         if(x==8){
-         unidades.add(new ModeloUnidad(9, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-          posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 9
-          Coloco = 1;
-         }
-         
-         if(x==9){
-         unidades.add(new ModeloUnidad(10, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 10
-         Coloco = 1;
-         }
-         
-         if(x==10){
-         unidades.add(new ModeloUnidad(11, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
-         posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 11
-         Coloco = 1;
-         }
-         
-         
+        if (x == 2) {
+            unidades.add(new ModeloUnidad(3, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 3
+            Coloco = 1;
+        }
+
+        if (x == 3) {
+            unidades.add(new ModeloUnidad(4, ModeloTipoUnidad.CRUCERO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.CRUCERO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 4
+            Coloco = 1;
+        }
+        // Crear 4 naves de tamaño 2
+        if (x == 4) {
+            unidades.add(new ModeloUnidad(5, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 5
+            Coloco = 1;
+        }
+
+        if (x == 5) {
+            unidades.add(new ModeloUnidad(6, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 6
+            Coloco = 1;
+        }
+
+        if (x == 6) {
+            unidades.add(new ModeloUnidad(7, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 7
+            Coloco = 1;
+        }
+
+        if (x == 7) {
+            unidades.add(new ModeloUnidad(8, ModeloTipoUnidad.SUBMARINO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.SUBMARINO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 8
+            Coloco = 1;
+        }
+
+        // Crear 3 naves de tamaño 1
+        if (x == 8) {
+            unidades.add(new ModeloUnidad(9, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 9
+            Coloco = 1;
+        }
+
+        if (x == 9) {
+            unidades.add(new ModeloUnidad(10, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 10
+            Coloco = 1;
+        }
+
+        if (x == 10) {
+            unidades.add(new ModeloUnidad(11, ModeloTipoUnidad.BARCO.NOMBRE, Orientacion.HORIZONTAL, ModeloTipoUnidad.BARCO.TAMANO));
+            posicionesIniciales.put(unidades.get(0), modeloTablero.getCasilla(0, 0)); // Nave 11
+            Coloco = 1;
+        }
 
         // Colocar las naves en el tablero
         for (ModeloUnidad unidad : unidades) {
@@ -493,7 +506,7 @@ public class VistaModeloTablero {
                 } else {
                     // Manejar el caso en que no se pueda colocar la unidad
                     System.out.println("No se pudo colocar la unidad: " + unidad.getNumNave());
-                    Coloco=0;
+                    Coloco = 0;
                 }
             } else {
                 System.out.println("No se pudo calcular las casillas para la unidad: " + unidad.getNumNave());

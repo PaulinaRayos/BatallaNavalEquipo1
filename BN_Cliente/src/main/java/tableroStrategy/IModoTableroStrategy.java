@@ -7,10 +7,19 @@ package tableroStrategy;
 import java.awt.event.MouseEvent;
 
 /**
+ * Interfaz que define el comportamiento para los diferentes modos de
+ * interacción con el tablero mediante eventos de ratón.
  *
- * @author pauli
+ * Las estrategias que implementen esta interfaz gestionarán los eventos de
+ * mousePressed, mouseReleased y mouseDragged según el modo activo del tablero.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IModoTableroStrategy {
+
     /**
      * Maneja el evento cuando se presiona el ratón.
      *

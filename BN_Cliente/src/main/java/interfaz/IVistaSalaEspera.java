@@ -7,12 +7,21 @@ package interfaz;
 import vistaModelo.VistaModeloSalaEspera;
 
 /**
+ * Interfaz que define el comportamiento de la vista de sala de espera.
  *
- * @author pauli
+ * Esta vista permite gestionar a los jugadores que se han unido a la partida,
+ * mostrar el código de acceso y controlar la navegación entre vistas.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public interface IVistaSalaEspera {
+
     /**
-     * Muestra el código de acceso para la partida en la interfaz de sala de espera.
+     * Muestra el código de acceso para la partida en la interfaz de sala de
+     * espera.
      *
      * @param codigoAcceso el código de acceso de la partida
      */

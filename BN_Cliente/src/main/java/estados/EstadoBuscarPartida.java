@@ -16,32 +16,42 @@ import vistaModelo.Juego;
 import vistaModelo.VistaModeloBuscarPartida;
 
 /**
+ * Estado del juego que representa la pantalla de búsqueda de partida, donde el
+ * jugador puede unirse a una partida existente.
  *
- * @author pauli
+ * Este estado maneja la lógica de unión y transición a la sala de espera.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class EstadoBuscarPartida implements IEstado {
-     /**
+
+    /**
      * Referencia al juego principal.
      */
     private Juego juego;
-    
+
     /**
      * Vista que representa la interfaz de búsqueda de partida.
      */
     private VistaBuscarPartida vista;
-    
+
     /**
      * VistaModelo asociado a la vista de búsqueda de partida.
      */
     private VistaModeloBuscarPartida vistaModelo;
-    
+
     /**
-     * Mapa que contiene los comandos disponibles en el estado de búsqueda de partida.
+     * Mapa que contiene los comandos disponibles en el estado de búsqueda de
+     * partida.
      */
     private Map<String, IComando> comandos;
 
     /**
-     * Constructor que inicializa el estado de búsqueda de partida con el juego especificado.
+     * Constructor que inicializa el estado de búsqueda de partida con el juego
+     * especificado.
      *
      * @param juego la referencia al juego principal
      */
@@ -51,9 +61,10 @@ public class EstadoBuscarPartida implements IEstado {
         this.vistaModelo = vista.getPresentador();
         inicializarComandos();
     }
-    
+
     /**
-     * Inicializa los comandos disponibles para manejar los mensajes en este estado.
+     * Inicializa los comandos disponibles para manejar los mensajes en este
+     * estado.
      */
     private void inicializarComandos() {
         comandos = new HashMap<>();
@@ -61,7 +72,8 @@ public class EstadoBuscarPartida implements IEstado {
     }
 
     /**
-     * Sale del estado de búsqueda de partida y quita los componentes de la vista.
+     * Sale del estado de búsqueda de partida y quita los componentes de la
+     * vista.
      */
     @Override
     public void salir() {
@@ -107,23 +119,17 @@ public class EstadoBuscarPartida implements IEstado {
     public void handleUnirsePartidaResponse(Map<String, Object> mensaje) {
         if (mensaje.containsKey("error")) {
             String error = (String) mensaje.get("error");
-            // Mostrar el mensaje de error en la vista actual
             vista.mostrarMensaje(error);
         } else {
             String idJugador = (String) mensaje.get("id");
             String codigoAcceso = (String) mensaje.get("codigo_acceso");
             List<String> nombresJugadores = (List<String>) mensaje.get("nombres_jugadores");
 
-            // Guardar el id del jugador en ModeloJugador
             ModeloJugador jugador = ModeloJugador.getInstance();
             jugador.setId(idJugador);
 
-            // Limpiar la vista actual
             vista.quitarComponentes();
-
-            // Cambiar al estado de sala de espera, pasando los datos necesarios
             juego.cambiarEstado(new EstadoSalaEspera(juego, codigoAcceso, nombresJugadores));
         }
     }
-
 }

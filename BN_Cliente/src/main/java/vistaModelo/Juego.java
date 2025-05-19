@@ -13,76 +13,81 @@ import javax.swing.SwingUtilities;
 import estados.IEstado;
 import estados.EstadoBienvenida;
 
-
 /**
+ * Clase principal que representa el juego. Controla el ciclo principal,
+ * renderizado, estados y la conexión con el servidor. Implementa Runnable para
+ * ejecutar el loop de juego en un hilo separado.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class Juego implements Runnable{
-    
+public class Juego implements Runnable {
+
     /**
-     * Ventana del juego.
+     * Ventana principal del juego.
      */
     private VistaVentana ventana;
-     
+
     /**
-     * Panel del juego donde se realiza el renderizado.
+     * Panel donde se dibuja el contenido del juego.
      */
     protected VistaPanel panel;
-    
+
     /**
-     * Hilo principal del juego.
+     * Hilo que ejecuta el ciclo principal del juego.
      */
     private Thread hiloJuego;
-    
+
     /**
-     * Estado actual del juego.
+     * Estado actual del juego (patrón estado).
      */
     private IEstado estadoActual;
-    
+
     /**
-     * Cuadros por segundo deseados.
+     * Cuadros por segundo deseados para renderizado.
      */
     protected static final int FPS_SET = 60;
-    
+
     /**
-     * Actualizaciones por segundo deseadas.
+     * Actualizaciones por segundo deseadas para lógica.
      */
     protected static final int UPS_SET = 150;
-    
+
     /**
      * Ancho de la ventana del juego.
      */
     public final static int GAME_ANCHO = 900;
-    
+
     /**
      * Alto de la ventana del juego.
      */
     public final static int GAME_ALTO = 720;
 
     /**
-     * Constructor de la clase Juego.
+     * Constructor que inicializa la ventana, panel, conexión y estado inicial
+     * del juego.
      */
     public Juego() {
-        // Crea una instancia de PanelJuego y VentanaJuego
+        // Crear panel y ventana
         panel = new VistaPanel(this);
         ventana = new VistaVentana(panel);
         panel.setFocusable(true);
         panel.requestFocus();
 
-        // Inicia la conexión con el servidor
+        // Iniciar conexión con servidor
         iniciarConexion();
 
-        // Inicia el bucle principal del juego
+        // Iniciar hilo principal del juego
         this.inicioJuegoLoop();
-        
-        // Establece el estado inicial
-        estadoActual = new EstadoBienvenida(this);
 
+        // Establecer estado inicial: pantalla de bienvenida
+        estadoActual = new EstadoBienvenida(this);
     }
 
     /**
-     * Inicia el bucle principal del juego en un nuevo hilo.
+     * Inicia el hilo que ejecuta el loop principal del juego.
      */
     private void inicioJuegoLoop() {
         hiloJuego = new Thread(this);
@@ -90,21 +95,20 @@ public class Juego implements Runnable{
     }
 
     /**
-     * Método para renderizar (dibujar) el juego en pantalla.
+     * Método para dibujar el contenido del juego en pantalla. Delegado al
+     * estado actual.
      *
-     * @param g Objeto Graphics para dibujar.
+     * @param g objeto Graphics usado para dibujar
      */
     public void renderizar(Graphics g) {
-
         if (estadoActual != null) {
             estadoActual.renderizar(g);
         }
-
     }
 
     /**
-     * Bucle principal del juego. Controla la lógica de actualización y renderizado del juego a una velocidad específica,
-     * y muestra estadísticas de FPS (cuadros por segundo) y UPS (actualizaciones por segundo).
+     * Loop principal que controla actualización y renderizado del juego,
+     * regulando FPS y UPS y actualizando la pantalla continuamente.
      */
     public void run() {
         final int FPS = 60;
@@ -126,61 +130,56 @@ public class Juego implements Runnable{
             deltaU += elapsedTime / timePerUpdate;
             deltaF += elapsedTime / timePerFrame;
 
-            // Actualización
-            if (deltaU >= 1) {
-//                update();
-                deltaU--;
-            }
-
             // Renderizado
             if (deltaF >= 1) {
                 panel.repaint();
                 deltaF--;
             }
 
-            // Control del hilo
+            // Control del hilo para evitar uso excesivo de CPU
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
-     * Inicia la conexión con el servidor y configura el listener de mensajes.
+     * Inicializa la conexión con el servidor y asigna un listener para mensajes
+     * entrantes.
      */
     private void iniciarConexion() {
         ConexionCliente conexionCliente = ConexionCliente.getInstance();
         boolean conectado = conexionCliente.connect("localhost", 5000);
         if (conectado) {
             System.out.println("Conectado al servidor.");
-            // Configurar el listener de mensajes
             conexionCliente.setMessageListener(this::onMensajeRecibido);
         } else {
             System.out.println("No se pudo conectar al servidor.");
-            // Manejar el error de conexión, por ejemplo, mostrar un mensaje al usuario
+            // Aquí se puede agregar manejo de error adicional
         }
     }
-    
+
     /**
-     * Maneja los mensajes recibidos del servidor y los pasa al estado actual del juego.
+     * Método que recibe mensajes del servidor y los pasa al estado actual para
+     * ser procesados en el hilo de la interfaz gráfica.
      *
-     * @param mensaje el mensaje recibido del servidor
+     * @param mensaje mensaje recibido del servidor
      */
     private void onMensajeRecibido(Map<String, Object> mensaje) {
         SwingUtilities.invokeLater(() -> {
-            if (estadoActual!= null) {
+            if (estadoActual != null) {
                 estadoActual.handleMessage(mensaje);
             }
         });
     }
-    
+
     /**
-     * Cambia el estado actual del juego al estado nuevo especificado.
+     * Cambia el estado actual del juego al nuevo estado especificado, llamando
+     * al método salir del estado anterior.
      *
-     * @param estadoNuevo el nuevo estado del juego
+     * @param estadoNuevo nuevo estado del juego
      */
     public void cambiarEstado(IEstado estadoNuevo) {
         if (estadoActual != null) {
@@ -190,9 +189,9 @@ public class Juego implements Runnable{
     }
 
     /**
-     * Obtiene el panel del juego donde se realiza el renderizado.
+     * Obtiene el panel principal del juego.
      *
-     * @return el panel del juego
+     * @return panel donde se dibuja el juego
      */
     public VistaPanel getPanel() {
         return panel;

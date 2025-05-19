@@ -8,35 +8,46 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Clase que representa una casilla dentro del tablero del juego. Almacena su
+ * coordenada, la unidad que la ocupa, las unidades adyacentes y su estado
+ * (resaltada, atacada, impacto).
+ *
+ * Esta clase es clave para manejar la lógica del juego en torno a colocación y
+ * ataque de unidades.
  *
  * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ModeloCasilla {
+
     /**
      * Coordenada de la casilla en el tablero.
      */
     private final ModeloCoordenada coordenada;
-    
+
     /**
      * Conjunto de unidades adyacentes a la casilla.
      */
     private Set<ModeloUbicacionUnidad> navesAdyacentes;
-    
+
     /**
      * Unidad que ocupa la casilla.
      */
     private ModeloUbicacionUnidad unidadOcupante;
-    
+
     /**
      * Indicador de si la casilla está resaltada.
      */
     private boolean isHighlighted;
-    
+
     /**
      * Indicador de si la casilla ha sido atacada.
      */
     private boolean atacado;
-    
+
     /**
      * Indicador de si el ataque en la casilla fue un impacto.
      */
@@ -88,7 +99,6 @@ public class ModeloCasilla {
      * @return true si hay alguna otra unidad adyacente, false en caso contrario
      */
     public boolean esAdyacentePorOtraNave(ModeloUbicacionUnidad naveActual) {
-        // Retorna true si hay alguna nave adyacente que no sea la actual
         for (ModeloUbicacionUnidad nave : navesAdyacentes) {
             if (!nave.equals(naveActual)) {
                 return true;
@@ -154,7 +164,8 @@ public class ModeloCasilla {
     /**
      * Establece si la casilla ha sido atacada.
      *
-     * @param atacado true si la casilla ha sido atacada, false en caso contrario
+     * @param atacado true si la casilla ha sido atacada, false en caso
+     * contrario
      */
     public void setAtacado(boolean atacado) {
         this.atacado = atacado;
@@ -179,4 +190,3 @@ public class ModeloCasilla {
     }
 
 }
-
