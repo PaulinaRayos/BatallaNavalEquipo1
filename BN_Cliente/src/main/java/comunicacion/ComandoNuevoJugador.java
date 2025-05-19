@@ -8,28 +8,33 @@ import estados.EstadoSalaEspera;
 import java.util.Map;
 
 /**
- *
- * @author pauli
+ * Comando que gestiona la llegada de un nuevo jugador a la sala de espera.
+ * 
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class ComandoNuevoJugador implements IComando{
+public class ComandoNuevoJugador implements IComando {
+
     /**
-     * Estado de la sala de espera donde llega el nuevo jugador.
+     * Estado actual de la sala de espera en el que se integrará el nuevo jugador.
      */
     private EstadoSalaEspera estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de la sala de espera especificado.
+     * Crea una instancia del comando para manejar la llegada de un nuevo jugador.
      *
-     * @param estado el estado de la sala de espera donde llega el nuevo jugador
+     * @param estado el estado actual de la sala de espera
      */
     public ComandoNuevoJugador(EstadoSalaEspera estado) {
         this.estado = estado;
     }
 
     /**
-     * Ejecuta el comando para manejar la llegada de un nuevo jugador.
+     * Ejecuta el comando que procesa la información relacionada con un nuevo jugador que se une a la sala.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para manejar la llegada del nuevo jugador
+     * @param mensaje mapa que contiene los datos del nuevo jugador
      */
     @Override
     public void execute(Map<String, Object> mensaje) {

@@ -22,8 +22,7 @@ public class EventBus {
     private final Map<String, EventHandler> listeners = new HashMap<>();// Mapa que almacena los eventos y sus correspondientes manejadores (listeners)
 
     /**
-     * Constructor privado para evitar instanciaciones fuera de la clase (parte
-     * del patrón Singleton).
+     * Constructor privado para evitar instanciaciones fuera de la clase 
      */
     private EventBus() {
     }

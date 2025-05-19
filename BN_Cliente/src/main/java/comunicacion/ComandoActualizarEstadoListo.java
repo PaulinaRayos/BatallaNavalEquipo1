@@ -8,28 +8,41 @@ import estados.EstadoSalaEspera;
 import java.util.Map;
 
 /**
+ * Comando que permite notificar y manejar la actualización del estado "listo"
+ * de un jugador dentro de la sala de espera.
  *
- * @author pauli
+ * Este comando delega la acción al estado actual de la sala de espera.
+ *
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ComandoActualizarEstadoListo implements IComando {
+
     /**
-     * Estado de la sala de espera que se actualizará.
+     * Referencia al estado actual de la sala de espera que manejará la
+     * actualización.
      */
     private EstadoSalaEspera estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de la sala de espera especificado.
+     * Crea un nuevo comando con el estado de sala de espera al que se delegarán
+     * las acciones.
      *
-     * @param estado el estado de la sala de espera que será actualizado
+     * @param estado instancia del estado de sala de espera que recibirá la
+     * actualización
      */
     public ComandoActualizarEstadoListo(EstadoSalaEspera estado) {
         this.estado = estado;
     }
-    
+
     /**
-     * Ejecuta el comando para actualizar el estado de "listo" en la sala de espera.
+     * Ejecuta el comando para procesar la actualización del estado "listo" de
+     * un jugador.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para actualizar el estado
+     * @param mensaje mapa con los datos necesarios para realizar la
+     * actualización, típicamente contiene identificadores y banderas de estado
      */
     @Override
     public void execute(Map<String, Object> mensaje) {

@@ -8,32 +8,42 @@ import estados.EstadoSalaEspera;
 import java.util.Map;
 
 /**
+ * Comando que gestiona la creación de una nueva partida en el contexto
+ * de la sala de espera. La lógica se delega al estado correspondiente.
+ * 
+ * Este comando es parte del patrón de comandos usado para modularizar
+ * las acciones en el sistema de comunicación.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
-public class ComandoCrearPartida implements IComando{
+public class ComandoCrearPartida implements IComando {
+
     /**
-     * Estado de la sala de espera donde se creará la partida.
+     * Estado actual de la sala de espera donde se llevará a cabo la creación de la partida.
      */
     private EstadoSalaEspera estado;
 
     /**
-     * Constructor que inicializa el comando con el estado de la sala de espera especificado.
+     * Crea una instancia del comando con el estado de sala de espera dado.
      *
-     * @param estado el estado de la sala de espera donde se creará la partida
+     * @param estado instancia del estado de sala de espera donde se gestionará la partida
      */
     public ComandoCrearPartida(EstadoSalaEspera estado) {
         this.estado = estado;
     }
-    
+
     /**
-     * Ejecuta el comando para manejar la respuesta de creación de partida.
+     * Ejecuta el comando que maneja la respuesta del servidor al intento
+     * de crear una nueva partida. La lógica se delega al estado actual.
      *
-     * @param mensaje un mapa que contiene los datos necesarios para manejar la creación de la partida
+     * @param mensaje mapa con los datos necesarios para procesar la creación de la partida,
+     *                como identificadores o configuraciones iniciales
      */
     @Override
     public void execute(Map<String, Object> mensaje) {
         estado.handleCrearPartidaResponse(mensaje);
     }
-    
 }

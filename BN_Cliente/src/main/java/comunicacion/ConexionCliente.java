@@ -18,64 +18,71 @@ import org.msgpack.core.MessagePacker;
 import org.msgpack.core.MessageUnpacker;
 
 /**
+ * Clase que gestiona la conexión del cliente con el servidor.
+ * Permite enviar y recibir mensajes utilizando JSON empaquetado con MessagePack.
+ * Implementa un hilo para la escucha asíncrona de mensajes entrantes.
  *
- * @author pauli
+ * @author ivanochoa
+ * @author paulvazquez
+ * @author paulinarodriguez
+ * @author cuauhtemocvazquez
  */
 public class ConexionCliente {
 
     /**
-     * La instancia de ClientConnection.
+     * Instancia única de la clase.
      */
     private static ConexionCliente instance = null;
 
     /**
-     * El socket utilizado para la conexión.
+     * Socket para la conexión con el servidor.
      */
     private Socket socket;
-    
+
     /**
-     * El flujo de salida para enviar datos al servidor.
+     * Flujo de salida para enviar datos al servidor.
      */
     private OutputStream outputStream;
-    
+
     /**
-     * El flujo de entrada para recibir datos del servidor.
+     * Flujo de entrada para recibir datos del servidor.
      */
     private InputStream inputStream;
-    
+
     /**
-     * El hilo utilizado para escuchar mensajes entrantes.
+     * Hilo que se encarga de escuchar mensajes entrantes.
      */
     private Thread listeningThread;
-    
+
     /**
-     * Indicador booleano que indica si la conexión está activa.
+     * Controla si la conexión está activa y el hilo de escucha debe seguir
+     * corriendo.
      */
     private boolean running = false;
 
     /**
-     * ObjectMapper para la serialización y deserialización de JSON.
+     * ObjectMapper para serializar y deserializar objetos JSON.
      */
     private ObjectMapper objectMapper;
 
     /**
-     * Oyente para los mensajes entrantes.
+     * Listener que recibe los mensajes entrantes desde el servidor.
      */
     private MessageListener messageListener;
 
     /**
-     * 
-     * Inicializa el ObjectMapper para el procesamiento de JSON.
+     * Constructor privado para implementar el patrón singleton. Inicializa el
+     * ObjectMapper para manejo de JSON.
      */
     private ConexionCliente() {
         objectMapper = new ObjectMapper();
     }
 
     /**
-     * Devuelve la instancia de ClientConnection.
-     * Si no existe ninguna instancia, crea una.
-     * 
-     * @return la instancia singleton de ClientConnection
+     * Método para obtener la instancia única de ConexionCliente. Si no existe,
+     * crea una nueva.
+     *
+     * @return instancia singleton de ConexionCliente
      */
     public static synchronized ConexionCliente getInstance() {
         if (instance == null) {
@@ -85,11 +92,12 @@ public class ConexionCliente {
     }
 
     /**
-     * Establece una conexión con el servidor con el host y puerto especificados.
-     * 
-     * @param host el nombre del host del servidor
-     * @param port el número de puerto del servidor
-     * @return true si la conexión se estableció correctamente, false en caso contrario
+     * Establece la conexión con el servidor en el host y puerto indicados.
+     * Inicializa los flujos de entrada y salida, y comienza el hilo de escucha.
+     *
+     * @param host dirección del servidor
+     * @param port puerto del servidor
+     * @return true si la conexión fue exitosa; false si hubo error
      */
     public boolean connect(String host, int port) {
         try {
@@ -105,7 +113,8 @@ public class ConexionCliente {
     }
 
     /**
-     * Cierra la conexión con el servidor y detiene el hilo de escucha.
+     * Cierra la conexión con el servidor y detiene el hilo de escucha. Libera
+     * recursos asociados al socket y flujos.
      */
     public void disconnect() {
         running = false;
@@ -125,7 +134,10 @@ public class ConexionCliente {
     }
 
     /**
-     * Inicia un hilo para escuchar los mensajes entrantes del servidor.
+     * Inicia un hilo que escucha mensajes entrantes del servidor de forma
+     * asíncrona. Los mensajes recibidos son deserializados y enviados al
+     * listener registrado, ejecutándose en el hilo de la interfaz gráfica
+     * (Event Dispatch Thread).
      */
     private void startListening() {
         running = true;
@@ -134,36 +146,40 @@ public class ConexionCliente {
                 MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(inputStream);
                 while (running) {
                     if (unpacker.hasNext()) {
+                        // Desempaqueta el mensaje JSON recibido en formato String
                         String jsonMessage = unpacker.unpackString();
-                        // Deserialize the JSON message to a Map
+                        // Deserializa el JSON a un Map para facilitar su manejo
                         Map<String, Object> message = objectMapper.readValue(jsonMessage, Map.class);
-                        // Notify the listener on the Event Dispatch Thread
+                        // Si existe un listener registrado, se le notifica en el hilo de GUI
                         if (messageListener != null) {
                             SwingUtilities.invokeLater(() -> {
                                 messageListener.onMessageReceived(message);
                             });
                         }
                     } else {
-                        // Sleep briefly to avoid busy waiting
+                        // Pausa breve para evitar consumo excesivo de CPU
                         Thread.sleep(100);
                     }
                 }
                 unpacker.close();
             } catch (IOException e) {
+                // Imprime la excepción sólo si la conexión sigue activa
                 if (running) {
                     e.printStackTrace();
                 }
             } catch (InterruptedException e) {
-                // Thread interrupted, exit gracefully
+                // Interrupción del hilo, salida limpia
             }
         });
         listeningThread.start();
     }
 
     /**
-     * Envía un mensaje al servidor.
-     * 
-     * @param data los datos del mensaje a enviar, representados como un Map
+     * Envía un mensaje al servidor. El mensaje es un Map que se serializa a
+     * JSON y luego se empaqueta con MessagePack antes de enviarlo por el flujo
+     * de salida.
+     *
+     * @param data Map con los datos del mensaje a enviar
      */
     public synchronized void sendMessage(Map<String, Object> data) {
         if (socket == null || outputStream == null) {
@@ -171,9 +187,9 @@ public class ConexionCliente {
             return;
         }
         try {
-            // Serialize the data to JSON
+            // Convierte el Map a cadena JSON
             String json = objectMapper.writeValueAsString(data);
-            // Pack the JSON string with MessagePack
+            // Empaqueta el JSON en formato MessagePack para enviar
             MessagePacker packer = MessagePack.newDefaultPacker(outputStream);
             packer.packString(json);
             packer.flush();
@@ -183,9 +199,10 @@ public class ConexionCliente {
     }
 
     /**
-     * Envía una solicitud para crear una nueva partida con el nombre del jugador especificado.
-     * 
-     * @param nombreJugador el nombre del jugador que crea la partida
+     * Solicita al servidor la creación de una nueva partida, enviando el nombre
+     * del jugador que crea la partida.
+     *
+     * @param nombreJugador nombre del jugador que crea la partida
      */
     public void crearPartida(String nombreJugador) {
         Map<String, Object> data = new HashMap<>();
@@ -195,10 +212,11 @@ public class ConexionCliente {
     }
 
     /**
-     * Envía una solicitud para unirse a una partida existente con el código de acceso y el nombre del jugador especificados.
-     * 
-     * @param codigoAcceso el código de acceso de la partida a la que unirse
-     * @param nombreJugador el nombre del jugador que se une a la partida
+     * Solicita unirse a una partida existente en el servidor, enviando el
+     * código de acceso y el nombre del jugador.
+     *
+     * @param codigoAcceso código de acceso a la partida
+     * @param nombreJugador nombre del jugador que se une a la partida
      */
     public void unirsePartida(String codigoAcceso, String nombreJugador) {
         Map<String, Object> data = new HashMap<>();
@@ -209,10 +227,10 @@ public class ConexionCliente {
     }
 
     /**
-     * Envía un comando de ataque con las coordenadas especificadas.
-     * 
-     * @param x la coordenada x del ataque
-     * @param y la coordenada y del ataque
+     * Envía un comando de ataque con las coordenadas especificadas al servidor.
+     *
+     * @param x coordenada X del ataque
+     * @param y coordenada Y del ataque
      */
     public void atacar(int x, int y) {
         Map<String, Object> data = new HashMap<>();
@@ -223,16 +241,16 @@ public class ConexionCliente {
     }
 
     /**
-     * Establece el oyente de mensajes para los mensajes entrantes del servidor.
-     * 
-     * @param listener el oyente que manejará los mensajes entrantes
+     * Registra el oyente que recibirá los mensajes entrantes del servidor.
+     *
+     * @param listener instancia que implementa la interfaz MessageListener
      */
     public void setMessageListener(MessageListener listener) {
         this.messageListener = listener;
     }
 
     /**
-     * Envía una notificación de que el jugador está listo.
+     * Notifica al servidor que el jugador está listo para continuar.
      */
     public void jugadorListo() {
         Map<String, Object> data = new HashMap<>();
@@ -241,9 +259,10 @@ public class ConexionCliente {
     }
 
     /**
-     * Envía la información de ubicación de las unidades al servidor.
-     * 
-     * @param unidadesData una lista que contiene los datos de cada unidad a ubicar
+     * Envía al servidor la información sobre la ubicación de las unidades en el
+     * juego.
+     *
+     * @param unidadesData lista de mapas con los datos de cada unidad
      */
     public void enviarUnidades(List<Map<String, Object>> unidadesData) {
         Map<String, Object> data = new HashMap<>();
@@ -252,19 +271,25 @@ public class ConexionCliente {
         sendMessage(data);
     }
 
+    /**
+     * Envía al servidor los datos relativos a la rendición del jugador.
+     *
+     * @param datos mapa con la información de la rendición
+     */
     public void enviarRendicion(Map<String, Object> datos) {
         sendMessage(datos);
     }
 
     /**
-     * Interfaz que representa un oyente para los mensajes entrantes del servidor.
+     * Interfaz para definir un oyente que maneje los mensajes entrantes
+     * provenientes del servidor.
      */
     public interface MessageListener {
 
         /**
-         * Se llama cuando se recibe un mensaje del servidor.
-         * 
-         * @param message el mensaje recibido, representado como un Map
+         * Método llamado cuando se recibe un mensaje desde el servidor.
+         *
+         * @param message mensaje recibido, deserializado como Map
          */
         void onMessageReceived(Map<String, Object> message);
     }

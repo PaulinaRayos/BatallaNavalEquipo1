@@ -17,46 +17,45 @@ import vistaModelo.VistaModeloMenu;
  * @author pauli
  */
 public class VistaMenu implements IVistaPanel, IVistaMenu {
+
     /**
-     * El panel de juego principal donde se agregarán los componentes de la vista.
+     * El panel de juego principal donde se agregarán los componentes de la
+     * vista.
      */
     private VistaPanel panelJuego;
-    
+
     /**
      * Botón para crear una partida nueva.
      */
     private JButton botonCrearPartida;
-    
+
     /**
      * Botón para unirse a una partida existente.
      */
     private JButton botonUnirsePartida;
-    
-    /**
-     * Botón para acceder a las instrucciones del juego.
-     */
-    private JButton botonInstrucciones;
-    
+
+
     /**
      * Imagen de portada utilizada en la vista de bienvenida.
      */
     private BufferedImage portada;
-    
+
     /**
      * Imagen del titulo utilizado en la vista de bienvenida.
      */
     private BufferedImage titulo;
-    
+
     /**
      * Presentador asociado a la vista del menú.
      */
     private VistaModeloMenu vistaModelo;
 
     /**
-     * Constructor de la clase VistaMenu.
-     * Inicializa el presentador y los componentes de la vista.
+     * Constructor de la clase VistaMenu. Inicializa el presentador y los
+     * componentes de la vista.
      *
-     * @param panelJuego El panel de juego principal donde se agregarán los componentes.
+     * @param panelJuego El panel de juego principal donde se agregarán los
+     * componentes.
      * @param juego La instancia del juego actual.
      */
     public VistaMenu(VistaPanel panelJuego, Juego juego) {
@@ -70,7 +69,8 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
     /**
      * Dibuja la vista del menú en el panel de juego.
      *
-     * @param g El objeto Graphics utilizado para dibujar los elementos gráficos.
+     * @param g El objeto Graphics utilizado para dibujar los elementos
+     * gráficos.
      */
     @Override
     public void dibujar(Graphics g) {
@@ -84,7 +84,6 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
 
 //        g.setColor(VistaUtilidades.COLOR_TEXTO_BLANCO);
 //        VistaUtilidades.dibujarTextoCentrado(g, "BATALLA NAVAL", 75, VistaUtilidades.FUENTE_TITULO);
-
         // Agregar componentes al panel si no están ya agregados
         if (!panelJuego.isAncestorOf(botonUnirsePartida)) {
             int botonAncho = botonUnirsePartida.getPreferredSize().width;
@@ -92,37 +91,28 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
             panelJuego.agregarComponente(botonUnirsePartida, posX, Juego.GAME_ALTO - 500, botonAncho, botonAlto);
         }
-        
+
         if (!panelJuego.isAncestorOf(botonCrearPartida)) {
             int botonAncho = botonCrearPartida.getPreferredSize().width;
             int botonAlto = botonCrearPartida.getPreferredSize().height;
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
             panelJuego.agregarComponente(botonCrearPartida, posX, Juego.GAME_ALTO - 375, botonAncho, botonAlto);
         }
-        
-        if (!panelJuego.isAncestorOf(botonInstrucciones)) {
-            //panelJuego.agregarComponente(botonInstrucciones, (Juego.GAME_ANCHO - 200) / 2, Juego.GAME_ALTO - 300, 200, 40);
-            int botonAncho = botonInstrucciones.getPreferredSize().width;
-            int botonAlto = botonInstrucciones.getPreferredSize().height;
-            int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
-            panelJuego.agregarComponente(botonInstrucciones, posX, Juego.GAME_ALTO - 250, botonAncho, botonAlto);
-        }
-
     }
 
     /**
-     * Crea los componentes necesarios para la vista del menú, como los botones de crear partida, unirse a partida e instrucciones.
+     * Crea los componentes necesarios para la vista del menú, como los botones
+     * de crear partida y unirse a partida
      */
     @Override
     public void crearComponentes() {
         this.botonUnirsePartida = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_UNIRSE);
         this.botonCrearPartida = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_CREAR);
-        
-        this.botonInstrucciones = VistaUtilidades.crearBotones(VistaUtilidades.BOTON_INSTRUCCIONES);
     }
 
     /**
-     * Define las acciones para los componentes de la vista, como los botones del menú.
+     * Define las acciones para los componentes de la vista, como los botones
+     * del menú.
      */
     @Override
     public void accionesComponentes() {
@@ -143,9 +133,8 @@ public class VistaMenu implements IVistaPanel, IVistaMenu {
     public void quitarComponentes() {
         panelJuego.quitarComponente(botonCrearPartida);
         panelJuego.quitarComponente(botonUnirsePartida);
-        panelJuego.quitarComponente(botonInstrucciones);
     }
-    
+
     public void cargarImagenes() {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
         this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
