@@ -210,6 +210,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
             int botonAlto = botonJugar.getPreferredSize().height;
             int posX = (Juego.GAME_ANCHO - botonAncho) / 2;
             panelJuego.agregarComponente(botonJugar, posX, Juego.GAME_ALTO - 110, botonAncho, botonAlto);
+            botonJugar.setEnabled(false);
         }
         g.drawString(""+portaavionesDisponibles, 810, 222);
         if (!panelJuego.isAncestorOf(botonPortaaviones)) {
@@ -292,6 +293,8 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 botonPortaaviones.setEnabled(false);
                 
             }
+            habilitarJugar();
+            
         });
 
         botonCrucero.addActionListener(e -> {
@@ -309,6 +312,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 botonCrucero.setEnabled(false);
                 
             }
+            habilitarJugar();
         });
 
         botonSubmarino.addActionListener(e -> {
@@ -326,6 +330,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 botonSubmarino.setEnabled(false);
                 
             }
+            habilitarJugar();
         });
 
         botonBarco.addActionListener(e -> {
@@ -343,6 +348,7 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
                 botonBarco.setEnabled(false);
                 
             }
+            habilitarJugar();
         });
 
     }
@@ -451,5 +457,18 @@ public class VistaOrganizar implements IVistaPanel, IVistaOrganizar {
         this.portada = VistaUtilidades.cargarImagen(VistaUtilidades.PORTADA);
         this.titulo = VistaUtilidades.cargarImagen(VistaUtilidades.TITULO);
     }
+    
+    
+    
+    /**
+     * Hbilita el bootn jugar y que estan todas la naves en el tablero
+     *
+     */
+    public void habilitarJugar(){
+        if (contadorPortaaviones == 2 && contadorCrucero == 4 && contadorSubmarino == 8 && contadorBarco == 11) {
+            botonJugar.setEnabled(true);
+            
+        }
+}
 
 }

@@ -705,6 +705,16 @@ public class PartidaBO {
                 unidad.reiniciarVida();
             }
         }
+        // Notificar a ambos jugadores que la nueva partida comenzará
+        Map<String, Object> mensajeIniciar = new HashMap<>();
+        mensajeIniciar.put("accion", "INICIAR_PARTIDA");
+
+        for (ModeloJugador jugador : partida.getJugadores()) {
+            MessageUtil.enviarMensaje(ClientManager.getClientSocket(jugador.getId()), mensajeIniciar);
+            // Reiniciar el estado de revancha
+            jugador.setListo(false);
+            jugador.setQuiereRevancha(false);
+        }
     }
 
     public void volverAJugar(String clientId) {
@@ -745,9 +755,11 @@ public class PartidaBO {
         if (acepta) {
             // El jugador acepta la revancha
             jugador.setQuiereRevancha(true);
+            System.out.println(jugador.getNombre() + " quiere volver a jugar.");
 
             if (oponente.isQuiereRevancha()) {
                 // Ambos aceptan, iniciar nueva partida
+                 System.out.println("Ambos jugadores aceptaron. Iniciando nueva partida...");
                 iniciarNuevaPartida();
             } else {
                 // Esperar respuesta del oponente
