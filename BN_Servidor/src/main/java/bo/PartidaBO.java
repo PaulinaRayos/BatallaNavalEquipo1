@@ -705,6 +705,16 @@ public class PartidaBO {
                 unidad.reiniciarVida();
             }
         }
+        // Notificar a ambos jugadores que la nueva partida comenzará
+        Map<String, Object> mensajeIniciar = new HashMap<>();
+        mensajeIniciar.put("accion", "INICIAR_PARTIDA");
+
+        for (ModeloJugador jugador : partida.getJugadores()) {
+            MessageUtil.enviarMensaje(ClientManager.getClientSocket(jugador.getId()), mensajeIniciar);
+            // Reiniciar el estado de revancha
+            jugador.setListo(false);
+            jugador.setQuiereRevancha(false);
+        }
     }
 
     public void volverAJugar(String clientId) {

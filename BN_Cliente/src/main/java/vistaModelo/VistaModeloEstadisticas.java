@@ -50,7 +50,7 @@ public class VistaModeloEstadisticas {
 
         JOptionPane.showMessageDialog(null, "Has solicitado volver a jugar. Esperando respuesta del oponente.");
         
-        juego.cambiarEstado(new EstadoOrganizar(juego));
+        
         
         
     }
