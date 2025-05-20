@@ -112,7 +112,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego {
     /**
      * Tiempo restante del turno en segundos.
      */
-    private int tiempoRestante = 10;
+    private int tiempoRestante = 30;
 
     /**
      * Botón para rendirse durante el juego.
@@ -184,7 +184,7 @@ public class VistaJuego implements IVistaPanel, IVistaJuego {
             panelJuego.agregarComponente(lblTurno, 0, 570, labelWidth, labelHeight);
         }
 
-        lblTemporizador = new JLabel("Tiempo restante: 10", SwingConstants.CENTER);
+        lblTemporizador = new JLabel("Tiempo restante: 30", SwingConstants.CENTER);
         lblTemporizador.setFont(VistaUtilidades.FUENTE_SUBTITULO);
         lblTemporizador.setForeground(VistaUtilidades.COLOR_TEXTO_BLANCO);
 
@@ -328,19 +328,22 @@ public class VistaJuego implements IVistaPanel, IVistaJuego {
         if (esMiTurno) {
             tableroEnemigo.habilitarInteraccion(true);
             lblTurno.setText("Es tu turno");
+            detenerTemporizador();
             iniciarTemporizador(); // Iniciar el temporizador
         } else {
             tableroEnemigo.habilitarInteraccion(false);
             lblTurno.setText("Es el turno del oponente");
-            detenerTemporizador(); // Detener el temporizador
-        }
+            detenerTemporizador();
+            iniciarTemporizador();
+            // Detener el temporizador
+        } 
     }
 
     /**
      * Inicia el temporizador del turno.
      */
     private void iniciarTemporizador() {
-        tiempoRestante = 10; // Reiniciar el tiempo
+        tiempoRestante = 30; // Reiniciar el tiempo
         lblTemporizador.setText("Tiempo restante: " + tiempoRestante);
 
         temporizador = new Timer(1000, new ActionListener() {

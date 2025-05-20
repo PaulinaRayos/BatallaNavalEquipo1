@@ -1,12 +1,8 @@
 modelo\ModeloCoordenada.class
 vista\VistaJuego.class
 vista\VistaMenu.class
-enums\ResultadosDisparos.class
 comunicacion\IComando.class
-interfaz\IVistaBuscarPartida.class
-vistaModelo\VistaModeloBuscarPartida.class
 vistaModelo\VistaModeloMenu.class
-vista\VistaBienvenida.class
 comunicacion\ComandoOponenteNoQuiereVolverAJugar.class
 estados\EstadoBuscarPartida.class
 comunicacion\ConexionCliente$MessageListener.class
@@ -39,7 +35,6 @@ modelo\ModeloTipoUnidad$PORTAAVIONES.class
 modelo\ModeloUnidad.class
 comunicacion\ComandoIniciarPartida.class
 modelo\ModeloCasilla.class
-enums\AccionesJugador.class
 modelo\ModeloTipoUnidad$CRUCERO.class
 interfaz\IVistaOrganizar.class
 estados\IEstado.class
@@ -52,7 +47,6 @@ vistaModelo\Juego.class
 estados\EstadoCasilla.class
 comunicacion\ComandoTodosListos.class
 vista\VistaUtilidades$1.class
-estados\EstadoBienvenida.class
 vista\VistaJuego$3.class
 estados\EstadoOrganizar.class
 vistaModelo\VistaModeloOrganizar.class
@@ -72,7 +66,6 @@ vista\VistaJuego$2.class
 modelo\ModeloJugador$ModeloJugadorHolder.class
 tableroStrategy\ModoJugadorStrategy.class
 comunicacion\ComandoActualizarEstadoListo.class
-enums\ControlPartida.class
 comunicacion\ComandoJugadorEsperando.class
 vistaModelo\VistaModeloSalaEspera.class
 interfaz\IVistaMenu.class
